@@ -1,6 +1,6 @@
 ﻿namespace Analyzer
 {
-    public class TextAnalyzer
+    public class TextAnalytics
     {
 
     }

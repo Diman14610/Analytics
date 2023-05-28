@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Analyzer.Methods\Analyzer.Methods.csproj" />
+    <ProjectReference Include="..\Analytics.Methods\Analytics.Methods.csproj" />
   </ItemGroup>
 
 </Project>

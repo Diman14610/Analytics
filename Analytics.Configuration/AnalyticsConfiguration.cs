@@ -1,6 +1,6 @@
 ﻿namespace Analyzer.Configuration
 {
-    public class AnalyzerConfiguration
+    public class AnalyticsConfiguration
     {
 
     }

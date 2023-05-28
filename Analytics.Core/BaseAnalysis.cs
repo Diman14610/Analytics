@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Analyzer.Core
 {
-    public class BaseAnalyzer
+    public class BaseAnalysis
     {
         private readonly IMethodsList _methodsList;
 
@@ -12,7 +12,7 @@ namespace Analyzer.Core
 
         private readonly string _text;
 
-        public BaseAnalyzer(string text)
+        public BaseAnalysis(string text)
         {
             _methodsList = new MethodsManager();
 
@@ -20,7 +20,7 @@ namespace Analyzer.Core
             _text = text;
         }
 
-        public BaseAnalyzer CheckFor(params Expression<Func<MajorMethods, object>>[] selectedMM)
+        public BaseAnalysis CheckFor(params Expression<Func<MajorMethods, object>>[] selectedMM)
         {
             foreach (var majorMethod in selectedMM)
             {
@@ -41,7 +41,7 @@ namespace Analyzer.Core
             return this;
         }
 
-        public IEnumerable<AnalysisResult> Analiz()
+        public IEnumerable<AnalysisResult> Analysis()
         {
             var results = new List<AnalysisResult>();
 

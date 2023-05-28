@@ -6,13 +6,13 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
-            var r = new BaseAnalyzer("#ffffff")
+            var r = new BaseAnalysis("#ffffff")
                 .CheckFor(
                 s => s.Hex,
                 s => s.Ip,
                 s => s.Int,
                 s => s.Str)
-                .Analiz();
+                .Analysis();
 
             Console.ReadKey();
         }
