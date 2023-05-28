@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Analyzer.Core
 {
-    public class AnalysisResult
+    public class AnalyticsResult
     {
         public string MethodName { get; set; } = null!;
 

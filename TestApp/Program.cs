@@ -6,7 +6,7 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
-            var r = new BaseAnalysis("#ffffff")
+            var r = new BaseAnalytics("#ffffff")
                 .CheckFor(
                 s => s.Hex,
                 s => s.Ip,
