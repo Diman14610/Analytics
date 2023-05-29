@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Analyzer.Methods
+namespace Analytics.Methods
 {
     public class MethodsManager : IMethodsList
     {

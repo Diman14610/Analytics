@@ -1,4 +1,4 @@
-﻿namespace Analyzer.Configuration
+﻿namespace Analytics.Configuration
 {
     public class AnalyticsConfiguration
     {

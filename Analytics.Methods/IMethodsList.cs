@@ -1,4 +1,4 @@
-﻿namespace Analyzer.Methods
+﻿namespace Analytics.Methods
 {
     public interface IMethodsList
     {

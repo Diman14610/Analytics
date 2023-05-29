@@ -1,4 +1,4 @@
-﻿namespace Analyzer
+﻿namespace Analytics
 {
     public class TextAnalytics
     {

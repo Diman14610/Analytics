@@ -1,8 +1,8 @@
-﻿using Analyzer.Methods;
+﻿using Analytics.Methods;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Analyzer.Core
+namespace Analytics.Core
 {
     public class BaseAnalytics
     {

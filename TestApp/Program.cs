@@ -1,4 +1,4 @@
-﻿using Analyzer.Core;
+﻿using Analytics.Core;
 
 namespace TestApp
 {
