@@ -1,14 +1,12 @@
 ﻿using Analytics.Methods;
 
-namespace Analytics.Core
+namespace Analytics.Handlers.Handlers
 {
-    public abstract class BaseHandler<T> where T : class
+    public abstract class BaseHandler<T>
     {
-        protected readonly IMethodsList _methodsList;
+        protected IMethodsList _methodsList;
 
-        public Type Type => typeof(T);
-
-        protected BaseHandler(IMethodsList methodsList)
+        public BaseHandler(IMethodsList methodsList)
         {
             _methodsList = methodsList ?? throw new ArgumentNullException(nameof(methodsList));
         }

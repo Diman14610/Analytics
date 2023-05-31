@@ -1,8 +1,9 @@
 ﻿using Analytics.Methods;
+using Analytics.Shared;
 
-namespace Analytics.Core
+namespace Analytics.Handlers.Handlers
 {
-    public class EqualsHandler : BaseHandler<EqualsResult>
+    internal class EqualsHandler : BaseHandler<EqualsResult>
     {
         public EqualsHandler(IMethodsList methodsList) : base(methodsList)
         {

@@ -1,8 +1,9 @@
 ﻿using Analytics.Methods;
+using Analytics.Shared;
 
-namespace Analytics.Core
+namespace Analytics.Handlers.Handlers
 {
-    public class CheckHandler : BaseHandler<CheckResult>
+    internal class CheckHandler : BaseHandler<CheckResult>
     {
         public CheckHandler(IMethodsList methodsList) : base(methodsList)
         {
