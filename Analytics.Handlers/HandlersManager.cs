@@ -8,13 +8,13 @@ namespace Analytics.Handlers
     {
         private readonly IMethodsList _methodsList;
 
-        private readonly Dictionary<Type, dynamic> handlers;
+        private readonly Dictionary<Type, object> _handlers;
 
         public HandlersManager(IMethodsList methodsList)
         {
             _methodsList = methodsList ?? throw new ArgumentNullException(nameof(methodsList));
 
-            handlers = new Dictionary<Type, dynamic>()
+            _handlers = new Dictionary<Type, object>()
             {
                 [typeof(EqualsResult)] = new EqualsHandler(_methodsList),
                 [typeof(CheckResult)] = new CheckHandler(_methodsList),
@@ -23,7 +23,7 @@ namespace Analytics.Handlers
 
         public T Handle<T>(IEnumerable<string> methods, string text)
         {
-            var handler = handlers[typeof(T)] as BaseHandler<T>;
+            var handler = _handlers[typeof(T)] as BaseHandler<T>;
 
             return handler.Handle(methods, text);
         }
