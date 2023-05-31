@@ -12,14 +12,22 @@ namespace TestApp
                 s => s.Ip,
                 s => s.Int,
                 s => s.Str)
-                .EqualsTo(s => s.Str)
-                .Analysis("#ffffff")
-                .ToList();
+                .EqualsTo(s => s.Datetime, s => s.Date)
+                .EqualsTo(s => s.Str, s => s.Hex);
+
+            var rest = new List<AnalyticsResult>
+            {
+                r.Analysis("#dadasdasd"),
+                r.Analysis("#fff"),
+                r.Analysis("#192.168.82.0"),
+            };
+        
 
             var an = new BaseAnalytics()
+                .CheckFor(r => r.Datetime, r => r.Date)
                 .EqualsTo(s => s.Datetime, s => s.Date)
-                .Analysis("20.05.2023")
-                .ToList();
+                .EqualsTo(r => r.Date)
+                .Analysis("20.05.2023");
 
             Console.ReadKey();
         }

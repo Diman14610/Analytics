@@ -1,36 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Analytics.Core
+﻿namespace Analytics.Core
 {
     public class AnalyticsResult
     {
-        public IEnumerable<CheckResult>? CheckResults { get; set; }
+        public string? Text { get; internal set; }
 
-        public EqualsResult? EqualsResult { get; set; }
-    }
+        public ICollection<CheckResult> CheckResult { get; internal set; } = new List<CheckResult>();
 
-    public class BaseResult
-    {
-        public bool IsEqual { get; set; }
-
-        public bool IsError { get; set; }
-
-        public Exception? Exception { get; set; }
-    }
-
-    public class CheckResult : BaseResult
-    {
-        public string MethodName { get; set; } = null!;
-
-        public bool IsMethodFound { get; set; }
-    }
-
-    public class EqualsResult : BaseResult
-    {
-
+        public ICollection<EqualsResult> EqualsResult { get; internal set; } = new List<EqualsResult>();
     }
 }
