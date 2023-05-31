@@ -5,18 +5,18 @@ namespace Analytics.Core
 {
     public class BaseAnalytics
     {
-        protected readonly IHandlersManager _hanlder;
+        protected readonly IHandlersManager _hanlderManager;
 
         public BaseAnalytics(IHandlersManager handler)
         {
-            _hanlder = handler ?? throw new ArgumentNullException(nameof(handler));
+            _hanlderManager = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
         protected CheckResult CheckFor(IEnumerable<string> methods, string text)
         {
             try
             {
-                return _hanlder.Handle<CheckResult>(methods, text);
+                return _hanlderManager.Handle<CheckResult>(methods, text);
             }
             catch (Exception)
             {
@@ -28,7 +28,7 @@ namespace Analytics.Core
         {
             try
             {
-                return _hanlder.Handle<EqualsResult>(methods, text);
+                return _hanlderManager.Handle<EqualsResult>(methods, text);
             }
             catch (Exception)
             {
