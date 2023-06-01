@@ -15,23 +15,23 @@ namespace Analytics.Handlers.Handlers
 
             foreach (var method in methods)
             {
-                Func<string, bool>? getedMethod = _methodsList.TryGetMethod(method);
-
                 var checkResult = new MethodInfo
                 {
                     MethodName = method,
-                    IsMethodFound = getedMethod != null
                 };
-
-                if (!checkResult.IsMethodFound) continue;
 
                 try
                 {
+                    Func<string, bool>? getedMethod = _methodsList.TryGetMethod(method);
+
+                    checkResult.IsMethodFound = getedMethod != null;
+
+                    if (!checkResult.IsMethodFound) continue;
+
                     checkResult.IsEqual = getedMethod != null && getedMethod(text);
                 }
                 catch (Exception ex)
                 {
-                    checkResult.IsEqual = false;
                     checkResult.IsError = true;
                     checkResult.Exception = ex;
                 }
