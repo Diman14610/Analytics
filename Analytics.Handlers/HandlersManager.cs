@@ -1,4 +1,5 @@
-﻿using Analytics.Handlers.Handlers;
+﻿using Analytics.Handlers.Exceptions;
+using Analytics.Handlers.Handlers;
 using Analytics.Methods;
 using Analytics.Shared;
 
@@ -24,6 +25,15 @@ namespace Analytics.Handlers
         public T Handle<T>(IEnumerable<string> methods, string text)
         {
             var handler = _handlers[typeof(T)] as BaseHandler<T>;
+
+            if (handler == null)
+            {
+                throw new HandlerNotFoundException("The handler could not be found in the list of handlers.");
+            }
+            if (handler.Type != typeof(T))
+            {
+                throw new HandlerNotMatchException($"The received handler does not match the type: ${typeof(T)}");
+            }
 
             return handler.Handle(methods, text);
         }
