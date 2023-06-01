@@ -27,7 +27,7 @@ namespace Analytics.Handlers.Handlers
                     return gettedMethod(text);
                 });
 
-                result.IsEqual = matchesWithText.All(v => v);
+                result.IsEqual = matchesWithText.All(m => m);
             }
             catch (Exception ex)
             {
