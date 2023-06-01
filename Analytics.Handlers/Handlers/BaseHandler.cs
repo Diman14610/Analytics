@@ -6,6 +6,8 @@ namespace Analytics.Handlers.Handlers
     {
         protected IMethodsList _methodsList;
 
+        public Type Type => typeof(T);
+
         public BaseHandler(IMethodsList methodsList)
         {
             _methodsList = methodsList ?? throw new ArgumentNullException(nameof(methodsList));
