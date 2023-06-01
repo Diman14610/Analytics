@@ -23,6 +23,8 @@ namespace Analytics.Handlers.Handlers
                     IsMethodFound = getedMethod != null
                 };
 
+                if (!checkResult.IsMethodFound) continue;
+
                 try
                 {
                     checkResult.IsEqual = getedMethod != null && getedMethod(text);
