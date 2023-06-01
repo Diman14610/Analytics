@@ -24,7 +24,7 @@ namespace Analytics.Handlers
 
         public T Handle<T>(IEnumerable<string> methods, string text)
         {
-            var handler = _handlers[typeof(T)] as BaseHandler<T>;
+            BaseHandler<T>? handler = _handlers[typeof(T)] as BaseHandler<T>;
 
             if (handler == null)
             {
