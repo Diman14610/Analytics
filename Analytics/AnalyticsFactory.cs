@@ -74,25 +74,25 @@ namespace Analytics
 
         protected IEnumerable<string> GetMethodsList(Expression<Func<MajorMethods, object>>[] selectedFn)
         {
-            var list = new List<string>();
+            var methodsList = new List<string>();
 
-            foreach (var majorMethod in selectedFn)
+            try
             {
-                try
+                foreach (var majorMethod in selectedFn)
                 {
-                    list.Add(GetMethodName(majorMethod));
-                }
-                catch (ArgumentNullException)
-                {
-                    throw;
-                }
-                catch (Exception)
-                {
-                    throw;
+                    methodsList.Add(GetMethodName(majorMethod));
                 }
             }
+            catch (ArgumentNullException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
-            return list;
+            return methodsList;
         }
 
         protected string GetMethodName(LambdaExpression expression)
