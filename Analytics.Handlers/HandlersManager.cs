@@ -32,7 +32,7 @@ namespace Analytics.Handlers
             }
             if (handler.Type != typeof(T))
             {
-                throw new HandlerNotMatchException($"The received handler does not match the type: ${typeof(T)}");
+                throw new HandlerNotMatchException($"The received handler does not match the type: ${typeof(T)}.");
             }
 
             return handler.Handle(methods, text);
