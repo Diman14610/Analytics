@@ -16,22 +16,21 @@ namespace Analytics.Handlers.Handlers
                 Methods = methods,
             };
 
-            var matchesWithText = methods.Select(method =>
-            {
-                var gettedMethod = _methodsList.TryGetMethod(method);
-
-                if (gettedMethod == null) return false;
-
-                return gettedMethod(text);
-            });
-
             try
             {
+                IEnumerable<bool> matchesWithText = methods.Select(method =>
+                {
+                    Func<string, bool>? gettedMethod = _methodsList.TryGetMethod(method);
+
+                    if (gettedMethod == null) return false;
+
+                    return gettedMethod(text);
+                });
+
                 result.IsEqual = matchesWithText.All(v => v);
             }
             catch (Exception ex)
             {
-                result.IsEqual = false;
                 result.IsError = true;
                 result.Exception = ex;
             }
