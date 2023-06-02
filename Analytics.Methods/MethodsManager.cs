@@ -6,7 +6,7 @@ namespace Analytics.Methods
     {
         private readonly Dictionary<string, Func<string, bool>> _methodsCache;
 
-        // Список типов по умолчанию, у которых через рефлексию берутся методы
+        // The list of default types from which methods are taken through reflection
         private readonly List<Type> _collectionStandardMethods = new()
         {
             typeof(MajorMethods),
