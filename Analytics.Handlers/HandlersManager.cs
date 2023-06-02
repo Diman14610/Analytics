@@ -1,25 +1,15 @@
 ﻿using Analytics.Handlers.Exceptions;
 using Analytics.Handlers.Handlers;
-using Analytics.Methods;
-using Analytics.Shared;
 
 namespace Analytics.Handlers
 {
     public class HandlersManager : IHandlersManager
     {
-        private readonly IMethodsList _methodsList;
-
         private readonly IDictionary<Type, object> _handlers;
 
-        public HandlersManager(IMethodsList methodsList)
+        public HandlersManager(IDictionary<Type, object> handlers)
         {
-            _methodsList = methodsList ?? throw new ArgumentNullException(nameof(methodsList));
-
-            _handlers = new Dictionary<Type, object>()
-            {
-                [typeof(EqualsResult)] = new EqualsHandler(_methodsList),
-                [typeof(CheckResult)] = new CheckHandler(_methodsList),
-            };
+            _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
         }
 
         public T Handle<T>(IEnumerable<string> methods, string text)
