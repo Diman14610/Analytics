@@ -38,7 +38,7 @@ namespace Analytics.Methods
             }
         }
 
-        private MethodInfo[] GetMethodInfo(Type type)
+        protected MethodInfo[] GetMethodInfo(Type type)
         {
             return type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
         }
