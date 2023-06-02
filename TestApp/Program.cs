@@ -1,6 +1,7 @@
 ﻿using Analytics;
 using Analytics.Core;
 using Analytics.Handlers;
+using Analytics.Handlers.Handlers;
 using Analytics.Methods;
 using Analytics.Shared;
 using System.Collections.Concurrent;
@@ -11,7 +12,14 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
-            var s1 = new AnalyticsFactory(new HandlersManager(new MethodsManager()))
+            IMethodsList methodManager = new MethodsManager();
+            var handlers = new Dictionary<Type, object>()
+            {
+                [typeof(EqualsResult)] = new EqualsHandler(methodManager),
+                [typeof(CheckResult)] = new CheckHandler(methodManager),
+            };
+
+            var s1 = new AnalyticsFactory(new HandlersManager(handlers))
                 .CheckFor(r => r.Imsi, r => r.Hex, r => r.Str)
                 .EqualsTo(r => r.Hex)
                 .EqualsTo(r => r.Int)
