@@ -9,7 +9,7 @@ namespace Analytics.Handlers
     {
         private readonly IMethodsList _methodsList;
 
-        private readonly Dictionary<Type, object> _handlers;
+        private readonly IDictionary<Type, object> _handlers;
 
         public HandlersManager(IMethodsList methodsList)
         {
