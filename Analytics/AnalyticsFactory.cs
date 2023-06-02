@@ -8,7 +8,6 @@ namespace Analytics
 {
     public class AnalyticsFactory : BaseAnalytics
     {
-        // method name, analytics type
         protected readonly ICollection<MethodStructure> _selectedMethods;
 
         public AnalyticsFactory(IHandlersManager handler) : base(handler)
