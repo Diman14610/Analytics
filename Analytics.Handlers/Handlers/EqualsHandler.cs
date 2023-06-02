@@ -3,7 +3,7 @@ using Analytics.Shared;
 
 namespace Analytics.Handlers.Handlers
 {
-    internal class EqualsHandler : BaseHandler<EqualsResult>
+    public class EqualsHandler : BaseHandler<EqualsResult>
     {
         public EqualsHandler(IMethodsList methodsList) : base(methodsList)
         {

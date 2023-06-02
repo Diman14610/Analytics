@@ -3,7 +3,7 @@ using Analytics.Shared;
 
 namespace Analytics.Handlers.Handlers
 {
-    internal class CheckHandler : BaseHandler<CheckResult>
+    public class CheckHandler : BaseHandler<CheckResult>
     {
         public CheckHandler(IMethodsList methodsList) : base(methodsList)
         {
