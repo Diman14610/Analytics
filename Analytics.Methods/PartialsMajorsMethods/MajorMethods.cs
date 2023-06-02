@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Analytics.Methods
+namespace Analytics.Methods.PartialsMajorsMethods
 {
     public partial class MajorMethods
     {

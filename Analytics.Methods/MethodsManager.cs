@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Analytics.Methods.PartialsMajorsMethods;
+using System.Reflection;
 
 namespace Analytics.Methods
 {

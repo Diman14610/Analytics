@@ -1,6 +1,6 @@
 ﻿using Analytics.Core;
 using Analytics.Handlers;
-using Analytics.Methods;
+using Analytics.Methods.PartialsMajorsMethods;
 using Analytics.Shared;
 using System.Linq.Expressions;
 
