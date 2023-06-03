@@ -8,11 +8,11 @@ namespace Analytics
 {
     public class AnalyticsFactory : BaseAnalytics
     {
-        protected readonly ICollection<MethodStructure> _selectedMethods;
+        protected readonly ICollection<(Type, IEnumerable<string>)> _selectedMethods;
 
         public AnalyticsFactory(IHandlersManager handler) : base(handler)
         {
-            _selectedMethods = new List<MethodStructure>();
+            _selectedMethods = new List<(Type, IEnumerable<string>)>();
         }
 
         public AnalyticsFactory EqualsTo(params Expression<Func<MajorMethods, object>>[] selectedFn)
@@ -31,13 +31,13 @@ namespace Analytics
         {
             var analyticsResult = new AnalyticsResult();
 
-            foreach (MethodStructure selectedMethod in _selectedMethods)
+            foreach ((Type type, IEnumerable<string> methods) in _selectedMethods)
             {
                 analyticsResult.Text = text;
 
-                if (selectedMethod.Type == typeof(CheckResult))
+                if (type == typeof(CheckResult))
                 {
-                    CheckResult checkResult = CheckFor(selectedMethod.Methods, text);
+                    CheckResult checkResult = CheckFor(methods, text);
 
                     if (analyticsResult.CheckResult == null)
                     {
@@ -48,9 +48,9 @@ namespace Analytics
                         analyticsResult.CheckResult.Add(checkResult);
                     }
                 }
-                else if (selectedMethod.Type == typeof(EqualsResult))
+                else if (type == typeof(EqualsResult))
                 {
-                    EqualsResult equalsResult = EqualsTo(selectedMethod.Methods, text);
+                    EqualsResult equalsResult = EqualsTo(methods, text);
 
                     if (analyticsResult.EqualsResult == null)
                     {
@@ -68,7 +68,7 @@ namespace Analytics
 
         protected void FillInternalListSelectedMethods(Expression<Func<MajorMethods, object>>[] selectedFn, Type type)
         {
-            _selectedMethods.Add(new MethodStructure(type, GetMethodsList(selectedFn)));
+            _selectedMethods.Add((type, GetMethodsList(selectedFn)));
         }
 
         protected IEnumerable<string> GetMethodsList(Expression<Func<MajorMethods, object>>[] selectedFn)
