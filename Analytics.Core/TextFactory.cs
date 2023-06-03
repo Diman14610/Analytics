@@ -1,62 +1,56 @@
-﻿using Analytics.Core;
-using Analytics.Methods.SharedMethods;
-using System;
-using System.Collections.Generic;
+﻿using Analytics.Methods.SharedMethods;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Analytics.Core
 {
     public class TextFactory
     {
-        private readonly MethodsWithArguments _textAnalytics;
+        private readonly MethodsWithArguments _methods;
 
-        private readonly IList<(string[] strings, Func<string, string[], bool> func)> _textFunctions;
+        private readonly IList<(string[] strings, Func<string, string[], bool> func)> _selectedMethods;
 
-        internal ReadOnlyCollection<(string[] strings, Func<string, string[], bool> func)> SelectedMethods => new(_textFunctions);
+        internal ReadOnlyCollection<(string[] strings, Func<string, string[], bool> func)> SelectedMethods => new(_selectedMethods);
 
         public TextFactory(MethodsWithArguments textAnalytics)
         {
-            _textAnalytics = textAnalytics;
+            _methods = textAnalytics;
 
-            _textFunctions = new List<(string[] strings, Func<string, string[], bool> func)>();
+            _selectedMethods = new List<(string[] strings, Func<string, string[], bool> func)>();
         }
 
         public TextFactory SetStringComparison(StringComparison stringComparison)
         {
-            _textAnalytics.SetStringComparison(stringComparison);
+            _methods.SetStringComparison(stringComparison);
             return this;
         }
 
         public TextFactory Contains(params string[] strings)
         {
-            Fill(strings, _textAnalytics.Contains);
+            AddToSelectedMethods(strings, _methods.Contains);
             return this;
         }
 
         public TextFactory Equals(params string[] strings)
         {
-            Fill(strings, _textAnalytics.Contains);
+            AddToSelectedMethods(strings, _methods.Equals);
             return this;
         }
 
         public TextFactory StartsWith(params string[] strings)
         {
-            Fill(strings, _textAnalytics.Contains);
+            AddToSelectedMethods(strings, _methods.StartsWith);
             return this;
         }
 
         public TextFactory EndsWith(params string[] strings)
         {
-            Fill(strings, _textAnalytics.Contains);
+            AddToSelectedMethods(strings, _methods.EndsWith);
             return this;
         }
 
-        protected void Fill(string[] strings, Func<string, string[], bool> func)
+        protected void AddToSelectedMethods(string[] strings, Func<string, string[], bool> func)
         {
-            _textFunctions.Add((strings, func));
+            _selectedMethods.Add((strings, func));
         }
     }
 }
