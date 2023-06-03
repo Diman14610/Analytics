@@ -12,5 +12,7 @@
         /// <exception cref="Exceptions.HandlerNotFoundException"></exception>
         /// <exception cref="Exceptions.HandlerNotMatchException"></exception>
         T Handle<T>(IEnumerable<string> methods, string text);
+
+        T Handle<T>(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks);
     }
 }

@@ -27,5 +27,10 @@ namespace Analytics.Handlers
 
             return handler.Handle(methods, text);
         }
+
+        public T Handle<T>(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

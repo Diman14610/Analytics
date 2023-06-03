@@ -24,6 +24,18 @@ namespace Analytics.Core
             }
         }
 
+        protected Ts CheckFor(string text, TextFactory textFactory)
+        {
+            try
+            {
+                return _hanlderManager.Handle<Ts>(text, textFactory.SelectedMethods);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         protected EqualsResult EqualsTo(IEnumerable<string> methods, string text)
         {
             try
