@@ -41,5 +41,10 @@ namespace Analytics.Handlers.Handlers
 
             return new CheckResult() { MethodInfos = result };
         }
+
+        public override CheckResult Handle(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

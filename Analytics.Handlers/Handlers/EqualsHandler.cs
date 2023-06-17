@@ -37,5 +37,10 @@ namespace Analytics.Handlers.Handlers
 
             return result;
         }
+
+        public override EqualsResult Handle(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
