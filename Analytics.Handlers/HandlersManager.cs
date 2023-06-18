@@ -1,5 +1,6 @@
 ﻿using Analytics.Handlers.Exceptions;
 using Analytics.Handlers.Handlers;
+using Analytics.Shared;
 
 namespace Analytics.Handlers
 {
@@ -21,7 +22,7 @@ namespace Analytics.Handlers
             return handler!.Handle(methods, text);
         }
 
-        public T Handle<T>(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks)
+        public T Handle<T>(string text, IEnumerable<SelectedMethodsInfo> funks)
         {
             BaseHandler<T>? handler = GetHandler<T>();
 

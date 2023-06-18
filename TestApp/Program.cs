@@ -21,6 +21,7 @@ namespace TestApp
 
             var s1 = new AnalyticsFactory(new HandlersManager(handlers))
                 .CheckFor(r => r.Imsi, r => r.Hex, r => r.Str)
+                .CheckFor(r => r.StartsWith("#").Contains("ff"))
                 .EqualsTo(r => r.Hex)
                 .EqualsTo(r => r.Int)
                 .EqualsTo(r => r.Ip, r => r.Str);

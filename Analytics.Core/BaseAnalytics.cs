@@ -14,38 +14,17 @@ namespace Analytics.Core
 
         protected CheckResult CheckFor(IEnumerable<string> methods, string text)
         {
-            try
-            {
-                return _hanlderManager.Handle<CheckResult>(methods, text);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _hanlderManager.Handle<CheckResult>(methods, text);
         }
 
-        protected Ts CheckFor(string text, TextFactory textFactory)
+        protected CheckResult CheckFor(string text, TextFactory textFactory)
         {
-            try
-            {
-                return _hanlderManager.Handle<Ts>(text, textFactory.SelectedMethods);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _hanlderManager.Handle<CheckResult>(text, textFactory.SelectedMethods);
         }
 
         protected EqualsResult EqualsTo(IEnumerable<string> methods, string text)
         {
-            try
-            {
-                return _hanlderManager.Handle<EqualsResult>(methods, text);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _hanlderManager.Handle<EqualsResult>(methods, text);
         }
     }
 }

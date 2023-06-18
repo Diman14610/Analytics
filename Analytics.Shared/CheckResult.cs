@@ -9,5 +9,7 @@ namespace Analytics.Shared
     public class CheckResult
     {
         public IEnumerable<MethodInfo>? MethodInfos { get; set; }
+
+        public IEnumerable<TextMethodInfo>? TextMethodInfos { get; set; }
     }
 }

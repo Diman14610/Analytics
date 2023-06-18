@@ -42,9 +42,32 @@ namespace Analytics.Handlers.Handlers
             return new CheckResult() { MethodInfos = result };
         }
 
-        public override CheckResult Handle(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks)
+        public override CheckResult Handle(string text, IEnumerable<SelectedMethodsInfo> funks)
         {
-            throw new NotImplementedException();
+            var result = new List<TextMethodInfo>();
+
+            foreach (var item in funks)
+            {
+                var check = new TextMethodInfo()
+                {
+                    MethodName = item.MethodName,
+                };
+
+                try
+                {
+                    check.IsEqual = item.Func(text, (string[])item.Arguments);
+                    check.Arguments = item.Arguments;
+                }
+                catch (Exception ex)
+                {
+                    check.IsError = true;
+                    check.Exception = ex;
+                }
+
+                result.Add(check);
+            }
+
+            return new CheckResult() { TextMethodInfos = result };
         }
     }
 }

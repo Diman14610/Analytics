@@ -1,4 +1,6 @@
-﻿namespace Analytics.Handlers
+﻿using Analytics.Shared;
+
+namespace Analytics.Handlers
 {
     public interface IHandlersManager
     {
@@ -13,6 +15,6 @@
         /// <exception cref="Exceptions.HandlerNotMatchException"></exception>
         T Handle<T>(IEnumerable<string> methods, string text);
 
-        T Handle<T>(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks);
+        T Handle<T>(string text, IEnumerable<SelectedMethodsInfo> funks);
     }
 }

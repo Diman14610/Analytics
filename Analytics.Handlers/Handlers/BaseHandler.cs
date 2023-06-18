@@ -1,4 +1,5 @@
 ﻿using Analytics.Methods;
+using Analytics.Shared;
 using System;
 
 namespace Analytics.Handlers.Handlers
@@ -16,6 +17,6 @@ namespace Analytics.Handlers.Handlers
 
         public abstract T Handle(IEnumerable<string> methods, string text);
 
-        public abstract T Handle(string text, IEnumerable<(string[] strings, Func<string, string[], bool> func)> funks);
+        public abstract T Handle(string text, IEnumerable<SelectedMethodsInfo> funks);
     }
 }
