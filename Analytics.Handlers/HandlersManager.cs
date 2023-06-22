@@ -22,7 +22,7 @@ namespace Analytics.Handlers
             return handler!.Handle(methods, text);
         }
 
-        public T Handle<T>(string text, IEnumerable<SelectedMethodsInfo> funks)
+        public T Handle<T>(string text, IEnumerable<TextFactoryMethodInfo> funks)
         {
             BaseHandler<T>? handler = GetHandler<T>();
 

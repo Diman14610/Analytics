@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 
 namespace Analytics.Shared
 {
-    public class SelectedMethodsInfo
+    public class TextFactoryMethodInfo : FactoryMethodInfo
     {
-        public SelectedMethodsInfo(string methodName, IEnumerable<string> arguments, Func<string, string[], bool> func)
+        public TextFactoryMethodInfo(string methodName, IEnumerable<string> arguments, Func<string, string[], bool> func) : base(methodName)
         {
-            MethodName = methodName;
             Arguments = arguments;
             Func = func;
         }
-
-        public string MethodName { get; }
 
         public IEnumerable<string> Arguments { get; }
 

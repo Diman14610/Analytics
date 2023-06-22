@@ -1,22 +1,12 @@
 ﻿using Analytics.Methods.SharedMethods;
 using Analytics.Shared;
-using System.Collections.ObjectModel;
 
 namespace Analytics.Core
 {
-    public class TextFactory
+    public class TextFactory: BaseFactory<MethodsWithArguments, TextFactoryMethodInfo>
     {
-        private readonly MethodsWithArguments _methods;
-
-        private readonly IList<SelectedMethodsInfo> _selectedMethods;
-
-        internal ReadOnlyCollection<SelectedMethodsInfo> SelectedMethods => new(_selectedMethods);
-
-        public TextFactory(MethodsWithArguments textAnalytics)
+        public TextFactory(MethodsWithArguments methods) : base(methods)
         {
-            _methods = textAnalytics;
-
-            _selectedMethods = new List<SelectedMethodsInfo>();
         }
 
         public TextFactory SetStringComparison(StringComparison stringComparison)
@@ -51,7 +41,7 @@ namespace Analytics.Core
 
         protected void AddMethod(string[] strings, Func<string, string[], bool> func)
         {
-            _selectedMethods.Add(new SelectedMethodsInfo(func.Method.Name, strings, func));
+            _selectedMethods.Add(new TextFactoryMethodInfo(func.Method.Name, strings, func));
         }
     }
 }

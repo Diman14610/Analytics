@@ -38,7 +38,7 @@ namespace Analytics.Handlers.Handlers
             return result;
         }
 
-        public override EqualsResult Handle(string text, IEnumerable<SelectedMethodsInfo> funks)
+        public override EqualsResult Handle(string text, IEnumerable<TextFactoryMethodInfo> funks)
         {
             throw new NotImplementedException();
         }
