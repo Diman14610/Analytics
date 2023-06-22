@@ -15,6 +15,6 @@ namespace Analytics.Handlers
         /// <exception cref="Exceptions.HandlerNotMatchException"></exception>
         T Handle<T>(IEnumerable<string> methods, string text);
 
-        T Handle<T>(string text, IEnumerable<SelectedMethodsInfo> funks);
+        T Handle<T>(string text, IEnumerable<TextFactoryMethodInfo> funks);
     }
 }

@@ -42,7 +42,7 @@ namespace Analytics.Handlers.Handlers
             return new CheckResult() { MethodInfos = result };
         }
 
-        public override CheckResult Handle(string text, IEnumerable<SelectedMethodsInfo> funks)
+        public override CheckResult Handle(string text, IEnumerable<TextFactoryMethodInfo> funks)
         {
             var result = new List<TextMethodInfo>();
 
