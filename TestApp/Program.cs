@@ -22,20 +22,21 @@ namespace TestApp
             };
 
             var s1 = new AnalyticsFactory(new HandlersManager(handlers))
-                .CheckFor(r => r.Imsi().Hex().Str())
-                .CheckFor(r => r.StartsWith("#").Contains("ff"))
-                .EqualsTo(r => r.StartsWith("192").Contains("168").EndsWith("1"))
+                .EqualsTo(r => r.Str().Contains("hi").StartsWith("h"))
+                .EqualsTo(r => r.StartsWith("h").Contains("168").EndsWith("1"))
                 .EqualsTo(r => r.Hex())
                 .EqualsTo(r => r.Int())
                 .EqualsTo(r => r.Ip().Str());
 
-            var asdsad = new ConcurrentBag<AnalyticsResult>();
-            new string[] { "192.168.20.1", "#ff", "----" }.AsParallel().ForAll(a =>
-            {
-                Thread.Sleep(1000);
-                asdsad.Add(s1.Analysis(a));
-                Console.WriteLine(a);
-            });
+            var a = s1.Analysis("hi");
+
+            //var asdsad = new ConcurrentBag<AnalyticsResult>();
+            //new string[] { "192.168.20.1", "#ff", "----" }.AsParallel().ForAll(a =>
+            //{
+            //    Thread.Sleep(1000);
+            //    asdsad.Add(s1.Analysis(a));
+            //    Console.WriteLine(a);
+            //});
 
             Console.ReadKey();
         }
