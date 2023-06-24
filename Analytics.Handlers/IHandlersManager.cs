@@ -4,6 +4,6 @@ namespace Analytics.Handlers
 {
     public interface IHandlersManager
     {
-        T Handle<T, U>(string text, IEnumerable<U> funks);
+        void Handle<T, U>(string text, IEnumerable<U> funks, T result);
     }
 }
