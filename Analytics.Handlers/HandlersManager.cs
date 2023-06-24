@@ -1,50 +1,44 @@
 ﻿using Analytics.Handlers.Exceptions;
 using Analytics.Handlers.Handlers;
-using Analytics.Shared;
 
 namespace Analytics.Handlers
 {
     public class HandlersManager : IHandlersManager
     {
-        private readonly IDictionary<Type, object> _handlers;
+        private readonly IDictionary<(Type, Type), object> _handlers;
 
-        public HandlersManager(IDictionary<Type, object> handlers)
+        public HandlersManager(IDictionary<(Type, Type), object> handlers)
         {
             _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
         }
 
-        public T Handle<T>(IEnumerable<string> methods, string text)
+        public T Handle<T, U>(string text, IEnumerable<U> funks)
         {
-            BaseHandler<T>? handler = GetHandler<T>();
-
-            CheckCorrectOfHandler(handler);
-
-            return handler!.Handle(methods, text);
-        }
-
-        public T Handle<T>(string text, IEnumerable<TextFactoryMethodInfo> funks)
-        {
-            BaseHandler<T>? handler = GetHandler<T>();
+            BaseHandler<T, U>? handler = GetHandler<T, U>();
 
             CheckCorrectOfHandler(handler);
 
             return handler!.Handle(text, funks);
         }
 
-        protected BaseHandler<T>? GetHandler<T>()
+        protected BaseHandler<T, U>? GetHandler<T, U>()
         {
-            return _handlers[typeof(T)] as BaseHandler<T>;
+            return _handlers[(typeof(T), typeof(U))] as BaseHandler<T, U>;
         }
 
-        protected void CheckCorrectOfHandler<T>(BaseHandler<T>? handler)
+        protected void CheckCorrectOfHandler<T, U>(BaseHandler<T, U>? handler)
         {
             if (handler == null)
             {
                 throw new HandlerNotFoundException("The handler could not be found in the list of handlers.");
             }
-            if (handler.Type != typeof(T))
+            if (handler.ReturnType != typeof(T))
             {
                 throw new HandlerNotMatchException($"The received handler does not match the type: ${typeof(T)}.");
+            }
+            if (handler.FunctionType != typeof(U))
+            {
+                throw new HandlerNotMatchException($"The received handler does not match the function type: ${typeof(U)}.");
             }
         }
     }

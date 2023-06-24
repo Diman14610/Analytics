@@ -1,22 +1,20 @@
 ﻿using Analytics.Methods;
-using Analytics.Shared;
-using System;
 
 namespace Analytics.Handlers.Handlers
 {
-    public abstract class BaseHandler<T>
+    public abstract class BaseHandler<RT, FT>
     {
         protected IMethodsList _methodsList;
 
-        public Type Type => typeof(T);
+        public Type ReturnType => typeof(RT);
+
+        public Type FunctionType => typeof(FT);
 
         public BaseHandler(IMethodsList methodsList)
         {
             _methodsList = methodsList ?? throw new ArgumentNullException(nameof(methodsList));
         }
 
-        public abstract T Handle(IEnumerable<string> methods, string text);
-
-        public abstract T Handle(string text, IEnumerable<TextFactoryMethodInfo> funks);
+        public abstract RT Handle(string text, IEnumerable<FT> funks);
     }
 }

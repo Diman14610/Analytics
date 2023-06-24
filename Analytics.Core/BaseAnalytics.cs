@@ -12,19 +12,24 @@ namespace Analytics.Core
             _hanlderManager = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
-        protected CheckResult CheckFor(IEnumerable<string> methods, string text)
+        protected CheckResult CheckFor(string text, MajorFactory majorFactory)
         {
-            return _hanlderManager.Handle<CheckResult>(methods, text);
+            return _hanlderManager.Handle<CheckResult, MajorFactoryMethodInfo>(text, majorFactory.SelectedMethods);
         }
 
         protected CheckResult CheckFor(string text, TextFactory textFactory)
         {
-            return _hanlderManager.Handle<CheckResult>(text, textFactory.SelectedMethods);
+            return _hanlderManager.Handle<CheckResult, TextFactoryMethodInfo>(text, textFactory.SelectedMethods);
         }
 
-        protected EqualsResult EqualsTo(IEnumerable<string> methods, string text)
+        protected EqualsResult EqualsTo(string text, MajorFactory majorFactory)
         {
-            return _hanlderManager.Handle<EqualsResult>(methods, text);
+            return _hanlderManager.Handle<EqualsResult, MajorFactoryMethodInfo>(text, majorFactory.SelectedMethods);
+        }
+
+        protected EqualsResult EqualsTo(string text, TextFactory textFactory)
+        {
+            return _hanlderManager.Handle<EqualsResult, TextFactoryMethodInfo>(text, textFactory.SelectedMethods);
         }
     }
 }
