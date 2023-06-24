@@ -12,24 +12,46 @@ namespace Analytics.Core
             _hanlderManager = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
-        protected CheckResult CheckFor(string text, MajorFactory majorFactory)
+        protected CheckResult CheckFor(string text, MethodsFactory methodsFactory)
         {
-            return _hanlderManager.Handle<CheckResult, MajorFactoryMethodInfo>(text, majorFactory.SelectedMethods);
+            var result = new CheckResult();
+
+            if (methodsFactory.SelectedMethods.MajorFactoryMethod.Count > 0)
+            {
+                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, result);
+            }
+            if (methodsFactory.SelectedMethods.TextFactoryMethod.Count > 0)
+            {
+                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, result);
+            }
+
+            return result;
         }
 
-        protected CheckResult CheckFor(string text, TextFactory textFactory)
+        protected EqualsResult EqualsTo(string text, MethodsFactory methodsFactory)
         {
-            return _hanlderManager.Handle<CheckResult, TextFactoryMethodInfo>(text, textFactory.SelectedMethods);
-        }
+            var result = new EqualsResult();
 
-        protected EqualsResult EqualsTo(string text, MajorFactory majorFactory)
-        {
-            return _hanlderManager.Handle<EqualsResult, MajorFactoryMethodInfo>(text, majorFactory.SelectedMethods);
-        }
+            if (methodsFactory.SelectedMethods.TextFactoryMethod.Count > 0)
+            {
+                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, result);
+            }
+            if (methodsFactory.SelectedMethods.MajorFactoryMethod.Count > 0)
+            {
+                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, result);
+            }
 
-        protected EqualsResult EqualsTo(string text, TextFactory textFactory)
-        {
-            return _hanlderManager.Handle<EqualsResult, TextFactoryMethodInfo>(text, textFactory.SelectedMethods);
+            try
+            {
+                result.IsEqual = result.ExtendedMethodInfos!.All(m => m.IsEqual);
+            }
+            catch (Exception ex)
+            {
+                result.IsError = true;
+                result.Exception = ex;
+            }
+
+            return result;
         }
     }
 }

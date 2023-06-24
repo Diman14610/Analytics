@@ -2,7 +2,6 @@
 using Analytics.Handlers;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared;
-using System.Linq.Expressions;
 
 namespace Analytics
 {
@@ -11,58 +10,34 @@ namespace Analytics
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
 
-        protected readonly ICollection<(Type, MajorFactory majorFactory)> _selectedMajorMethods;
-        protected readonly ICollection<(Type, TextFactory textFactory)> _selectedMethodsWithArguments;
+        protected readonly ICollection<(Type, MethodsFactory methodsFactory)> _selectedMethods;
 
         public AnalyticsFactory(IHandlersManager handler) : base(handler)
         {
             _majorMethods = new MajorMethods();
             _methodsWithArguments = new MethodsWithArguments();
 
-            _selectedMajorMethods = new List<(Type, MajorFactory)>();
-            _selectedMethodsWithArguments = new List<(Type, TextFactory)>();
-
+            _selectedMethods = new List<(Type, MethodsFactory methodsFactory)>();
         }
 
-        public AnalyticsFactory CheckFor(Action<MajorFactory> majorFactory)
+        public AnalyticsFactory CheckFor(Action<MethodsFactory> methodFactory)
         {
-            AddToMajorList(majorFactory, typeof(CheckResult));
-          
+            AddToMethodsList(methodFactory, typeof(CheckResult));
             return this;
         }
 
-        public AnalyticsFactory CheckFor(Action<TextFactory> textFactory)
+        public AnalyticsFactory EqualsTo(Action<MethodsFactory> methodFactory)
         {
-            AddToMethodWithArgumentsList(textFactory, typeof(CheckResult));
+            AddToMethodsList(methodFactory, typeof(EqualsResult));
             return this;
         }
 
-        public AnalyticsFactory EqualsTo(Action<MajorFactory> majorFactory)
+        public void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
         {
-            AddToMajorList(majorFactory, typeof(EqualsResult));
-            return this;
-        }
+            var _ = new MethodsFactory(_majorMethods, _methodsWithArguments);
+            methodsFactory(_);
 
-        public AnalyticsFactory EqualsTo(Action<TextFactory> textFactory)
-        {
-            AddToMethodWithArgumentsList(textFactory, typeof(EqualsResult));
-            return this;
-        }
-
-        public void AddToMajorList(Action<MajorFactory> majorFactory, Type type)
-        {
-            var _ = new MajorFactory(_majorMethods);
-            majorFactory(_);
-
-            _selectedMajorMethods.Add((type, _));
-        }
-
-        public void AddToMethodWithArgumentsList(Action<TextFactory> textFactory, Type type)
-        {
-            var _ = new TextFactory(_methodsWithArguments);
-            textFactory(_);
-
-            _selectedMethodsWithArguments.Add((type, _));
+            _selectedMethods.Add((type, _));
         }
 
         public AnalyticsResult Analysis(string text)
@@ -71,77 +46,22 @@ namespace Analytics
 
             HandleMajorAnalytics(text, analyticsResult);
 
-            HandleTextAnalytics(text, analyticsResult);
-
             return analyticsResult;
         }
 
         private void HandleMajorAnalytics(string text, AnalyticsResult analyticsResult)
         {
-            foreach ((Type type, MajorFactory textFactory) in _selectedMajorMethods)
+            foreach ((Type type, MethodsFactory textFactory) in _selectedMethods)
             {
                 analyticsResult.Text = text;
 
                 if (type == typeof(CheckResult))
                 {
-                    CheckResult checkResult = CheckFor(text, textFactory);
-
-                    if (analyticsResult.CheckResult == null)
-                    {
-                        analyticsResult.CheckResult = new List<CheckResult>() { checkResult };
-                    }
-                    else
-                    {
-                        analyticsResult.CheckResult.Add(checkResult);
-                    }
+                    analyticsResult.CheckResult.Add(CheckFor(text, textFactory));
                 }
                 else if (type == typeof(EqualsResult))
                 {
-                    EqualsResult checkResult = EqualsTo(text, textFactory);
-
-                    if (analyticsResult.EqualsResult == null)
-                    {
-                        analyticsResult.EqualsResult = new List<EqualsResult>() { checkResult };
-                    }
-                    else
-                    {
-                        analyticsResult.EqualsResult.Add(checkResult);
-                    }
-                }
-            }
-        }
-
-        private void HandleTextAnalytics(string text, AnalyticsResult analyticsResult)
-        {
-            foreach ((Type type, TextFactory textFactory) in _selectedMethodsWithArguments)
-            {
-                analyticsResult.Text = text;
-
-                if (type == typeof(CheckResult))
-                {
-                    CheckResult checkResult = CheckFor(text, textFactory);
-
-                    if (analyticsResult.CheckResult == null)
-                    {
-                        analyticsResult.CheckResult = new List<CheckResult>() { checkResult };
-                    }
-                    else
-                    {
-                        analyticsResult.CheckResult.Add(checkResult);
-                    }
-                }
-                else if (type == typeof (EqualsResult))
-                {
-                    EqualsResult checkResult = EqualsTo(text, textFactory);
-
-                    if (analyticsResult.EqualsResult == null)
-                    {
-                        analyticsResult.EqualsResult = new List<EqualsResult>() { checkResult };
-                    }
-                    else
-                    {
-                        analyticsResult.EqualsResult.Add(checkResult);
-                    }
+                    analyticsResult.EqualsResult.Add(EqualsTo(text, textFactory));
                 }
             }
         }
