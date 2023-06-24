@@ -9,15 +9,14 @@ namespace Analytics.Handlers.Handlers
         {
         }
 
-        public override CheckResult Handle(string text, IEnumerable<TextFactoryMethodInfo> funks)
+        public override void Handle(string text, IEnumerable<TextFactoryMethodInfo> funks, CheckResult refResult)
         {
-            var result = new List<ExtendedMethodInfo>();
-
             foreach (var item in funks)
             {
                 var check = new ExtendedMethodInfo()
                 {
                     MethodName = item.MethodName,
+                    IsEqual = item.Func(text, (string[])item.Arguments),
                 };
 
                 try
@@ -31,10 +30,8 @@ namespace Analytics.Handlers.Handlers
                     check.Exception = ex;
                 }
 
-                result.Add(check);
+                refResult.ExtendedMethodInfos.Add(check);
             }
-
-            return new CheckResult() { TextMethodInfos = result };
         }
     }
 }

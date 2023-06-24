@@ -9,34 +9,26 @@ namespace Analytics.Handlers.Handlers
         {
         }
 
-        public override EqualsResult Handle(string text, IEnumerable<TextFactoryMethodInfo> funks)
+        public override void Handle(string text, IEnumerable<TextFactoryMethodInfo> funks, EqualsResult refResult)
         {
-            var result = new EqualsResult();
-            var methodInfos = new List<ExtendedMethodInfo>();
-
-            try
+            foreach (var item in funks)
             {
-                foreach (var item in funks)
+                var methodInfo = new ExtendedMethodInfo();
+
+                try
                 {
-                    methodInfos.Add(new ExtendedMethodInfo()
-                    {
-                        MethodName = item.MethodName,
-                        Arguments = item.Arguments,
-                    });
+                    methodInfo.MethodName = item.MethodName;
+                    methodInfo.IsEqual = item.Func(text, (string[])item.Arguments);
+                    methodInfo.Arguments = item.Arguments;
+                }
+                catch (Exception ex)
+                {
+                    refResult.IsError = true;
+                    refResult.Exception = ex;
                 }
 
-                IEnumerable<bool> matchesWithText = funks.Select(method => method.Func(text, (string[])method.Arguments));
-
-                result.IsEqual = matchesWithText.All(m => m);
-                result.ExtendedMethodInfos = methodInfos;
+                refResult.ExtendedMethodInfos.Add(methodInfo);
             }
-            catch (Exception ex)
-            {
-                result.IsError = true;
-                result.Exception = ex;
-            }
-
-            return result;
         }
     }
 }

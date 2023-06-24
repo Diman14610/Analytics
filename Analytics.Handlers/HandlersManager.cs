@@ -1,5 +1,7 @@
 ﻿using Analytics.Handlers.Exceptions;
 using Analytics.Handlers.Handlers;
+using Analytics.Shared;
+using System;
 
 namespace Analytics.Handlers
 {
@@ -12,13 +14,13 @@ namespace Analytics.Handlers
             _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
         }
 
-        public T Handle<T, U>(string text, IEnumerable<U> funks)
+        public void Handle<T, U>(string text, IEnumerable<U> funks, T result)
         {
             BaseHandler<T, U>? handler = GetHandler<T, U>();
 
             CheckCorrectOfHandler(handler);
 
-            return handler!.Handle(text, funks);
+            handler!.Handle(text, funks, result);
         }
 
         protected BaseHandler<T, U>? GetHandler<T, U>()
