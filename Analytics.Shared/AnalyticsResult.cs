@@ -10,8 +10,8 @@ namespace Analytics.Shared
     {
         public string? Text { get; set; }
 
-        public ICollection<CheckResult>? CheckResult { get; set; }
+        public List<CheckResult> CheckResult { get; set; } = new List<CheckResult>();
 
-        public ICollection<EqualsResult>? EqualsResult { get; set; }
+        public List<EqualsResult> EqualsResult { get; set; } = new List<EqualsResult>();
     }
 }

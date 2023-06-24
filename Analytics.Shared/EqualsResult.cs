@@ -2,6 +2,6 @@
 {
     public class EqualsResult : BaseResult
     {
-        public IEnumerable<ExtendedMethodInfo>? ExtendedMethodInfos { get; set; }
+        public List<ExtendedMethodInfo> ExtendedMethodInfos { get; set; } = new List<ExtendedMethodInfo>();
     }
 }
