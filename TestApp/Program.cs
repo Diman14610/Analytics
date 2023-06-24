@@ -13,18 +13,21 @@ namespace TestApp
         static void Main(string[] args)
         {
             IMethodsList methodManager = new MethodsManager();
-            var handlers = new Dictionary<Type, object>()
+            var handlers = new Dictionary<(Type, Type), object>()
             {
-                [typeof(EqualsResult)] = new EqualsHandler(methodManager),
-                [typeof(CheckResult)] = new CheckHandler(methodManager),
+                [(typeof(EqualsResult), typeof(TextFactoryMethodInfo))] = new TextFactoryEqualsHandler(methodManager),
+                [(typeof(CheckResult), typeof(TextFactoryMethodInfo))] = new TextFactoryCheckHandler(methodManager),
+                [(typeof(EqualsResult), typeof(MajorFactoryMethodInfo))] = new MajorFactoryEqualsHandler(methodManager),
+                [(typeof(CheckResult), typeof(MajorFactoryMethodInfo))] = new MajorFactoryCheckHandler(methodManager),
             };
 
             var s1 = new AnalyticsFactory(new HandlersManager(handlers))
-                .CheckFor(r => r.Imsi, r => r.Hex, r => r.Str)
+                .CheckFor(r => r.Imsi().Hex().Str())
                 .CheckFor(r => r.StartsWith("#").Contains("ff"))
-                .EqualsTo(r => r.Hex)
-                .EqualsTo(r => r.Int)
-                .EqualsTo(r => r.Ip, r => r.Str);
+                .EqualsTo(r => r.StartsWith("192").Contains("168").EndsWith("1"))
+                .EqualsTo(r => r.Hex())
+                .EqualsTo(r => r.Int())
+                .EqualsTo(r => r.Ip().Str());
 
             var asdsad = new ConcurrentBag<AnalyticsResult>();
             new string[] { "192.168.20.1", "#ff", "----" }.AsParallel().ForAll(a =>

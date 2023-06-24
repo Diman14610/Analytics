@@ -1,6 +1,6 @@
 ﻿namespace Analytics.Shared
 {
-    public class TextMethodInfo : BaseResult
+    public class ExtendedMethodInfo : BaseResult
     {
         public string? MethodName { get; set; }
 

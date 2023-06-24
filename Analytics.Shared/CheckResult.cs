@@ -10,6 +10,6 @@ namespace Analytics.Shared
     {
         public IEnumerable<MethodInfo>? MethodInfos { get; set; }
 
-        public IEnumerable<TextMethodInfo>? TextMethodInfos { get; set; }
+        public IEnumerable<ExtendedMethodInfo>? TextMethodInfos { get; set; }
     }
 }
