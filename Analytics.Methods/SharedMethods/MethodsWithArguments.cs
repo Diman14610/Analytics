@@ -22,22 +22,22 @@ namespace Analytics.Methods.SharedMethods
 
         public bool Contains(string content, params string[] strings)
         {
-            return strings.All(s => content.Contains(s, comparison));
+            return strings.Any(s => content.Contains(s, comparison));
         }
 
         public bool Equals(string content, params string[] strings)
         {
-            return strings.All(s => content.Equals(s, comparison));
+            return strings.Any(s => content.Equals(s, comparison));
         }
 
         public bool StartsWith(string content, params string[] strings)
         {
-            return strings.All(s => content.StartsWith(s, comparison));
+            return strings.Any(s => content.StartsWith(s, comparison));
         }
 
         public bool EndsWith(string content, params string[] strings)
         {
-            return strings.All(s => content.EndsWith(s, comparison));
+            return strings.Any(s => content.EndsWith(s, comparison));
         }
     }
 }

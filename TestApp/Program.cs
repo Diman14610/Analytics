@@ -22,7 +22,7 @@ namespace TestApp
             };
 
             var s1 = new AnalyticsFactory(new HandlersManager(handlers))
-                .EqualsTo(r => r.Str().Contains("hi").StartsWith("h"))
+                .EqualsTo(r => r.Str().Contains("hi").StartsWith("h", "z"))
                 .EqualsTo(r => r.StartsWith("h").Contains("168").EndsWith("1"))
                 .EqualsTo(r => r.Hex())
                 .EqualsTo(r => r.Int())
