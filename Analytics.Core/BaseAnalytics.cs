@@ -5,11 +5,11 @@ namespace Analytics.Core
 {
     public class BaseAnalytics
     {
-        protected readonly IHandlersManager _hanlderManager;
+        protected readonly IHandlersManager _hanldersManager;
 
-        public BaseAnalytics(IHandlersManager handler)
+        public BaseAnalytics(IHandlersManager handlersManager)
         {
-            _hanlderManager = handler ?? throw new ArgumentNullException(nameof(handler));
+            _hanldersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
         }
 
         /// <summary>
@@ -56,11 +56,11 @@ namespace Analytics.Core
         {
             if (methodsFactory.SelectedMethods.MajorFactoryMethod.Count > 0)
             {
-                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, ref value);
+                _hanldersManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, ref value);
             }
             if (methodsFactory.SelectedMethods.TextFactoryMethod.Count > 0)
             {
-                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, ref value);
+                _hanldersManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, ref value);
             }
         }
     }
