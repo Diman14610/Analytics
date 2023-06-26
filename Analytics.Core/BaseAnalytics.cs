@@ -14,44 +14,42 @@ namespace Analytics.Core
 
         protected CheckResult CheckFor(string text, MethodsFactory methodsFactory)
         {
-            var result = new CheckResult();
+            var checkResult = new CheckResult();
 
-            if (methodsFactory.SelectedMethods.MajorFactoryMethod.Count > 0)
-            {
-                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, result);
-            }
-            if (methodsFactory.SelectedMethods.TextFactoryMethod.Count > 0)
-            {
-                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, result);
-            }
+            CallToHandler(text, methodsFactory, checkResult);
 
-            return result;
+            return checkResult;
         }
 
         protected EqualsResult EqualsTo(string text, MethodsFactory methodsFactory)
         {
-            var result = new EqualsResult();
+            var equalsResult = new EqualsResult();
 
-            if (methodsFactory.SelectedMethods.TextFactoryMethod.Count > 0)
-            {
-                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, result);
-            }
-            if (methodsFactory.SelectedMethods.MajorFactoryMethod.Count > 0)
-            {
-                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, result);
-            }
+            CallToHandler(text, methodsFactory, equalsResult);
 
             try
             {
-                result.IsEqual = result.ExtendedMethodInfos!.All(m => m.IsEqual);
+                equalsResult.IsEqual = equalsResult.ExtendedMethodInfos!.All(m => m.IsEqual);
             }
             catch (Exception ex)
             {
-                result.IsError = true;
-                result.Exception = ex;
+                equalsResult.IsError = true;
+                equalsResult.Exception = ex;
             }
 
-            return result;
+            return equalsResult;
+        }
+
+        private void CallToHandler<T>(string text, MethodsFactory methodsFactory, T value)
+        {
+            if (methodsFactory.SelectedMethods.MajorFactoryMethod.Count > 0)
+            {
+                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, ref value);
+            }
+            if (methodsFactory.SelectedMethods.TextFactoryMethod.Count > 0)
+            {
+                _hanlderManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, ref value);
+            }
         }
     }
 }
