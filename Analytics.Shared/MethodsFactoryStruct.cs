@@ -8,8 +8,8 @@ namespace Analytics.Shared
 {
     public class MethodsFactoryStruct
     {
-        public IList<TextFactoryMethodInfo> TextFactoryMethod { get; set; } = new List<TextFactoryMethodInfo>();
+        public IList<ArgumentsMethodInfo> TextFactoryMethod { get; set; } = new List<ArgumentsMethodInfo>();
 
-        public IList<MajorFactoryMethodInfo> MajorFactoryMethod { get; set; } = new List<MajorFactoryMethodInfo>();
+        public IList<MajorMethodInfo> MajorFactoryMethod { get; set; } = new List<MajorMethodInfo>();
     }
 }

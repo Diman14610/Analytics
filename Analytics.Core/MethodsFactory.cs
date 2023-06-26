@@ -146,12 +146,12 @@ namespace Analytics.Core
 
         protected void AddMethod(Func<string, bool> func)
         {
-            SelectedMethods.MajorFactoryMethod.Add(new MajorFactoryMethodInfo(func.Method.Name, func));
+            SelectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(func.Method.Name, func));
         }
 
         protected void AddMethod(string[] strings, Func<string, string[], bool> func)
         {
-            SelectedMethods.TextFactoryMethod.Add(new TextFactoryMethodInfo(func.Method.Name, strings, func));
+            SelectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(func.Method.Name, strings, func));
         }
     }
 }
