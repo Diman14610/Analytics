@@ -9,7 +9,7 @@ namespace Analytics.Handlers.Handlers
         {
         }
 
-        public override void Handle(string text, IEnumerable<MajorFactoryMethodInfo> funks, EqualsResult refResult)
+        public override void Handle(string text, IEnumerable<MajorFactoryMethodInfo> funks, ref EqualsResult result)
         {
             var methodInfo = new ExtendedMethodInfo();
 
@@ -22,11 +22,11 @@ namespace Analytics.Handlers.Handlers
                 }
                 catch (Exception ex)
                 {
-                    refResult.IsError = true;
-                    refResult.Exception = ex;
+                    result.IsError = true;
+                    result.Exception = ex;
                 }
 
-                refResult.ExtendedMethodInfos.Add(methodInfo);
+                result.ExtendedMethodInfos.Add(methodInfo);
             }
         }
     }

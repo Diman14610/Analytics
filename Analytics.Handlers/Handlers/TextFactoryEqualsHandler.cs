@@ -9,7 +9,7 @@ namespace Analytics.Handlers.Handlers
         {
         }
 
-        public override void Handle(string text, IEnumerable<TextFactoryMethodInfo> funks, EqualsResult refResult)
+        public override void Handle(string text, IEnumerable<TextFactoryMethodInfo> funks, ref EqualsResult result)
         {
             foreach (var item in funks)
             {
@@ -23,11 +23,11 @@ namespace Analytics.Handlers.Handlers
                 }
                 catch (Exception ex)
                 {
-                    refResult.IsError = true;
-                    refResult.Exception = ex;
+                    result.IsError = true;
+                    result.Exception = ex;
                 }
 
-                refResult.ExtendedMethodInfos.Add(methodInfo);
+                result.ExtendedMethodInfos.Add(methodInfo);
             }
         }
     }
