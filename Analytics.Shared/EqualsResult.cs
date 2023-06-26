@@ -2,6 +2,6 @@
 {
     public class EqualsResult : BaseResult
     {
-        public List<ExtendedMethodInfo> ExtendedMethodInfos { get; set; } = new List<ExtendedMethodInfo>();
+        public IList<ExtendedMethodInfo> ExtendedMethodInfos { get; set; } = new List<ExtendedMethodInfo>();
     }
 }
