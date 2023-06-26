@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Analytics.Shared
 {
-    public class TextFactoryMethodInfo : FactoryMethodInfo
+    public class ArgumentsMethodInfo : MethodInfo
     {
-        public TextFactoryMethodInfo(string methodName, IEnumerable<string> arguments, Func<string, string[], bool> func) : base(methodName)
+        public ArgumentsMethodInfo(string methodName, IEnumerable<string> arguments, Func<string, string[], bool> func) : base(methodName)
         {
             Arguments = arguments;
             Func = func;

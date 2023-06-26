@@ -1,8 +1,8 @@
 ﻿namespace Analytics.Shared
 {
-    public class FactoryMethodInfo
+    public class MethodInfo
     {
-        public FactoryMethodInfo(string methodName)
+        public MethodInfo(string methodName)
         {
             MethodName = methodName;
         }

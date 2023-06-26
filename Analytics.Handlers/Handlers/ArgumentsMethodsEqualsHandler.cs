@@ -3,13 +3,9 @@ using Analytics.Shared;
 
 namespace Analytics.Handlers.Handlers
 {
-    public class TextFactoryEqualsHandler : BaseHandler<EqualsResult, TextFactoryMethodInfo>
+    public class ArgumentsMethodsEqualsHandler : BaseHandler<EqualsResult, ArgumentsMethodInfo>
     {
-        public TextFactoryEqualsHandler(IMethodsList methodsList) : base(methodsList)
-        {
-        }
-
-        public override void Handle(string text, IEnumerable<TextFactoryMethodInfo> funks, ref EqualsResult result)
+        public override void Handle(string text, IEnumerable<ArgumentsMethodInfo> funks, ref EqualsResult result)
         {
             foreach (var item in funks)
             {

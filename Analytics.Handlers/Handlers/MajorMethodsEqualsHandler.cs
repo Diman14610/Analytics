@@ -3,13 +3,9 @@ using Analytics.Shared;
 
 namespace Analytics.Handlers.Handlers
 {
-    public class MajorFactoryEqualsHandler : BaseHandler<EqualsResult, MajorFactoryMethodInfo>
+    public class MajorMethodsEqualsHandler : BaseHandler<EqualsResult, MajorMethodInfo>
     {
-        public MajorFactoryEqualsHandler(IMethodsList methodsList) : base(methodsList)
-        {
-        }
-
-        public override void Handle(string text, IEnumerable<MajorFactoryMethodInfo> funks, ref EqualsResult result)
+        public override void Handle(string text, IEnumerable<MajorMethodInfo> funks, ref EqualsResult result)
         {
             var methodInfo = new ExtendedMethodInfo();
 

@@ -3,24 +3,22 @@ using Analytics.Shared;
 
 namespace Analytics.Handlers.Handlers
 {
-    public class MajorFactoryCheckHandler : BaseHandler<CheckResult, MajorFactoryMethodInfo>
+    public class ArgumentsMethodsCheckHandler : BaseHandler<CheckResult, ArgumentsMethodInfo>
     {
-        public MajorFactoryCheckHandler(IMethodsList methodsList) : base(methodsList)
-        {
-        }
-
-        public override void Handle(string text, IEnumerable<MajorFactoryMethodInfo> funks, ref CheckResult result)
+        public override void Handle(string text, IEnumerable<ArgumentsMethodInfo> funks, ref CheckResult result)
         {
             foreach (var item in funks)
             {
                 var check = new ExtendedMethodInfo()
                 {
                     MethodName = item.MethodName,
+                    IsEqual = item.Func(text, (string[])item.Arguments),
                 };
 
                 try
                 {
-                    check.IsEqual = item.Func(text);
+                    check.IsEqual = item.Func(text, (string[])item.Arguments);
+                    check.Arguments = item.Arguments;
                 }
                 catch (Exception ex)
                 {
