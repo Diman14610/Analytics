@@ -7,10 +7,10 @@ namespace Analytics.Handlers.Handlers
     {
         public override void Handle(string text, IEnumerable<MajorMethodInfo> funks, ref EqualsResult result)
         {
-            var methodInfo = new ExtendedMethodInfo();
-
             foreach (var item in funks)
             {
+                var methodInfo = new ExtendedMethodInfo();
+
                 try
                 {
                     methodInfo.MethodName = item.MethodName;
