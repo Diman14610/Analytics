@@ -14,13 +14,13 @@ namespace Analytics.Handlers
             _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
         }
 
-        public void Handle<T, U>(string text, IEnumerable<U> funks, T result)
+        public void Handle<T, U>(string text, IEnumerable<U> funks, ref T result)
         {
             BaseHandler<T, U>? handler = GetHandler<T, U>();
 
             CheckCorrectOfHandler(handler);
 
-            handler!.Handle(text, funks, result);
+            handler!.Handle(text, funks, ref result);
         }
 
         protected BaseHandler<T, U>? GetHandler<T, U>()

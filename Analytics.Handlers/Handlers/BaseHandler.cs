@@ -15,6 +15,6 @@ namespace Analytics.Handlers.Handlers
             _methodsList = methodsList ?? throw new ArgumentNullException(nameof(methodsList));
         }
 
-        public abstract void Handle(string text, IEnumerable<FT> funks, RT result);
+        public abstract void Handle(string text, IEnumerable<FT> funks, ref RT result);
     }
 }
