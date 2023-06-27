@@ -32,14 +32,6 @@ namespace Analytics
             return this;
         }
 
-        public void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
-        {
-            var _ = new MethodsFactory(_majorMethods, _methodsWithArguments);
-            methodsFactory(_);
-
-            _selectedMethods.Add((type, _));
-        }
-
         public AnalyticsResult Analysis(string text)
         {
             var analyticsResult = new AnalyticsResult();
@@ -64,6 +56,14 @@ namespace Analytics
                     analyticsResult.EqualsResult.Add(EqualsTo(text, textFactory));
                 }
             }
+        }
+
+        private void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
+        {
+            var _ = new MethodsFactory(_majorMethods, _methodsWithArguments);
+            methodsFactory(_);
+
+            _selectedMethods.Add((type, _));
         }
     }
 }
