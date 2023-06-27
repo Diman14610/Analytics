@@ -3,10 +3,10 @@ using Analytics.Shared;
 
 namespace Analytics.Core
 {
-    public class MethodsFactory
+    public sealed class MethodsFactory
     {
-        protected readonly MajorMethods _majorMethods;
-        protected readonly MethodsWithArguments _methodsWithArguments;
+        private readonly MajorMethods _majorMethods;
+        private readonly MethodsWithArguments _methodsWithArguments;
 
         internal MethodsFactoryStruct SelectedMethods { get; private set; }
 
@@ -144,12 +144,12 @@ namespace Analytics.Core
             return this;
         }
 
-        protected void AddMethod(Func<string, bool> func)
+        private void AddMethod(Func<string, bool> func)
         {
             SelectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(func.Method.Name, func));
         }
 
-        protected void AddMethod(string[] strings, Func<string, string[], bool> func)
+        private void AddMethod(string[] strings, Func<string, string[], bool> func)
         {
             SelectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(func.Method.Name, strings, func));
         }
