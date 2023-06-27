@@ -1,15 +1,20 @@
-﻿using Analytics.Handlers;
+﻿using Analytics.Configuration;
+using Analytics.Handlers;
 using Analytics.Shared;
 
 namespace Analytics.Core
 {
     public class BaseAnalytics
     {
+        public AnalyticsConfiguration Configuration { get; protected set; }
+
         protected readonly IHandlersManager _hanldersManager;
 
         public BaseAnalytics(IHandlersManager handlersManager)
         {
             _hanldersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
+
+            Configuration = new AnalyticsConfiguration();
         }
 
         /// <summary>

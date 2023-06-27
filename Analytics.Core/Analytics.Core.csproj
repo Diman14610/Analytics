@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Analytics.Configuration\Analytics.Configuration.csproj" />
     <ProjectReference Include="..\Analytics.Handlers\Analytics.Handlers.csproj" />
     <ProjectReference Include="..\Analytics.Methods\Analytics.Methods.csproj" />
     <ProjectReference Include="..\Analytics.Shared\Analytics.Shared.csproj" />
