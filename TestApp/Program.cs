@@ -1,4 +1,5 @@
 ﻿using Analytics;
+using Analytics.Configuration;
 using Analytics.Core;
 using Analytics.Handlers;
 using Analytics.Handlers.Handlers;
@@ -26,6 +27,8 @@ namespace TestApp
                 .EqualsTo(r => r.Hex())
                 .EqualsTo(r => r.Int())
                 .EqualsTo(r => r.Ip().Str());
+
+            analytics.Configuration.AddMethod(new CustomMethodsBuilder().SetMethodName("test").SetMethod((text) => text.Length > 5));
 
             AnalyticsResult analyticsResult = analytics.Analysis("hi");
 
