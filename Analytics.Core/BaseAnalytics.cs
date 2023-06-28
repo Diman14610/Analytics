@@ -6,15 +6,21 @@ namespace Analytics.Core
 {
     public class BaseAnalytics
     {
-        public AnalyticsConfiguration Configuration { get; protected set; }
+        private AnalyticsConfigurationProvider configuration;
 
         protected readonly IHandlersManager _hanldersManager;
+
+        public AnalyticsConfiguration Configuration
+        {
+            get => configuration;
+            protected set => configuration = (AnalyticsConfigurationProvider)value;
+        }
 
         public BaseAnalytics(IHandlersManager handlersManager)
         {
             _hanldersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
 
-            Configuration = new AnalyticsConfiguration();
+            configuration = new AnalyticsConfigurationProvider();
         }
 
         /// <summary>
