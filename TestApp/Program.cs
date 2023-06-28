@@ -20,8 +20,9 @@ namespace TestApp
                 [(typeof(EqualsResult), typeof(MajorMethodInfo))] = new MajorMethodsEqualsHandler(),
                 [(typeof(CheckResult), typeof(MajorMethodInfo))] = new MajorMethodsCheckHandler(),
             };
+            var handlersManager = new HandlersManager(handlers);
 
-            var analytics = new AnalyticsFactory(new HandlersManager(handlers))
+            var analytics = new AnalyticsFactory(handlersManager)
                 .Configure(con =>
                 {
                     con.AddMethod(new CustomMethod
