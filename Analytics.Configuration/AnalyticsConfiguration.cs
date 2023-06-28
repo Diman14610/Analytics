@@ -2,16 +2,16 @@
 {
     public class AnalyticsConfiguration
     {
-        protected readonly ICollection<CustomMethod> _customMethodsBuilders;
+        protected readonly ICollection<CustomMethod> _customMethods;
 
         public AnalyticsConfiguration()
         {
-            _customMethodsBuilders = new List<CustomMethod>();
+            _customMethods = new List<CustomMethod>();
         }
 
         public void AddMethod(CustomMethod method)
         {
-            _customMethodsBuilders.Add(method);
+            _customMethods.Add(method);
         }
 
         public void AddMethods(IEnumerable<CustomMethod> methods)

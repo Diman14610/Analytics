@@ -4,7 +4,7 @@
     {
         public IEnumerable<CustomMethod> GetCustomMethods()
         {
-            return _customMethodsBuilders;
+            return _customMethods;
         }
     }
 }
