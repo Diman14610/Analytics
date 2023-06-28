@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analytics.Methods", "Analyt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analytics", "Analytics\Analytics.csproj", "{1BC5C03B-7285-4CFB-8D2F-0B3D221BAC00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analytics.Handlers", "Analytics.Handlers\Analytics.Handlers.csproj", "{18BA54EB-7BDF-45AA-B571-06F5C49D3067}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analytics.Handlers", "Analytics.Handlers\Analytics.Handlers.csproj", "{18BA54EB-7BDF-45AA-B571-06F5C49D3067}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analytics.Shared", "Analytics.Shared\Analytics.Shared.csproj", "{42FDE681-CE1F-46A6-9EFE-E490E9F125CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analytics.Shared", "Analytics.Shared\Analytics.Shared.csproj", "{42FDE681-CE1F-46A6-9EFE-E490E9F125CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

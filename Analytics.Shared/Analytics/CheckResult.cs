@@ -1,6 +1,6 @@
-﻿namespace Analytics.Shared
+﻿namespace Analytics.Shared.Analytics
 {
-    public class EqualsResult : BaseResult
+    public class CheckResult
     {
         public IList<ExtendedMethodInfo> ExtendedMethodInfos { get; set; } = new List<ExtendedMethodInfo>();
     }

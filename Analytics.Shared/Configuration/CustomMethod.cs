@@ -1,4 +1,4 @@
-﻿namespace Analytics.Configuration
+﻿namespace Analytics.Shared.Configuration
 {
     public class CustomMethod
     {

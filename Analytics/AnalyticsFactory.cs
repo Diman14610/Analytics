@@ -2,7 +2,7 @@
 using Analytics.Core;
 using Analytics.Handlers;
 using Analytics.Methods.SharedMethods;
-using Analytics.Shared;
+using Analytics.Shared.Analytics;
 
 namespace Analytics
 {

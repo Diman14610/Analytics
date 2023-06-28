@@ -1,4 +1,6 @@
-﻿namespace Analytics.Configuration
+﻿using Analytics.Shared.Configuration;
+
+namespace Analytics.Configuration
 {
     public class AnalyticsConfiguration
     {

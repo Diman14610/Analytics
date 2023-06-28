@@ -1,5 +1,6 @@
 ﻿using Analytics.Methods.SharedMethods;
 using Analytics.Shared;
+using Analytics.Shared.Analytics;
 
 namespace Analytics.Core
 {

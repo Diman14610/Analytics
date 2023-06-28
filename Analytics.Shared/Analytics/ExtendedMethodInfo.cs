@@ -1,4 +1,4 @@
-﻿namespace Analytics.Shared
+﻿namespace Analytics.Shared.Analytics
 {
     public class ExtendedMethodInfo : BaseResult
     {
