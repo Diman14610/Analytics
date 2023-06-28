@@ -22,13 +22,20 @@ namespace TestApp
             };
 
             var analytics = new AnalyticsFactory(new HandlersManager(handlers))
+                .Configure(con =>
+                {
+                    con.AddMethod(new CustomMethod
+                    {
+                        MethodName = "test",
+                        MajorFunc = (text) => text.Length > 0,
+                        ArgumentsFunc = (text, arm) => arm.All(text => text.Length > 0),
+                    });
+                })
                 .EqualsTo(r => r.Str().Contains("hi").StartsWith("h", "z"))
                 .EqualsTo(r => r.StartsWith("h").Contains("168").EndsWith("1"))
                 .EqualsTo(r => r.Hex())
                 .EqualsTo(r => r.Int())
                 .EqualsTo(r => r.Ip().Str());
-
-            analytics.Configuration.AddMethod(new CustomMethodsBuilder().SetMethodName("test").SetMethod((text) => text.Length > 5));
 
             AnalyticsResult analyticsResult = analytics.Analysis("hi");
 
