@@ -1,16 +1,17 @@
-﻿using Analytics.Core;
+﻿using Analytics.Configuration;
+using Analytics.Core;
 using Analytics.Handlers;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared;
 
 namespace Analytics
 {
-    public class AnalyticsFactory : BaseAnalytics
+    public sealed class AnalyticsFactory : BaseAnalytics
     {
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
 
-        protected readonly ICollection<(Type, MethodsFactory methodsFactory)> _selectedMethods;
+        private readonly ICollection<(Type, MethodsFactory methodsFactory)> _selectedMethods;
 
         public AnalyticsFactory(IHandlersManager handler) : base(handler)
         {
@@ -18,6 +19,12 @@ namespace Analytics
             _methodsWithArguments = new MethodsWithArguments();
 
             _selectedMethods = new List<(Type, MethodsFactory methodsFactory)>();
+        }
+
+        public AnalyticsFactory Configure(Action<AnalyticsConfiguration> configuration)
+        {
+            configuration(Configuration);
+            return this;
         }
 
         public AnalyticsFactory CheckFor(Action<MethodsFactory> methodFactory)
@@ -36,12 +43,12 @@ namespace Analytics
         {
             var analyticsResult = new AnalyticsResult();
 
-            HandleMajorAnalytics(text, analyticsResult);
+            HandleAnalytics(text, analyticsResult);
 
             return analyticsResult;
         }
 
-        private void HandleMajorAnalytics(string text, AnalyticsResult analyticsResult)
+        private void HandleAnalytics(string text, AnalyticsResult analyticsResult)
         {
             foreach ((Type type, MethodsFactory textFactory) in _selectedMethods)
             {
