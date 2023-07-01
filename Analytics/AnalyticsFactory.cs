@@ -67,7 +67,7 @@ namespace Analytics
 
         private void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
         {
-            var _ = new MethodsFactory(_majorMethods, _methodsWithArguments);
+            var _ = new MethodsFactory(_majorMethods, _methodsWithArguments, (IConfigurationProvider)Configuration);
             methodsFactory(_);
 
             _selectedMethods.Add((type, _));

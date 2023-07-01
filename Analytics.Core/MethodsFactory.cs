@@ -1,6 +1,9 @@
-﻿using Analytics.Methods.SharedMethods;
+﻿using Analytics.Configuration;
+using Analytics.Core.Exceptions;
+using Analytics.Methods.SharedMethods;
 using Analytics.Shared;
 using Analytics.Shared.Analytics;
+using Analytics.Shared.Configuration;
 
 namespace Analytics.Core
 {
@@ -9,14 +12,77 @@ namespace Analytics.Core
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
 
+        private readonly IConfigurationProvider _configurationProvider;
+
         internal MethodsFactoryStruct SelectedMethods { get; private set; }
 
-        public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments)
+        public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, IConfigurationProvider configurationProvider)
         {
             _majorMethods = majorMethods ?? throw new ArgumentNullException(nameof(majorMethods));
             _methodsWithArguments = methodsWithArguments ?? throw new ArgumentNullException(nameof(methodsWithArguments));
+            _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
 
             SelectedMethods = new MethodsFactoryStruct();
+        }
+
+        public MethodsFactory UseCustomMethod(string metnodName)
+        {
+            Func<string, bool>? func;
+
+            try
+            {
+                CustomMethod? customMethod = _configurationProvider.GetCustomMethods().FirstOrDefault(a => a.MethodName == metnodName);
+
+                if (customMethod == null)
+                {
+                    throw new MethodNotFoundException($"Couldn't find the method: {metnodName}.");
+                }
+
+                func = customMethod.MajorFunc;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error when getting the method: {metnodName}.", ex);
+            }
+
+            if (func == null)
+            {
+                throw new FunctionNotImplementedException($"{metnodName} method not implemented.");
+            }
+
+            AddMethod(func, metnodName);
+
+            return this;
+        }
+
+        public MethodsFactory UseCustomMethod(string metnodName, params string[] arguments)
+        {
+            Func<string, string[], bool>? func;
+
+            try
+            {
+                CustomMethod? customMethod = _configurationProvider.GetCustomMethods().FirstOrDefault(a => a.MethodName == metnodName);
+
+                if (customMethod == null)
+                {
+                    throw new MethodNotFoundException($"Couldn't find the method: {metnodName}.");
+                }
+
+                func = customMethod.ArgumentsFunc;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error when getting the method: {metnodName}.", ex);
+            }
+
+            if (func == null)
+            {
+                throw new FunctionNotImplementedException($"{metnodName} method not implemented.");
+            }
+
+            AddMethod(arguments, func, metnodName);
+
+            return this;
         }
 
         public MethodsFactory SetStringComparison(StringComparison stringComparison)
@@ -145,14 +211,14 @@ namespace Analytics.Core
             return this;
         }
 
-        private void AddMethod(Func<string, bool> func)
+        private void AddMethod(Func<string, bool> func, string? methodName = null)
         {
-            SelectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(func.Method.Name, func));
+            SelectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(methodName ?? func.Method.Name, func));
         }
 
-        private void AddMethod(string[] strings, Func<string, string[], bool> func)
+        private void AddMethod(string[] strings, Func<string, string[], bool> func, string? methodName = null)
         {
-            SelectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(func.Method.Name, strings, func));
+            SelectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, strings, func));
         }
     }
 }
