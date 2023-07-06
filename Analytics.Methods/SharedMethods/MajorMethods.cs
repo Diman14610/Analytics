@@ -6,98 +6,98 @@ namespace Analytics.Methods.SharedMethods
     public partial class MajorMethods
     {
         /// <summary>
-        /// Для оптимизации регулярных выражений
+        /// Optimization of regular expressions
         /// </summary>
-        /// <param name="negativeRegex">Отрицание IsMatch</param>
+        /// <param name="negativeRegex">IsMatch Denial</param>
         private bool SetRegex(string value, string pattern)
         {
             return new Regex(pattern).IsMatch(value);
         }
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие электронной почте
+        /// Checks <paramref name="value"/> for compliance with email
         /// </summary>
         public bool Mail(string value) =>
             SetRegex(value, @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие почтовому индексу
+        /// Checks <paramref name="value"/> for compliance with the zip code
         /// </summary>
         public bool Index(string value) =>
             SetRegex(value, @"\b\d{6}\b");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие imei.
-        /// Проверяет на наличие 15 цифр подряд
+        /// Checks <paramref name="value"/> for imei compliance.
+        /// Checks for the presence of 15 digits in a row
         /// </summary>
         public bool Imei(string value) =>
             SetRegex(value, @"^\d{15}(,\d{15})*$");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на наличие схемы файла
+        /// Checks <paramref name="value"/> for file schema
         /// </summary>
         public bool File(string value) =>
             SetRegex(value, @"(\w+:|\.*)\\(\w+\\)*(\w*\.\w*)");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие цветовому hex коду
+        /// Checks <paramref name="value"/> for compliance with the hex color code
         /// </summary>
         public bool Hex(string value) =>
             SetRegex(value, @"^#(?:[0-9a-fA-F]{3}){1,2}$");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие Imsi.
-        /// Imsi обычно содержит 15 чисел.
-        /// Сечас обрабатыается для ру региона - это 250 +13 чисел
+        /// Checks <paramref name="value"/> for Imsi compliance.
+        /// Imsi usually contains 15 numbers.
+        /// Currently being processed for the ru region is 250 +13 numbers
         /// </summary>
         public bool Imsi(string value) =>
             SetRegex(value, @"\b250\d{12}\b");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие координатам
+        /// Checks <paramref name="value"/> for matching coordinates
         /// </summary>
         public bool Coordinate(string value) =>
             SetRegex(value, @"^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие адресу.
-        /// Проверяет в <paramref name="value"/> наличие: ул., д., г., обл.
+        /// Checks <paramref name="value"/> for matching the address.
+        /// Checks in <paramref name="value"/> the presence of: st., d., g., region.
         /// </summary>
         public bool Address(string value) =>
             SetRegex(value, @"(ул\.)|(д\.)|(г\.)|(обл\.)");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие msisdn
+        /// Checks <paramref name="value"/> for msisdn compliance
         /// </summary>
         public bool Msisdn(string value) =>
             SetRegex(value, @"^[1-9]\d{6,12}$");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие тексту
+        /// Checks <paramref name="value"/> for compliance with the text
         /// </summary>
         public bool Str(string value) =>
             !SetRegex(value, @"^(\d+|\d+\.\d+)$");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие ip адресу
+        /// Checks <paramref name="value"/> for compliance with the ip address
         /// </summary>
         public bool Ip(string value) =>
             SetRegex(value, @"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие целому числу
+        /// Checks <paramref name="value"/> for matching an integer
         /// </summary>
         public bool Int(string value) =>
             long.TryParse(value, out _);
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на соответствие дробному числу
+        /// Checks <paramref name="value"/> for compliance with a fractional number
         /// </summary>
         public bool Dbl(string value) =>
             double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out _);
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на распространенные форматы даты и времени
+        /// Checks <paramref name="value"/> for common date and time formats
         /// </summary>
         public bool Datetime(string value)
         {
@@ -120,7 +120,7 @@ namespace Analytics.Methods.SharedMethods
         }
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на распространенные форматы времени
+        /// Checks <paramref name="value"/> for common time formats
         /// </summary>
         public bool Time(string value)
         {
@@ -146,7 +146,7 @@ namespace Analytics.Methods.SharedMethods
         }
 
         /// <summary>
-        /// Проверяет <paramref name="value"/> на распространенные форматы даты
+        /// Checks <paramref name="value"/> for common date formats
         /// </summary>
         public bool Date(string value)
         {
