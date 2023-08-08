@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Analytics.Core.Exceptions
+namespace Analytics.Methods.Exceptions
 {
     public class FunctionNotImplementedException : Exception
     {

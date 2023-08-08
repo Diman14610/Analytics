@@ -1,5 +1,6 @@
 ﻿using Analytics.Configuration;
 using Analytics.Handlers;
+using Analytics.Methods;
 using Analytics.Shared.Analytics;
 
 namespace Analytics.Core

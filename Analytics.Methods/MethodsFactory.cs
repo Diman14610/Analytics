@@ -1,11 +1,10 @@
 ﻿using Analytics.Configuration;
-using Analytics.Core.Exceptions;
+using Analytics.Methods.Exceptions;
 using Analytics.Methods.SharedMethods;
-using Analytics.Shared;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Configuration;
 
-namespace Analytics.Core
+namespace Analytics.Methods
 {
     public sealed class MethodsFactory
     {
@@ -14,7 +13,7 @@ namespace Analytics.Core
 
         private readonly IConfigurationProvider _configurationProvider;
 
-        internal MethodsFactoryStruct SelectedMethods { get; private set; }
+        public MethodsFactoryStruct SelectedMethods { get; private set; }
 
         public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, IConfigurationProvider configurationProvider)
         {

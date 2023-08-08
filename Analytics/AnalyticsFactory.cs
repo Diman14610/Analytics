@@ -1,6 +1,7 @@
 ﻿using Analytics.Configuration;
 using Analytics.Core;
 using Analytics.Handlers;
+using Analytics.Methods;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
 

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Analytics.Configuration\Analytics.Configuration.csproj" />
+    <ProjectReference Include="..\Analytics.Shared\Analytics.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
