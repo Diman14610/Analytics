@@ -1,4 +1,6 @@
-﻿namespace Analytics.Shared.Analytics
+﻿using Analytics.Shared.Analytics;
+
+namespace Analytics.Shared.Methods
 {
     public class MethodsFactoryStruct
     {

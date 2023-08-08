@@ -1,4 +1,6 @@
-﻿namespace Analytics.Shared.Analytics
+﻿using Analytics.Shared.Methods;
+
+namespace Analytics.Shared.Analytics
 {
     public class ArgumentsMethodInfo : MethodInfo
     {

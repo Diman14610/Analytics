@@ -6,6 +6,7 @@ using Analytics.Handlers.Handlers;
 using Analytics.Methods;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Configuration;
+using Analytics.Shared.Methods;
 using System.Collections.Concurrent;
 
 namespace TestApp

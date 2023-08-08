@@ -30,7 +30,7 @@ namespace Analytics.Core
         /// <param name="text">Text, sentence, whatever</param>
         /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
         /// <returns>Checked information for each selected method.</returns>
-        protected CheckResult CheckFor(string text, MethodsFactory methodsFactory)
+        protected CheckResult CheckFor(string text, IMethodsFactoryProvider methodsFactory)
         {
             var checkResult = new CheckResult();
 
@@ -45,7 +45,7 @@ namespace Analytics.Core
         /// <param name="text">Text, sentence, whatever</param>
         /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
         /// <returns>Returns the result of checking the selected methods according to a logical condition AND. Also additional information about each selected method.</returns>
-        protected EqualsResult EqualsTo(string text, MethodsFactory methodsFactory)
+        protected EqualsResult EqualsTo(string text, IMethodsFactoryProvider methodsFactory)
         {
             var equalsResult = new EqualsResult();
 
@@ -64,15 +64,15 @@ namespace Analytics.Core
             return equalsResult;
         }
 
-        private void CallToHandler<T>(string text, MethodsFactory methodsFactory, T value)
+        private void CallToHandler<T>(string text, IMethodsFactoryProvider methodsFactory, T value)
         {
-            if (methodsFactory.SelectedMethods.MajorFactoryMethod.Count > 0)
+            if (methodsFactory.GetSelectedMethods().MajorFactoryMethod.Count > 0)
             {
-                _hanldersManager.Handle(text, methodsFactory.SelectedMethods.MajorFactoryMethod, ref value);
+                _hanldersManager.Handle(text, methodsFactory.GetSelectedMethods().MajorFactoryMethod, ref value);
             }
-            if (methodsFactory.SelectedMethods.TextFactoryMethod.Count > 0)
+            if (methodsFactory.GetSelectedMethods().TextFactoryMethod.Count > 0)
             {
-                _hanldersManager.Handle(text, methodsFactory.SelectedMethods.TextFactoryMethod, ref value);
+                _hanldersManager.Handle(text, methodsFactory.GetSelectedMethods().TextFactoryMethod, ref value);
             }
         }
     }

@@ -3,17 +3,18 @@ using Analytics.Methods.Exceptions;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Configuration;
+using Analytics.Shared.Methods;
 
 namespace Analytics.Methods
 {
-    public sealed class MethodsFactory
+    public class MethodsFactory
     {
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
 
         private readonly IConfigurationProvider _configurationProvider;
 
-        public MethodsFactoryStruct SelectedMethods { get; private set; }
+        protected readonly MethodsFactoryStruct _selectedMethods;
 
         public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, IConfigurationProvider configurationProvider)
         {
@@ -21,7 +22,7 @@ namespace Analytics.Methods
             _methodsWithArguments = methodsWithArguments ?? throw new ArgumentNullException(nameof(methodsWithArguments));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
 
-            SelectedMethods = new MethodsFactoryStruct();
+            _selectedMethods = new MethodsFactoryStruct();
         }
 
         public MethodsFactory UseCustomMethod(string metnodName)
@@ -212,12 +213,12 @@ namespace Analytics.Methods
 
         private void AddMethod(Func<string, bool> func, string? methodName = null)
         {
-            SelectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(methodName ?? func.Method.Name, func));
+            _selectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(methodName ?? func.Method.Name, func));
         }
 
         private void AddMethod(string[] strings, Func<string, string[], bool> func, string? methodName = null)
         {
-            SelectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, strings, func));
+            _selectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, strings, func));
         }
     }
 }

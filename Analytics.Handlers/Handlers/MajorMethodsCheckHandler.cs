@@ -1,6 +1,7 @@
 ﻿using Analytics.Methods;
 using Analytics.Shared;
 using Analytics.Shared.Analytics;
+using Analytics.Shared.Methods;
 
 namespace Analytics.Handlers.Handlers
 {

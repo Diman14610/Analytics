@@ -1,4 +1,6 @@
-﻿namespace Analytics.Shared.Analytics
+﻿using Analytics.Shared.Core;
+
+namespace Analytics.Shared.Analytics
 {
     public class EqualsResult : BaseResult
     {

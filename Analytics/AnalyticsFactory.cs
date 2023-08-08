@@ -12,14 +12,14 @@ namespace Analytics
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
 
-        private readonly ICollection<(Type, MethodsFactory methodsFactory)> _selectedMethods;
+        private readonly ICollection<(Type, MethodsFactoryProvider methodsFactory)> _selectedMethods;
 
         public AnalyticsFactory(IHandlersManager handler) : base(handler)
         {
             _majorMethods = new MajorMethods();
             _methodsWithArguments = new MethodsWithArguments();
 
-            _selectedMethods = new List<(Type, MethodsFactory methodsFactory)>();
+            _selectedMethods = new List<(Type, MethodsFactoryProvider methodsFactory)>();
         }
 
         public AnalyticsFactory Configure(Action<AnalyticsConfiguration> configuration)
@@ -51,7 +51,7 @@ namespace Analytics
 
         private void HandleAnalytics(string text, AnalyticsResult analyticsResult)
         {
-            foreach ((Type type, MethodsFactory textFactory) in _selectedMethods)
+            foreach ((Type type, MethodsFactoryProvider textFactory) in _selectedMethods)
             {
                 analyticsResult.Text = text;
 
@@ -68,7 +68,7 @@ namespace Analytics
 
         private void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
         {
-            var _ = new MethodsFactory(_majorMethods, _methodsWithArguments, (IConfigurationProvider)Configuration);
+            var _ = new MethodsFactoryProvider(_majorMethods, _methodsWithArguments, (IConfigurationProvider)Configuration);
             methodsFactory(_);
 
             _selectedMethods.Add((type, _));
