@@ -4,7 +4,9 @@ namespace Analytics.Configuration
 {
     public class AnalyticsConfiguration
     {
-        protected readonly ICollection<CustomMethod> _customMethods;
+        private readonly List<CustomMethod> _customMethods;
+
+        protected IReadOnlyList<CustomMethod> CustomMethods => _customMethods.AsReadOnly();
 
         public AnalyticsConfiguration()
         {
@@ -18,10 +20,7 @@ namespace Analytics.Configuration
 
         public void AddMethods(IEnumerable<CustomMethod> methods)
         {
-            foreach (var method in methods)
-            {
-                AddMethod(method);
-            }
+            _customMethods.AddRange(methods);
         }
     }
 }

@@ -1,22 +1,22 @@
-﻿using Analytics.Methods;
-using Analytics.Shared;
-using Analytics.Shared.Analytics;
+﻿using Analytics.Shared.Analytics;
 
 namespace Analytics.Handlers.Handlers
 {
-    public class ArgumentsMethodsEqualsHandler : BaseHandler<EqualsResult, ArgumentsMethodInfo>
+    public class MethodsWithArgumentsEqualsHandler : BaseHandler<EqualsResult, ArgumentsMethodInfo>
     {
         public override void Handle(string text, IEnumerable<ArgumentsMethodInfo> funks, ref EqualsResult result)
         {
             foreach (var item in funks)
             {
-                var methodInfo = new ExtendedMethodInfo();
+                var methodInfo = new ExtendedMethodInfo
+                {
+                    MethodName = item.MethodName,
+                    Arguments = item.Arguments
+                };
 
                 try
                 {
-                    methodInfo.MethodName = item.MethodName;
                     methodInfo.IsEqual = item.Func(text, (string[])item.Arguments);
-                    methodInfo.Arguments = item.Arguments;
                 }
                 catch (Exception ex)
                 {

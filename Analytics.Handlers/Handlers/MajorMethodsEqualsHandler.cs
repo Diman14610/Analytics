@@ -1,6 +1,4 @@
-﻿using Analytics.Methods;
-using Analytics.Shared;
-using Analytics.Shared.Analytics;
+﻿using Analytics.Shared.Analytics;
 using Analytics.Shared.Methods;
 
 namespace Analytics.Handlers.Handlers
@@ -11,17 +9,19 @@ namespace Analytics.Handlers.Handlers
         {
             foreach (var item in funks)
             {
-                var methodInfo = new ExtendedMethodInfo();
+                var methodInfo = new ExtendedMethodInfo
+                {
+                    MethodName = item.MethodName
+                };
 
                 try
                 {
-                    methodInfo.MethodName = item.MethodName;
                     methodInfo.IsEqual = item.Func(text);
                 }
                 catch (Exception ex)
                 {
-                    result.IsError = true;
-                    result.Exception = ex;
+                    methodInfo.IsError = true;
+                    methodInfo.Exception = ex;
                 }
 
                 result.ExtendedMethodInfos.Add(methodInfo);

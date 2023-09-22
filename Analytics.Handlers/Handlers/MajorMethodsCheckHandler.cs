@@ -1,6 +1,4 @@
-﻿using Analytics.Methods;
-using Analytics.Shared;
-using Analytics.Shared.Analytics;
+﻿using Analytics.Shared.Analytics;
 using Analytics.Shared.Methods;
 
 namespace Analytics.Handlers.Handlers
@@ -11,9 +9,9 @@ namespace Analytics.Handlers.Handlers
         {
             foreach (var item in funks)
             {
-                var check = new ExtendedMethodInfo()
+                var check = new ExtendedMethodInfo
                 {
-                    MethodName = item.MethodName,
+                    MethodName = item.MethodName
                 };
 
                 try

@@ -11,15 +11,13 @@ namespace Analytics
     {
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
-
-        private readonly ICollection<(Type, MethodsFactoryProvider methodsFactory)> _selectedMethods;
+        private readonly List<(Type, MethodsFactoryProvider)> _selectedMethods;
 
         public AnalyticsFactory(IHandlersManager handler) : base(handler)
         {
             _majorMethods = new MajorMethods();
             _methodsWithArguments = new MethodsWithArguments();
-
-            _selectedMethods = new List<(Type, MethodsFactoryProvider methodsFactory)>();
+            _selectedMethods = new List<(Type, MethodsFactoryProvider)>();
         }
 
         public AnalyticsFactory Configure(Action<AnalyticsConfiguration> configuration)
@@ -42,7 +40,7 @@ namespace Analytics
 
         public AnalyticsResult Analysis(string text)
         {
-            var analyticsResult = new AnalyticsResult();
+            var analyticsResult = new AnalyticsResult(text);
 
             HandleAnalytics(text, analyticsResult);
 
@@ -51,10 +49,8 @@ namespace Analytics
 
         private void HandleAnalytics(string text, AnalyticsResult analyticsResult)
         {
-            foreach ((Type type, MethodsFactoryProvider textFactory) in _selectedMethods)
+            foreach (var (type, textFactory) in _selectedMethods)
             {
-                analyticsResult.Text = text;
-
                 if (type == typeof(CheckResult))
                 {
                     analyticsResult.CheckResult.Add(CheckFor(text, textFactory));
@@ -68,10 +64,11 @@ namespace Analytics
 
         private void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
         {
-            var _ = new MethodsFactoryProvider(_majorMethods, _methodsWithArguments, (IConfigurationProvider)Configuration);
-            methodsFactory(_);
+            var factoryProvider = new MethodsFactoryProvider(_majorMethods, _methodsWithArguments, (IConfigurationProvider)Configuration);
 
-            _selectedMethods.Add((type, _));
+            methodsFactory(factoryProvider);
+
+            _selectedMethods.Add((type, factoryProvider));
         }
     }
 }

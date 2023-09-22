@@ -6,7 +6,7 @@ namespace Analytics.Configuration
     {
         public IEnumerable<CustomMethod> GetCustomMethods()
         {
-            return _customMethods;
+            return CustomMethods;
         }
     }
 }

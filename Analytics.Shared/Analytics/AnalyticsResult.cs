@@ -2,10 +2,17 @@
 {
     public class AnalyticsResult
     {
-        public string? Text { get; set; }
+        public AnalyticsResult(string? text)
+        {
+            Text = text;
+            CheckResult = new List<CheckResult>();
+            EqualsResult = new List<EqualsResult>();
+        }
 
-        public IList<CheckResult> CheckResult { get; set; } = new List<CheckResult>();
+        public string? Text { get; }
 
-        public IList<EqualsResult> EqualsResult { get; set; } = new List<EqualsResult>();
+        public IList<CheckResult> CheckResult { get; }
+
+        public IList<EqualsResult> EqualsResult { get; }
     }
 }

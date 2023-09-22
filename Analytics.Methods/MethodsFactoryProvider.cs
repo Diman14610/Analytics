@@ -6,10 +6,12 @@ namespace Analytics.Methods
 {
     public class MethodsFactoryProvider : MethodsFactory, IMethodsFactoryProvider
     {
-        public MethodsFactoryProvider(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, IConfigurationProvider configurationProvider) : base(majorMethods, methodsWithArguments, configurationProvider)
-        {
-        }
+        public MethodsFactoryProvider(
+            MajorMethods majorMethods,
+            MethodsWithArguments methodsWithArguments,
+            IConfigurationProvider configurationProvider
+            ) : base(majorMethods, methodsWithArguments, configurationProvider) { }
 
-        public MethodsFactoryStruct GetSelectedMethods() => _selectedMethods;
+        public MethodsFactoryStruct GetSelectedMethods() => SelectedMethods;
     }
 }

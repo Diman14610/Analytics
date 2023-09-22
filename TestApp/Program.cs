@@ -1,13 +1,9 @@
 ﻿using Analytics;
-using Analytics.Configuration;
-using Analytics.Core;
 using Analytics.Handlers;
 using Analytics.Handlers.Handlers;
-using Analytics.Methods;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Configuration;
 using Analytics.Shared.Methods;
-using System.Collections.Concurrent;
 
 namespace TestApp
 {
@@ -17,8 +13,8 @@ namespace TestApp
         {
             var handlers = new Dictionary<(Type, Type), object>()
             {
-                [(typeof(EqualsResult), typeof(ArgumentsMethodInfo))] = new ArgumentsMethodsEqualsHandler(),
-                [(typeof(CheckResult), typeof(ArgumentsMethodInfo))] = new ArgumentsMethodsCheckHandler(),
+                [(typeof(EqualsResult), typeof(ArgumentsMethodInfo))] = new MethodsWithArgumentsEqualsHandler(),
+                [(typeof(CheckResult), typeof(ArgumentsMethodInfo))] = new MethodsWithArgumentsCheckHandler(),
                 [(typeof(EqualsResult), typeof(MajorMethodInfo))] = new MajorMethodsEqualsHandler(),
                 [(typeof(CheckResult), typeof(MajorMethodInfo))] = new MajorMethodsCheckHandler(),
             };
@@ -38,6 +34,7 @@ namespace TestApp
                 .EqualsTo(r => r.StartsWith("h").Contains("168").EndsWith("1"))
                 .EqualsTo(r => r.Hex())
                 .EqualsTo(r => r.Int())
+                .EqualsTo(r => r.Str().UseCustomMethod("test"))
                 .EqualsTo(r => r.Ip().Str());
 
             AnalyticsResult analyticsResult = analytics.Analysis("hi");

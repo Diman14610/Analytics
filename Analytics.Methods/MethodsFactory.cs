@@ -14,7 +14,9 @@ namespace Analytics.Methods
 
         private readonly IConfigurationProvider _configurationProvider;
 
-        protected readonly MethodsFactoryStruct _selectedMethods;
+        private readonly MethodsFactoryStruct _selectedMethods;
+
+        protected MethodsFactoryStruct SelectedMethods => _selectedMethods;
 
         public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, IConfigurationProvider configurationProvider)
         {
@@ -25,62 +27,29 @@ namespace Analytics.Methods
             _selectedMethods = new MethodsFactoryStruct();
         }
 
-        public MethodsFactory UseCustomMethod(string metnodName)
+        /// <summary>
+        /// Description of the method.
+        /// </summary>
+        /// <param name="methodName">Description of the parameter.</param>
+        /// <returns>Description of the return value.</returns>
+        public MethodsFactory UseCustomMethod(string methodName)
         {
-            Func<string, bool>? func;
+            CustomMethod customMethod = GetCustomMethod(methodName);
 
-            try
-            {
-                CustomMethod? customMethod = _configurationProvider.GetCustomMethods().FirstOrDefault(a => a.MethodName == metnodName);
+            Func<string, bool>? func = customMethod.MajorFunc ?? throw new FunctionNotImplementedException($"{methodName} method not implemented.");
 
-                if (customMethod == null)
-                {
-                    throw new MethodNotFoundException($"Couldn't find the method: {metnodName}.");
-                }
-
-                func = customMethod.MajorFunc;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error when getting the method: {metnodName}.", ex);
-            }
-
-            if (func == null)
-            {
-                throw new FunctionNotImplementedException($"{metnodName} method not implemented.");
-            }
-
-            AddMethod(func, metnodName);
+            AddMethod(func, methodName);
 
             return this;
         }
 
-        public MethodsFactory UseCustomMethod(string metnodName, params string[] arguments)
+        public MethodsFactory UseCustomMethod(string methodName, params string[] arguments)
         {
-            Func<string, string[], bool>? func;
+            CustomMethod customMethod = GetCustomMethod(methodName);
 
-            try
-            {
-                CustomMethod? customMethod = _configurationProvider.GetCustomMethods().FirstOrDefault(a => a.MethodName == metnodName);
+            Func<string, string[], bool>? func = customMethod.ArgumentsFunc ?? throw new FunctionNotImplementedException($"{methodName} method not implemented.");
 
-                if (customMethod == null)
-                {
-                    throw new MethodNotFoundException($"Couldn't find the method: {metnodName}.");
-                }
-
-                func = customMethod.ArgumentsFunc;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error when getting the method: {metnodName}.", ex);
-            }
-
-            if (func == null)
-            {
-                throw new FunctionNotImplementedException($"{metnodName} method not implemented.");
-            }
-
-            AddMethod(arguments, func, metnodName);
+            AddMethod(arguments, func, methodName);
 
             return this;
         }
@@ -211,14 +180,26 @@ namespace Analytics.Methods
             return this;
         }
 
+        private CustomMethod GetCustomMethod(string methodName)
+        {
+            CustomMethod? customMethod = _configurationProvider.GetCustomMethods().FirstOrDefault(a => a.MethodName == methodName);
+
+            if (customMethod == null)
+            {
+                throw new MethodNotFoundException($"Couldn't find the method: {methodName}.");
+            }
+
+            return customMethod;
+        }
+
         private void AddMethod(Func<string, bool> func, string? methodName = null)
         {
             _selectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(methodName ?? func.Method.Name, func));
         }
 
-        private void AddMethod(string[] strings, Func<string, string[], bool> func, string? methodName = null)
+        private void AddMethod(string[] arguments, Func<string, string[], bool> func, string? methodName = null)
         {
-            _selectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, strings, func));
+            _selectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, arguments, func));
         }
     }
 }

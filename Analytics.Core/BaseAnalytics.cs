@@ -7,21 +7,19 @@ namespace Analytics.Core
 {
     public class BaseAnalytics
     {
-        private AnalyticsConfigurationProvider configuration;
-
-        protected readonly IHandlersManager _hanldersManager;
+        private readonly AnalyticsConfigurationProvider _configuration;
+        protected readonly IHandlersManager _handlersManager;
 
         public AnalyticsConfiguration Configuration
         {
-            get => configuration;
-            protected set => configuration = (AnalyticsConfigurationProvider)value;
+            get => _configuration;
         }
 
         public BaseAnalytics(IHandlersManager handlersManager)
         {
-            _hanldersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
+            _handlersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
 
-            configuration = new AnalyticsConfigurationProvider();
+            _configuration = new AnalyticsConfigurationProvider();
         }
 
         /// <summary>
@@ -66,13 +64,15 @@ namespace Analytics.Core
 
         private void CallToHandler<T>(string text, IMethodsFactoryProvider methodsFactory, T value)
         {
-            if (methodsFactory.GetSelectedMethods().MajorFactoryMethod.Count > 0)
+            var selectedMethods = methodsFactory.GetSelectedMethods();
+
+            if (selectedMethods.MajorFactoryMethod.Count > 0)
             {
-                _hanldersManager.Handle(text, methodsFactory.GetSelectedMethods().MajorFactoryMethod, ref value);
+                _handlersManager.Handle(text, selectedMethods.MajorFactoryMethod, ref value);
             }
-            if (methodsFactory.GetSelectedMethods().TextFactoryMethod.Count > 0)
+            if (selectedMethods.TextFactoryMethod.Count > 0)
             {
-                _hanldersManager.Handle(text, methodsFactory.GetSelectedMethods().TextFactoryMethod, ref value);
+                _handlersManager.Handle(text, selectedMethods.TextFactoryMethod, ref value);
             }
         }
     }
