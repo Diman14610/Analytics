@@ -1,6 +1,7 @@
 ﻿using Analytics.Configuration;
 using Analytics.Handlers;
 using Analytics.Methods;
+using Analytics.Root;
 using Analytics.Shared.Analytics;
 
 namespace Analytics.Core
@@ -15,9 +16,9 @@ namespace Analytics.Core
             get => _configuration;
         }
 
-        public BaseAnalytics(IHandlersManager handlersManager)
+        public BaseAnalytics()
         {
-            _handlersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
+            _handlersManager = DefaultDependencies.Instance.GetHandlersManager();
 
             _configuration = new AnalyticsConfigurationProvider();
         }

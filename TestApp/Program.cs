@@ -1,9 +1,6 @@
 ﻿using Analytics;
-using Analytics.Handlers;
-using Analytics.Handlers.Handlers;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Configuration;
-using Analytics.Shared.Methods;
 
 namespace TestApp
 {
@@ -11,16 +8,7 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
-            var handlers = new Dictionary<(Type, Type), object>()
-            {
-                [(typeof(EqualsResult), typeof(ArgumentsMethodInfo))] = new MethodsWithArgumentsEqualsHandler(),
-                [(typeof(CheckResult), typeof(ArgumentsMethodInfo))] = new MethodsWithArgumentsCheckHandler(),
-                [(typeof(EqualsResult), typeof(MajorMethodInfo))] = new MajorMethodsEqualsHandler(),
-                [(typeof(CheckResult), typeof(MajorMethodInfo))] = new MajorMethodsCheckHandler(),
-            };
-            var handlersManager = new HandlersManager(handlers);
-
-            var analytics = new AnalyticsFactory(handlersManager)
+            var analytics = new AnalyticsFactory()
                 .Configure(con =>
                 {
                     con.AddMethod(new CustomMethod
@@ -38,7 +26,6 @@ namespace TestApp
                 .EqualsTo(r => r.Ip().Str());
 
             AnalyticsResult analyticsResult = analytics.Analysis("hi");
-
 
             Console.ReadKey();
         }

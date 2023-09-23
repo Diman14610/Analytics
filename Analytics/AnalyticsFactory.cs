@@ -1,6 +1,5 @@
 ﻿using Analytics.Configuration;
 using Analytics.Core;
-using Analytics.Handlers;
 using Analytics.Methods;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
@@ -13,7 +12,7 @@ namespace Analytics
         private readonly MethodsWithArguments _methodsWithArguments;
         private readonly List<(Type, MethodsFactoryProvider)> _selectedMethods;
 
-        public AnalyticsFactory(IHandlersManager handler) : base(handler)
+        public AnalyticsFactory() : base()
         {
             _majorMethods = new MajorMethods();
             _methodsWithArguments = new MethodsWithArguments();
@@ -64,7 +63,11 @@ namespace Analytics
 
         private void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
         {
-            var factoryProvider = new MethodsFactoryProvider(_majorMethods, _methodsWithArguments, (IConfigurationProvider)Configuration);
+            var factoryProvider = new MethodsFactoryProvider(
+                _majorMethods,
+                _methodsWithArguments,
+                (IConfigurationProvider)Configuration
+                );
 
             methodsFactory(factoryProvider);
 
