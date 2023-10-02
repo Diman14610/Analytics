@@ -9,13 +9,10 @@ namespace Analytics.Root
     {
         private static DefaultDependencies instance = null!;
 
-        private Dictionary<Type, object> services;
         private readonly Dictionary<(Type, Type), object> _handlers;
 
         private DefaultDependencies()
         {
-            services = new Dictionary<Type, object>();
-
             _handlers = new Dictionary<(Type, Type), object>()
             {
                 [(typeof(EqualsResult), typeof(ArgumentsMethodInfo))] = new MethodsWithArgumentsEqualsHandler(),
@@ -44,19 +41,6 @@ namespace Analytics.Root
             var handlersManager = new HandlersManager(_handlers);
 
             return handlersManager;
-        }
-
-        public void Register<TInterface, TImplementation>() where TImplementation : TInterface
-        {
-            if (!services.ContainsKey(typeof(TInterface)))
-            {
-                services.Add(typeof(TInterface), Activator.CreateInstance(typeof(TImplementation))!);
-            }
-        }
-
-        public T GetService<T>()
-        {
-            return (T)services[typeof(T)];
         }
     }
 }
