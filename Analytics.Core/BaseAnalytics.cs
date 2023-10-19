@@ -6,7 +6,7 @@ using Analytics.Shared.Analytics;
 
 namespace Analytics.Core
 {
-    public class BaseAnalytics
+    public abstract class BaseAnalytics
     {
         private readonly AnalyticsConfigurationProvider _configuration;
         protected readonly IHandlersManager _handlersManager;
