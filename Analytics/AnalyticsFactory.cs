@@ -2,6 +2,7 @@
 using Analytics.Core;
 using Analytics.Methods;
 using Analytics.Methods.SharedMethods;
+using Analytics.Root;
 using Analytics.Shared.Analytics;
 
 namespace Analytics
@@ -14,8 +15,8 @@ namespace Analytics
 
         public AnalyticsFactory() : base()
         {
-            _majorMethods = new MajorMethods();
-            _methodsWithArguments = new MethodsWithArguments();
+            _majorMethods = DefaultDependencies.GetMajorMethods();
+            _methodsWithArguments = DefaultDependencies.GetMethodsWithArguments();
             _selectedMethods = new List<(Type, MethodsFactoryProvider)>();
         }
 

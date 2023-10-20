@@ -1,5 +1,7 @@
-﻿using Analytics.Handlers;
+﻿using Analytics.Configuration;
+using Analytics.Handlers;
 using Analytics.Handlers.Handlers;
+using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Methods;
 
@@ -18,6 +20,21 @@ namespace Analytics.Root
             });
 
             return handlersManager;
+        }
+
+        public static AnalyticsConfigurationProvider GetAnalyticsConfigurationProvider()
+        {
+            return new AnalyticsConfigurationProvider();
+        }
+
+        public static MajorMethods GetMajorMethods()
+        {
+            return new MajorMethods();
+        }
+
+        public static MethodsWithArguments GetMethodsWithArguments()
+        {
+            return new MethodsWithArguments();
         }
     }
 }

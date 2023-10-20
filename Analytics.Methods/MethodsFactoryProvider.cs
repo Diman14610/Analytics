@@ -9,8 +9,7 @@ namespace Analytics.Methods
         public MethodsFactoryProvider(
             MajorMethods majorMethods,
             MethodsWithArguments methodsWithArguments,
-            IConfigurationProvider configurationProvider
-            ) : base(majorMethods, methodsWithArguments, configurationProvider) { }
+            IConfigurationProvider configurationProvider) : base(majorMethods, methodsWithArguments, configurationProvider) { }
 
         public MethodsFactoryStruct GetSelectedMethods() => SelectedMethods;
     }

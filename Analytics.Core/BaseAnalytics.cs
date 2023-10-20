@@ -19,8 +19,7 @@ namespace Analytics.Core
         public BaseAnalytics()
         {
             _handlersManager = DefaultDependencies.GetHandlersManager();
-
-            _configuration = new AnalyticsConfigurationProvider();
+            _configuration = DefaultDependencies.GetAnalyticsConfigurationProvider();
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace Analytics.Core
             return equalsResult;
         }
 
-        private void CallToHandler<T>(string text, IMethodsFactoryProvider methodsFactory, T value)
+        protected virtual void CallToHandler<T>(string text, IMethodsFactoryProvider methodsFactory, T value)
         {
             var selectedMethods = methodsFactory.GetSelectedMethods();
 
