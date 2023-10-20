@@ -9,6 +9,9 @@ namespace Analytics.Root
 {
     public static class DefaultDependencies
     {
+        private static readonly MajorMethods _majorMethods = new();
+        private static readonly MethodsWithArguments methodsWithArguments = new();
+
         public static IHandlersManager GetHandlersManager()
         {
             var handlersManager = new HandlersManager(new Dictionary<(Type, Type), object>()
@@ -29,12 +32,12 @@ namespace Analytics.Root
 
         public static MajorMethods GetMajorMethods()
         {
-            return new MajorMethods();
+            return _majorMethods;
         }
 
         public static MethodsWithArguments GetMethodsWithArguments()
         {
-            return new MethodsWithArguments();
+            return methodsWithArguments;
         }
     }
 }
