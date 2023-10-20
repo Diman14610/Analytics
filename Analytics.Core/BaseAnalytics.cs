@@ -18,7 +18,7 @@ namespace Analytics.Core
 
         public BaseAnalytics()
         {
-            _handlersManager = DefaultDependencies.Instance.GetHandlersManager();
+            _handlersManager = DefaultDependencies.GetHandlersManager();
 
             _configuration = new AnalyticsConfigurationProvider();
         }
