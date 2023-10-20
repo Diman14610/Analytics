@@ -7,7 +7,7 @@ using Analytics.Shared.Methods;
 
 namespace Analytics.Methods
 {
-    public class MethodsFactory
+    public partial class MethodsFactory
     {
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
