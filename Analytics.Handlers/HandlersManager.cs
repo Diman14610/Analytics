@@ -20,13 +20,8 @@ namespace Analytics.Handlers
             }
             else
             {
-                ThrowHandlerNotFoundException<T, U>();
+                throw new HandlerNotFoundException($"Handler not found for ({typeof(T)}, {typeof(U)}).");
             }
-        }
-
-        protected void ThrowHandlerNotFoundException<T, U>()
-        {
-            throw new HandlerNotFoundException($"Handler not found for ({typeof(T)}, {typeof(U)}).");
         }
     }
 }
