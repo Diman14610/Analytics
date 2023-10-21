@@ -4,6 +4,7 @@ using Analytics.Methods;
 using Analytics.Methods.SharedMethods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
+using System.Collections.Concurrent;
 
 namespace Analytics
 {
@@ -38,13 +39,51 @@ namespace Analytics
             return this;
         }
 
-        public AnalyticsResult Analysis(string text)
+        public AnalyticsResult Analysis(string word)
         {
-            var analyticsResult = new AnalyticsResult(text);
+            var analyticsResult = new AnalyticsResult(word);
 
-            HandleAnalytics(text, analyticsResult);
+            HandleAnalytics(word, analyticsResult);
 
             return analyticsResult;
+        }
+
+        public IEnumerable<AnalyticsResult> Analysis(IEnumerable<string> words)
+        {
+            var analyticsResults = new List<AnalyticsResult>();
+
+            foreach (var word in words)
+            {
+                analyticsResults.Add(Analysis(word));
+            }
+
+            return analyticsResults;
+        }
+
+        /// <summary>
+        /// Performs words analysis in parallel without preserving the order.
+        /// </summary>
+        public IEnumerable<AnalyticsResult> ParallelAnalysis(IEnumerable<string> words, ParallelOptions? parallelOptions = default, CancellationToken cancellationToken = default)
+        {
+            var analyticsResults = new ConcurrentBag<AnalyticsResult>();
+
+            parallelOptions ??= new ParallelOptions() { CancellationToken = cancellationToken };
+
+            Parallel.ForEach(words, parallelOptions, (word, state) =>
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    state.Break();
+                }
+                if (state.ShouldExitCurrentIteration)
+                {
+                    return;
+                }
+                analyticsResults.Add(Analysis(word));
+            }
+            );
+
+            return analyticsResults;
         }
 
         private void HandleAnalytics(string text, AnalyticsResult analyticsResult)
