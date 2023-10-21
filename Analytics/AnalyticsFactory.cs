@@ -29,13 +29,13 @@ namespace Analytics
 
         public AnalyticsFactory CheckFor(Action<MethodsFactory> methodFactory)
         {
-            AddToMethodsList(methodFactory, typeof(CheckResult));
+            AddToMethodsList<CheckResult>(methodFactory);
             return this;
         }
 
         public AnalyticsFactory EqualsTo(Action<MethodsFactory> methodFactory)
         {
-            AddToMethodsList(methodFactory, typeof(EqualsResult));
+            AddToMethodsList<EqualsResult>(methodFactory);
             return this;
         }
 
@@ -79,9 +79,9 @@ namespace Analytics
                 {
                     return;
                 }
+
                 analyticsResults.Add(Analysis(word));
-            }
-            );
+            });
 
             return analyticsResults;
         }
@@ -101,7 +101,7 @@ namespace Analytics
             }
         }
 
-        private void AddToMethodsList(Action<MethodsFactory> methodsFactory, Type type)
+        private void AddToMethodsList<T>(Action<MethodsFactory> methodsFactory)
         {
             var factoryProvider = new MethodsFactoryProvider(
                 _majorMethods,
@@ -111,7 +111,7 @@ namespace Analytics
 
             methodsFactory(factoryProvider);
 
-            _selectedMethods.Add((type, factoryProvider));
+            _selectedMethods.Add((typeof(T), factoryProvider));
         }
     }
 }
