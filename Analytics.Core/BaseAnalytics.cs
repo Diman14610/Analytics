@@ -3,6 +3,7 @@ using Analytics.Handlers;
 using Analytics.Methods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
+using Analytics.Shared.Methods;
 
 namespace Analytics.Core
 {
@@ -28,7 +29,7 @@ namespace Analytics.Core
         /// <param name="text">Text, sentence, whatever</param>
         /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
         /// <returns>Checked information for each selected method.</returns>
-        protected CheckResult CheckFor(string text, IMethodsFactoryProvider methodsFactory)
+        protected virtual CheckResult CheckFor(string text, IMethodsFactoryProvider methodsFactory)
         {
             var checkResult = new CheckResult();
 
@@ -43,7 +44,7 @@ namespace Analytics.Core
         /// <param name="text">Text, sentence, whatever</param>
         /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
         /// <returns>Returns the result of checking the selected methods according to a logical condition AND. Also additional information about each selected method.</returns>
-        protected EqualsResult EqualsTo(string text, IMethodsFactoryProvider methodsFactory)
+        protected virtual EqualsResult EqualsTo(string text, IMethodsFactoryProvider methodsFactory)
         {
             var equalsResult = new EqualsResult();
 
@@ -62,9 +63,9 @@ namespace Analytics.Core
             return equalsResult;
         }
 
-        protected virtual void CallToHandler<T>(string text, IMethodsFactoryProvider methodsFactory, T value)
+        protected virtual void CallToHandler<T>(string text, IMethodsFactoryProvider methodsFactory, T value) where T : class
         {
-            var selectedMethods = methodsFactory.GetSelectedMethods();
+            MethodsFactoryStruct selectedMethods = methodsFactory.GetSelectedMethods();
 
             if (selectedMethods.MajorFactoryMethod.Count > 0)
             {
