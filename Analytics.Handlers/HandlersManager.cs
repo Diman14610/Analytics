@@ -12,11 +12,11 @@ namespace Analytics.Handlers
             _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
         }
 
-        public void Handle<T, U>(string text, IEnumerable<U> funks, ref T result)
+        public void Handle<T, U>(string text, IEnumerable<U> methods, ref T result)
         {
             if (_handlers.TryGetValue((typeof(T), typeof(U)), out var handlerObject) && handlerObject is BaseHandler<T, U> handler)
             {
-                handler.Handle(text, funks, ref result);
+                handler.Handle(text, methods, ref result);
             }
             else
             {

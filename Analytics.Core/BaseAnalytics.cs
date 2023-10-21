@@ -63,7 +63,7 @@ namespace Analytics.Core
             return equalsResult;
         }
 
-        protected virtual void CallToHandler<T>(string text, IMethodsFactoryProvider methodsFactory, T value) where T : class
+        protected virtual void CallToHandler<ResultType>(string text, IMethodsFactoryProvider methodsFactory, ResultType value)
         {
             MethodsFactoryStruct selectedMethods = methodsFactory.GetSelectedMethods();
 

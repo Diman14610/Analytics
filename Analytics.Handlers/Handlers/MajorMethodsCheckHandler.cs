@@ -5,18 +5,18 @@ namespace Analytics.Handlers.Handlers
 {
     public class MajorMethodsCheckHandler : BaseHandler<CheckResult, MajorMethodInfo>
     {
-        public override void Handle(string text, IEnumerable<MajorMethodInfo> funks, ref CheckResult result)
+        public override void Handle(string text, IEnumerable<MajorMethodInfo> methods, ref CheckResult result)
         {
-            foreach (var item in funks)
+            foreach (var method in methods)
             {
                 var check = new ExtendedMethodInfo
                 {
-                    MethodName = item.MethodName
+                    MethodName = method.MethodName
                 };
 
                 try
                 {
-                    check.IsEqual = item.Func(text);
+                    check.IsEqual = method.Func(text);
                 }
                 catch (Exception ex)
                 {

@@ -5,9 +5,9 @@ namespace Analytics.Handlers.Handlers
 {
     public class MajorMethodsEqualsHandler : BaseHandler<EqualsResult, MajorMethodInfo>
     {
-        public override void Handle(string text, IEnumerable<MajorMethodInfo> funks, ref EqualsResult result)
+        public override void Handle(string text, IEnumerable<MajorMethodInfo> methods, ref EqualsResult result)
         {
-            foreach (var item in funks)
+            foreach (var item in methods)
             {
                 var methodInfo = new ExtendedMethodInfo
                 {

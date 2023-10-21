@@ -4,9 +4,9 @@ namespace Analytics.Handlers.Handlers
 {
     public class MethodsWithArgumentsEqualsHandler : BaseHandler<EqualsResult, ArgumentsMethodInfo>
     {
-        public override void Handle(string text, IEnumerable<ArgumentsMethodInfo> funks, ref EqualsResult result)
+        public override void Handle(string text, IEnumerable<ArgumentsMethodInfo> methods, ref EqualsResult result)
         {
-            foreach (var item in funks)
+            foreach (var item in methods)
             {
                 var methodInfo = new ExtendedMethodInfo
                 {
