@@ -24,10 +24,7 @@ namespace Analytics
             object? settings = ((AnalyticsConfigurationProvider)Configuration).GetSettings();
             if (settings != null)
             {
-                foreach (var item in (IEnumerable<(Type, MethodsFactoryProvider)>)settings)
-                {
-                    _selectedMethods.Add(item);
-                }
+                _selectedMethods.AddRange((IEnumerable<(Type, MethodsFactoryProvider)>)settings);
             }
 
             return this;
