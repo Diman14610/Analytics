@@ -8,7 +8,7 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
-            var analytics = new AnalyticsFactory()
+            var commonConfiguration = new AnalyticsFactory()
                 .Configure(con =>
                 {
                     con.AddMethod(new CustomMethod
@@ -18,14 +18,22 @@ namespace TestApp
                         ArgumentsFunc = (text, arm) => arm.All(text => text.Length > 0),
                     });
                 })
-                .EqualsTo(r => r.Str().Contains("hi").StartsWith("h", "z"))
+                .EqualsTo(r => r.Str().Contains("hi").StartsWith("h", "."))
+                .EqualsTo(r => r.Str().Contains("hi").StartsWith("h", ".").SetStringComparison(StringComparison.InvariantCultureIgnoreCase))
                 .EqualsTo(r => r.StartsWith("h").Contains("168").EndsWith("1"))
                 .EqualsTo(r => r.Hex())
                 .EqualsTo(r => r.Int())
                 .EqualsTo(r => r.Str().UseCustomMethod("test"))
-                .EqualsTo(r => r.Ip().Str());
+                .EqualsTo(r => r.Ip().Str())
+                .AsAnalyticsConfiguration();
 
-            AnalyticsResult analyticsResult = analytics.Analysis("hi");
+            var analytics = new AnalyticsFactory()
+                .Configure(config =>
+                {
+                    config.ApplyConfiguration(commonConfiguration);
+                });
+
+            AnalyticsResult analyticsResult = analytics.Analysis("Hi, it's just a suggestion.");
 
             Console.ReadKey();
         }
