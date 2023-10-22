@@ -6,6 +6,8 @@ namespace Analytics.Configuration
     {
         private readonly List<CustomMethod> _customMethods;
 
+        protected object? Settings { get; set; }
+
         protected IReadOnlyList<CustomMethod> CustomMethods => _customMethods.AsReadOnly();
 
         public AnalyticsConfiguration()
@@ -21,6 +23,12 @@ namespace Analytics.Configuration
         public void AddMethods(IEnumerable<CustomMethod> methods)
         {
             _customMethods.AddRange(methods);
+        }
+
+        public void ApplyConfiguration(AnalyticsConfiguration other)
+        {
+            Settings = other.Settings;
+            _customMethods.AddRange(other.CustomMethods);
         }
     }
 }
