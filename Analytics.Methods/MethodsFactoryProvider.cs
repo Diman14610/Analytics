@@ -4,12 +4,12 @@ using Analytics.Shared.Methods;
 
 namespace Analytics.Methods
 {
-    public class MethodsFactoryProvider : MethodsFactory, IMethodsFactoryProvider
+    public class MethodsFactoryProvider : MethodsFactory
     {
         public MethodsFactoryProvider(
             MajorMethods majorMethods,
             MethodsWithArguments methodsWithArguments,
-            IConfigurationProvider configurationProvider) : base(majorMethods, methodsWithArguments, configurationProvider) { }
+            AnalyticsConfigurationProvider configurationProvider) : base(majorMethods, methodsWithArguments, configurationProvider) { }
 
         public MethodsFactoryStruct GetSelectedMethods() => SelectedMethods;
     }

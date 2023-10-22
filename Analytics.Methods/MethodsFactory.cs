@@ -11,14 +11,12 @@ namespace Analytics.Methods
     {
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
-
-        private readonly IConfigurationProvider _configurationProvider;
-
+        private readonly AnalyticsConfigurationProvider _configurationProvider;
         private readonly MethodsFactoryStruct _selectedMethods;
 
         protected MethodsFactoryStruct SelectedMethods => _selectedMethods;
 
-        public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, IConfigurationProvider configurationProvider)
+        public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, AnalyticsConfigurationProvider configurationProvider)
         {
             _majorMethods = majorMethods ?? throw new ArgumentNullException(nameof(majorMethods));
             _methodsWithArguments = methodsWithArguments ?? throw new ArgumentNullException(nameof(methodsWithArguments));
