@@ -10,7 +10,6 @@ namespace Analytics.Root
     public static class DefaultDependencies
     {
         private static readonly MajorMethods _majorMethods = new();
-        private static readonly MethodsWithArguments methodsWithArguments = new();
         private static readonly HandlersManager _handlersManager = new(new Dictionary<(Type, Type), object>()
         {
             [(typeof(EqualsResult), typeof(ArgumentsMethodInfo))] = new MethodsWithArgumentsEqualsHandler(),
@@ -36,7 +35,7 @@ namespace Analytics.Root
 
         public static MethodsWithArguments GetMethodsWithArguments()
         {
-            return methodsWithArguments;
+            return new MethodsWithArguments();
         }
     }
 }
