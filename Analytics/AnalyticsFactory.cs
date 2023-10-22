@@ -50,14 +50,10 @@ namespace Analytics
 
         public IEnumerable<AnalyticsResult> Analysis(IEnumerable<string> words)
         {
-            var analyticsResults = new List<AnalyticsResult>();
-
             foreach (var word in words)
             {
-                analyticsResults.Add(Analysis(word));
+                yield return Analysis(word);
             }
-
-            return analyticsResults;
         }
 
         /// <summary>
