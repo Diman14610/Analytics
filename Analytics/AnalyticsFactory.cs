@@ -10,21 +10,34 @@ namespace Analytics
 {
     public sealed class AnalyticsFactory : BaseAnalytics
     {
-        private readonly MajorMethods _majorMethods;
-        private readonly MethodsWithArguments _methodsWithArguments;
         private readonly List<(Type, MethodsFactoryProvider)> _selectedMethods;
 
         public AnalyticsFactory() : base()
         {
-            _majorMethods = DefaultDependencies.GetMajorMethods();
-            _methodsWithArguments = DefaultDependencies.GetMethodsWithArguments();
             _selectedMethods = new List<(Type, MethodsFactoryProvider)>();
         }
 
         public AnalyticsFactory Configure(Action<AnalyticsConfiguration> configuration)
         {
             configuration(Configuration);
+
+            object? settings = ((AnalyticsConfigurationProvider)Configuration).GetSettings();
+            if (settings != null)
+            {
+                foreach (var item in (IEnumerable<(Type, MethodsFactoryProvider)>)settings)
+                {
+                    _selectedMethods.Add(item);
+                }
+            }
+
             return this;
+        }
+
+        public AnalyticsConfiguration AsAnalyticsConfiguration()
+        {
+            var configurationProvider = (AnalyticsConfigurationProvider)Configuration;
+            configurationProvider.SaveSettings(_selectedMethods);
+            return Configuration;
         }
 
         public AnalyticsFactory CheckFor(Action<MethodsFactory> methodFactory)
@@ -100,9 +113,9 @@ namespace Analytics
         private void AddToMethodsList<T>(Action<MethodsFactory> methodsFactory)
         {
             var factoryProvider = new MethodsFactoryProvider(
-                _majorMethods,
-                _methodsWithArguments,
-                (IConfigurationProvider)Configuration
+                DefaultDependencies.GetMajorMethods(),
+                DefaultDependencies.GetMethodsWithArguments(),
+                (AnalyticsConfigurationProvider)Configuration
                 );
 
             methodsFactory(factoryProvider);
