@@ -18,6 +18,8 @@ namespace TestApp
                         ArgumentsFunc = (text, arm) => arm.All(text => text.Length > 0),
                     });
                 })
+                .CheckFor(r => r.Str().Contains("hi").StartsWith("h", "."))
+                .CheckFor(r => r.Str().Contains("hi").StartsWith("h", ".").SetStringComparison(StringComparison.InvariantCultureIgnoreCase))
                 .EqualsTo(r => r.Str().Contains("hi").StartsWith("h", "."))
                 .EqualsTo(r => r.Str().Contains("hi").StartsWith("h", ".").SetStringComparison(StringComparison.InvariantCultureIgnoreCase))
                 .EqualsTo(r => r.StartsWith("h").Contains("168").EndsWith("1"))
@@ -33,14 +35,14 @@ namespace TestApp
                     config.ApplyConfiguration(commonConfiguration);
                 });
 
-            var text = "Hi, it's just a suggestion.";
+            var exampleText = "Hi, it's just a suggestion.";
 
-            AnalyticsResult analyticsResult = analytics.Analysis(text);
+            AnalyticsResult analyticsResult = analytics.Analysis(exampleText);
 
             var test = new AssertionBlock()
                 .Assert(analytics, new AssertionSettings { Name = "Test", Weight = 0.1 });
 
-            var result = test.Proccess(text).ToList();
+            var result = test.Proccess(exampleText).ToList();
 
             Console.ReadKey();
         }

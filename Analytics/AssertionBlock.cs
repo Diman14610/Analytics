@@ -29,7 +29,62 @@
                 }
                 if (a.EqualsResult.Any())
                 {
-                    var t2 = a.EqualsResult.Select(s => s.IsEqual).ToList();
+                    var numberSuccessfulBlocks = 0;
+                    var numberBlocks = a.EqualsResult.Count;
+
+                    var numberMethods = 0;
+                    var numberSuccessfulMethods = 0;
+
+                    foreach (var item in a.EqualsResult)
+                    {
+                        if (item.IsEqual)
+                        {
+                            numberSuccessfulBlocks++;
+                        }
+
+                        numberMethods += item.ExtendedMethodInfos.Count;
+                        numberSuccessfulMethods += item.ExtendedMethodInfos.Count(g => g.IsEqual);
+                    }
+
+                    var score = numberSuccessfulBlocks * settings.Weight;
+
+                    var assertionResult = new AssertionResult(
+                    settings.Name,
+                    settings.Weight,
+                    score,
+                    numberMethods,
+                    numberSuccessfulMethods,
+                    numberBlocks,
+                    numberSuccessfulBlocks
+                    );
+
+                    result.Add(assertionResult);
+
+                    //var blocks = a.EqualsResult.Select(s => s.IsEqual).ToList();
+
+                    //var countSuccessfullBlocks = blocks.Count(a => a);
+                    //var numberSuccessfulBlocks = blocks.Where(a => a).Count();
+                    //var numberBlocks = blocks.Count;
+
+                    //var methods = a.EqualsResult
+                    //    .Select(s => s.ExtendedMethodInfos.Select(g => g.IsEqual).ToList())
+                    //    .ToList();
+                    //var numberMethods = methods.Sum(g => g.Count);
+                    //var numberSuccessfulMethods = methods.Sum(g => g.Count(h => h));
+
+                    //var score = countSuccessfullBlocks * settings.Weight;
+
+                    //var assertionResult = new AssertionResult(
+                    //    settings.Name,
+                    //    settings.Weight,
+                    //    score,
+                    //    numberMethods,
+                    //    numberSuccessfulMethods,
+                    //    numberBlocks,
+                    //    numberSuccessfulBlocks
+                    //    );
+
+                    //result.Add(assertionResult);
                 }
             }
 
@@ -39,24 +94,30 @@
 
     public class AssertionResult
     {
-        public AssertionResult(string name, double weight, double sum, int numberProcessedMethods, int numberSuccessfulMethods)
+        public AssertionResult(string name, double weight, double score, int numberMethods, int numberSuccessfulMethods, int numberBlocks, int numberSuccessfulBlocks)
         {
             Name = name;
             Weight = weight;
-            Sum = sum;
-            NumberProcessedMethods = numberProcessedMethods;
+            Score = score;
+            NumberMethods = numberMethods;
             NumberSuccessfulMethods = numberSuccessfulMethods;
+            NumberBlocks = numberBlocks;
+            NumberSuccessfulBlocks = numberSuccessfulBlocks;
         }
 
         public string Name { get; }
 
         public double Weight { get; }
 
-        public double Sum { get; }
+        public double Score { get; }
 
-        public int NumberProcessedMethods { get; }
+        public int NumberMethods { get; }
 
         public int NumberSuccessfulMethods { get; }
+
+        public int NumberBlocks { get; }
+
+        public int NumberSuccessfulBlocks { get; }
     }
 
     public class AssertionSettings
