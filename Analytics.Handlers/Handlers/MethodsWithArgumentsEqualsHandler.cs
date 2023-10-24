@@ -22,6 +22,8 @@ namespace Analytics.Handlers.Handlers
                 {
                     result.IsError = true;
                     result.Exception = ex;
+                    methodInfo.IsError = true;
+                    methodInfo.Exception = ex;
                 }
 
                 result.ExtendedMethodInfos.Add(methodInfo);
