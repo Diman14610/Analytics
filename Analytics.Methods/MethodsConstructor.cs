@@ -7,22 +7,22 @@ using Analytics.Shared.Methods;
 
 namespace Analytics.Methods
 {
-    public partial class MethodsFactory
+    public partial class MethodsConstructor
     {
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
         private readonly AnalyticsConfigurationProvider _configurationProvider;
-        private readonly MethodsFactoryStruct _selectedMethods;
+        private readonly MethodsStruct _selectedMethods;
 
-        protected MethodsFactoryStruct SelectedMethods => _selectedMethods;
+        protected MethodsStruct SelectedMethods => _selectedMethods;
 
-        public MethodsFactory(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, AnalyticsConfigurationProvider configurationProvider)
+        public MethodsConstructor(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, AnalyticsConfigurationProvider configurationProvider)
         {
             _majorMethods = majorMethods ?? throw new ArgumentNullException(nameof(majorMethods));
             _methodsWithArguments = methodsWithArguments ?? throw new ArgumentNullException(nameof(methodsWithArguments));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
 
-            _selectedMethods = new MethodsFactoryStruct();
+            _selectedMethods = new MethodsStruct();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Analytics.Methods
         /// </summary>
         /// <param name="methodName">Description of the parameter.</param>
         /// <returns>Description of the return value.</returns>
-        public MethodsFactory UseCustomMethod(string methodName)
+        public MethodsConstructor UseCustomMethod(string methodName)
         {
             CustomMethod customMethod = GetCustomMethod(methodName);
 
@@ -41,7 +41,7 @@ namespace Analytics.Methods
             return this;
         }
 
-        public MethodsFactory UseCustomMethod(string methodName, params string[] arguments)
+        public MethodsConstructor UseCustomMethod(string methodName, params string[] arguments)
         {
             CustomMethod customMethod = GetCustomMethod(methodName);
 
@@ -52,127 +52,127 @@ namespace Analytics.Methods
             return this;
         }
 
-        public MethodsFactory SetStringComparison(StringComparison stringComparison)
+        public MethodsConstructor SetStringComparison(StringComparison stringComparison)
         {
             _methodsWithArguments.SetStringComparison(stringComparison);
             return this;
         }
 
-        public MethodsFactory Contains(params string[] strings)
+        public MethodsConstructor Contains(params string[] strings)
         {
             AddMethod(strings, _methodsWithArguments.Contains);
             return this;
         }
 
-        public MethodsFactory Equals(params string[] strings)
+        public MethodsConstructor Equals(params string[] strings)
         {
             AddMethod(strings, _methodsWithArguments.Equals);
             return this;
         }
 
-        public MethodsFactory StartsWith(params string[] strings)
+        public MethodsConstructor StartsWith(params string[] strings)
         {
             AddMethod(strings, _methodsWithArguments.StartsWith);
             return this;
         }
 
-        public MethodsFactory EndsWith(params string[] strings)
+        public MethodsConstructor EndsWith(params string[] strings)
         {
             AddMethod(strings, _methodsWithArguments.EndsWith);
             return this;
         }
 
-        public MethodsFactory Mail()
+        public MethodsConstructor Mail()
         {
             AddMethod(_majorMethods.Mail);
             return this;
         }
 
-        public MethodsFactory Index()
+        public MethodsConstructor Index()
         {
             AddMethod(_majorMethods.Index);
             return this;
         }
 
-        public MethodsFactory Imei()
+        public MethodsConstructor Imei()
         {
             AddMethod(_majorMethods.Imei);
             return this;
         }
 
-        public MethodsFactory Imsi()
+        public MethodsConstructor Imsi()
         {
             AddMethod(_majorMethods.Imsi);
             return this;
         }
 
-        public MethodsFactory File()
+        public MethodsConstructor File()
         {
             AddMethod(_majorMethods.File);
             return this;
         }
 
-        public MethodsFactory Hex()
+        public MethodsConstructor Hex()
         {
             AddMethod(_majorMethods.Hex);
             return this;
         }
 
-        public MethodsFactory Coordinate()
+        public MethodsConstructor Coordinate()
         {
             AddMethod(_majorMethods.Coordinate);
             return this;
         }
 
-        public MethodsFactory Address()
+        public MethodsConstructor Address()
         {
             AddMethod(_majorMethods.Address);
             return this;
         }
 
-        public MethodsFactory Msisdn()
+        public MethodsConstructor Msisdn()
         {
             AddMethod(_majorMethods.Msisdn);
             return this;
         }
 
-        public MethodsFactory Str()
+        public MethodsConstructor Str()
         {
             AddMethod(_majorMethods.Str);
             return this;
         }
 
-        public MethodsFactory Ip()
+        public MethodsConstructor Ip()
         {
             AddMethod(_majorMethods.Ip);
             return this;
         }
 
-        public MethodsFactory Int()
+        public MethodsConstructor Int()
         {
             AddMethod(_majorMethods.Int);
             return this;
         }
 
-        public MethodsFactory Dbl()
+        public MethodsConstructor Dbl()
         {
             AddMethod(_majorMethods.Dbl);
             return this;
         }
 
-        public MethodsFactory Datetime()
+        public MethodsConstructor Datetime()
         {
             AddMethod(_majorMethods.Datetime);
             return this;
         }
 
-        public MethodsFactory Time()
+        public MethodsConstructor Time()
         {
             AddMethod(_majorMethods.Time);
             return this;
         }
 
-        public MethodsFactory Date()
+        public MethodsConstructor Date()
         {
             AddMethod(_majorMethods.Date);
             return this;

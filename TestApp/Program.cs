@@ -8,7 +8,7 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
-            var commonConfiguration = new AnalyticsFactory()
+            var commonConfiguration = new AnalyticsBlock()
                 .Configure(con =>
                 {
                     con.AddMethod(new CustomMethod
@@ -27,13 +27,20 @@ namespace TestApp
                 .EqualsTo(r => r.Ip().Str())
                 .AsAnalyticsConfiguration();
 
-            var analytics = new AnalyticsFactory()
+            var analytics = new AnalyticsBlock()
                 .Configure(config =>
                 {
                     config.ApplyConfiguration(commonConfiguration);
                 });
 
-            AnalyticsResult analyticsResult = analytics.Analysis("Hi, it's just a suggestion.");
+            var text = "Hi, it's just a suggestion.";
+
+            AnalyticsResult analyticsResult = analytics.Analysis(text);
+
+            var test = new AssertionBlock()
+                .Assert(analytics, new AssertionSettings { Name = "Test", Weight = 0.1 });
+
+            var result = test.Proccess(text).ToList();
 
             Console.ReadKey();
         }

@@ -1,30 +1,29 @@
 ﻿using Analytics.Configuration;
 using Analytics.Core;
 using Analytics.Methods;
-using Analytics.Methods.SharedMethods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
 using System.Collections.Concurrent;
 
 namespace Analytics
 {
-    public sealed class AnalyticsFactory : BaseAnalytics
+    public sealed class AnalyticsBlock : BaseAnalytics
     {
-        private readonly List<(Type, MethodsFactoryProvider)> _selectedMethods;
+        private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods;
 
-        public AnalyticsFactory() : base()
+        public AnalyticsBlock() : base()
         {
-            _selectedMethods = new List<(Type, MethodsFactoryProvider)>();
+            _selectedMethods = new List<(Type, MethodsConstructorProvider)>();
         }
 
-        public AnalyticsFactory Configure(Action<AnalyticsConfiguration> configuration)
+        public AnalyticsBlock Configure(Action<AnalyticsConfiguration> configuration)
         {
             configuration(Configuration);
 
             object? settings = ((AnalyticsConfigurationProvider)Configuration).GetSettings();
             if (settings != null)
             {
-                _selectedMethods.AddRange((IEnumerable<(Type, MethodsFactoryProvider)>)settings);
+                _selectedMethods.AddRange((IEnumerable<(Type, MethodsConstructorProvider)>)settings);
             }
 
             return this;
@@ -37,13 +36,13 @@ namespace Analytics
             return Configuration;
         }
 
-        public AnalyticsFactory CheckFor(Action<MethodsFactory> methodFactory)
+        public AnalyticsBlock CheckFor(Action<MethodsConstructor> methodFactory)
         {
             AddToMethodsList<CheckResult>(methodFactory);
             return this;
         }
 
-        public AnalyticsFactory EqualsTo(Action<MethodsFactory> methodFactory)
+        public AnalyticsBlock EqualsTo(Action<MethodsConstructor> methodFactory)
         {
             AddToMethodsList<EqualsResult>(methodFactory);
             return this;
@@ -107,15 +106,15 @@ namespace Analytics
             }
         }
 
-        private void AddToMethodsList<T>(Action<MethodsFactory> methodsFactory)
+        private void AddToMethodsList<T>(Action<MethodsConstructor> methodsConstructor)
         {
-            var factoryProvider = new MethodsFactoryProvider(
+            var factoryProvider = new MethodsConstructorProvider(
                 DefaultDependencies.GetMajorMethods(),
                 DefaultDependencies.GetMethodsWithArguments(),
                 (AnalyticsConfigurationProvider)Configuration
                 );
 
-            methodsFactory(factoryProvider);
+            methodsConstructor(factoryProvider);
 
             _selectedMethods.Add((typeof(T), factoryProvider));
         }

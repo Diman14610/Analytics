@@ -29,7 +29,7 @@ namespace Analytics.Core
         /// <param name="text">Text, sentence, whatever</param>
         /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
         /// <returns>Checked information for each selected method.</returns>
-        protected virtual CheckResult CheckFor(string text, MethodsFactoryProvider methodsFactory)
+        protected virtual CheckResult CheckFor(string text, MethodsConstructorProvider methodsFactory)
         {
             var checkResult = new CheckResult();
 
@@ -44,7 +44,7 @@ namespace Analytics.Core
         /// <param name="text">Text, sentence, whatever</param>
         /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
         /// <returns>Returns the result of checking the selected methods according to a logical condition AND. Also additional information about each selected method.</returns>
-        protected virtual EqualsResult EqualsTo(string text, MethodsFactoryProvider methodsFactory)
+        protected virtual EqualsResult EqualsTo(string text, MethodsConstructorProvider methodsFactory)
         {
             var equalsResult = new EqualsResult();
 
@@ -63,9 +63,9 @@ namespace Analytics.Core
             return equalsResult;
         }
 
-        protected virtual void CallToHandler<ResultType>(string text, MethodsFactoryProvider methodsFactory, ResultType value)
+        protected virtual void CallToHandler<ResultType>(string text, MethodsConstructorProvider methodsFactory, ResultType value)
         {
-            MethodsFactoryStruct selectedMethods = methodsFactory.GetSelectedMethods();
+            MethodsStruct selectedMethods = methodsFactory.GetSelectedMethods();
 
             if (selectedMethods.MajorFactoryMethod.Count > 0)
             {

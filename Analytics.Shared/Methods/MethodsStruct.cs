@@ -2,9 +2,9 @@
 
 namespace Analytics.Shared.Methods
 {
-    public class MethodsFactoryStruct
+    public class MethodsStruct
     {
-        public MethodsFactoryStruct()
+        public MethodsStruct()
         {
             TextFactoryMethod = new List<ArgumentsMethodInfo>();
             MajorFactoryMethod = new List<MajorMethodInfo>();
