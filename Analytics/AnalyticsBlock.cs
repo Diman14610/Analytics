@@ -3,6 +3,7 @@ using Analytics.Core;
 using Analytics.Methods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
+using Analytics.Shared.Core.Analytics;
 using System.Collections.Concurrent;
 
 namespace Analytics

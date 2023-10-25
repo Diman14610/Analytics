@@ -1,14 +1,17 @@
 ﻿using Analytics;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Configuration;
+using Analytics.Shared.Core.Assertion;
 
 namespace TestApp
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var commonConfiguration = new AnalyticsBlock()
+            var exampleText = "Hi, it's just a suggestion.";
+
+            var testBlock = new AnalyticsBlock()
                 .Configure(con =>
                 {
                     con.AddMethod(new CustomMethod
@@ -26,23 +29,12 @@ namespace TestApp
                 .EqualsTo(r => r.Hex())
                 .EqualsTo(r => r.Int())
                 .EqualsTo(r => r.Str().UseCustomMethod("test"))
-                .EqualsTo(r => r.Ip().Str())
-                .AsAnalyticsConfiguration();
-
-            var analytics = new AnalyticsBlock()
-                .Configure(config =>
-                {
-                    config.ApplyConfiguration(commonConfiguration);
-                });
-
-            var exampleText = "Hi, it's just a suggestion.";
-
-            AnalyticsResult analyticsResult = analytics.Analysis(exampleText);
+                .EqualsTo(r => r.Ip().Str());
 
             var test = new AssertionBlock()
-                .Assert(analytics, new AssertionSettings { Name = "Test", Weight = 0.1 });
+                .Assert(testBlock, new AssertionSettings { Name = "Test" });
 
-            var result = test.Proccess(exampleText).ToList();
+            var result = await test.Proccess(exampleText).ConfigureAwait(false);
 
             Console.ReadKey();
         }
