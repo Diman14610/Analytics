@@ -1,4 +1,6 @@
-﻿namespace Analytics.Shared.Analytics
+﻿using Analytics.Shared.Core.Analytics;
+
+namespace Analytics.Shared.Analytics
 {
     public class AnalyticsResult
     {

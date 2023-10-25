@@ -1,8 +1,8 @@
-﻿using Analytics.Shared.Core;
+﻿using Analytics.Shared.Core.Analytics;
 
 namespace Analytics.Shared.Analytics
 {
-    public class EqualsResult : BaseResult
+    public class CheckResult
     {
         public IList<ExtendedMethodInfo> ExtendedMethodInfos { get; } = new List<ExtendedMethodInfo>();
     }

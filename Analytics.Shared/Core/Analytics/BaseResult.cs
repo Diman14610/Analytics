@@ -1,4 +1,4 @@
-﻿namespace Analytics.Shared.Core
+﻿namespace Analytics.Shared.Core.Analytics
 {
     public class BaseResult
     {

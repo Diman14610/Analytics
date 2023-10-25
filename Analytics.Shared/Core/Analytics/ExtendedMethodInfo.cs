@@ -1,6 +1,4 @@
-﻿using Analytics.Shared.Core;
-
-namespace Analytics.Shared.Analytics
+﻿namespace Analytics.Shared.Core.Analytics
 {
     public class ExtendedMethodInfo : BaseResult
     {

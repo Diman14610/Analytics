@@ -3,6 +3,7 @@ using Analytics.Handlers;
 using Analytics.Handlers.Handlers;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
+using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;
 
 namespace Analytics.Root
