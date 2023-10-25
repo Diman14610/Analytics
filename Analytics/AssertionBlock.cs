@@ -1,4 +1,6 @@
-﻿namespace Analytics
+﻿using Analytics.Shared.Analytics;
+
+namespace Analytics
 {
     public class AssertionBlock
     {
@@ -21,71 +23,66 @@
 
             foreach ((AnalyticsBlock factory, AssertionSettings settings) in _factories)
             {
-                var a = factory.Analysis(text);
+                var analyticsResult = factory.Analysis(text);
 
-                if (a.CheckResult.Any())
+                var numberBlocks = 0;
+                var numberMethods = 0;
+
+                var numberSuccessfulBlocks = 0;
+                var numberSuccessfulMethods = 0;
+
+                if (analyticsResult.CheckResult.Any())
                 {
-                    var t = a.CheckResult.SelectMany(s => s.ExtendedMethodInfos.Select(r => r.IsEqual)).ToList();
-                }
-                if (a.EqualsResult.Any())
-                {
-                    var numberSuccessfulBlocks = 0;
-                    var numberBlocks = a.EqualsResult.Count;
+                    numberBlocks += analyticsResult.CheckResult.Count;
 
-                    var numberMethods = 0;
-                    var numberSuccessfulMethods = 0;
-
-                    foreach (var item in a.EqualsResult)
+                    foreach (var block in analyticsResult.CheckResult)
                     {
-                        if (item.IsEqual)
+                        var isAll = block.ExtendedMethodInfos.All(r => r.IsEqual);
+
+                        if (isAll)
                         {
                             numberSuccessfulBlocks++;
                         }
 
-                        numberMethods += item.ExtendedMethodInfos.Count;
-                        numberSuccessfulMethods += item.ExtendedMethodInfos.Count(g => g.IsEqual);
+                        foreach (var method in block.ExtendedMethodInfos)
+                        {
+                            if (method.IsEqual)
+                            {
+                                numberSuccessfulMethods++;
+                            }
+                            numberMethods++;
+                        }
                     }
-
-                    var score = numberSuccessfulBlocks * settings.Weight;
-
-                    var assertionResult = new AssertionResult(
-                    settings.Name,
-                    settings.Weight,
-                    score,
-                    numberMethods,
-                    numberSuccessfulMethods,
-                    numberBlocks,
-                    numberSuccessfulBlocks
-                    );
-
-                    result.Add(assertionResult);
-
-                    //var blocks = a.EqualsResult.Select(s => s.IsEqual).ToList();
-
-                    //var countSuccessfullBlocks = blocks.Count(a => a);
-                    //var numberSuccessfulBlocks = blocks.Where(a => a).Count();
-                    //var numberBlocks = blocks.Count;
-
-                    //var methods = a.EqualsResult
-                    //    .Select(s => s.ExtendedMethodInfos.Select(g => g.IsEqual).ToList())
-                    //    .ToList();
-                    //var numberMethods = methods.Sum(g => g.Count);
-                    //var numberSuccessfulMethods = methods.Sum(g => g.Count(h => h));
-
-                    //var score = countSuccessfullBlocks * settings.Weight;
-
-                    //var assertionResult = new AssertionResult(
-                    //    settings.Name,
-                    //    settings.Weight,
-                    //    score,
-                    //    numberMethods,
-                    //    numberSuccessfulMethods,
-                    //    numberBlocks,
-                    //    numberSuccessfulBlocks
-                    //    );
-
-                    //result.Add(assertionResult);
                 }
+                if (analyticsResult.EqualsResult.Any())
+                {
+                    numberBlocks += analyticsResult.EqualsResult.Count;
+
+                    foreach (var equalsResult in analyticsResult.EqualsResult)
+                    {
+                        if (equalsResult.IsEqual)
+                        {
+                            numberSuccessfulBlocks++;
+                        }
+
+                        numberMethods += equalsResult.ExtendedMethodInfos.Count;
+                        numberSuccessfulMethods += equalsResult.ExtendedMethodInfos.Count(g => g.IsEqual);
+                    }
+                }
+
+                var score = settings.WeightFunc == null ? numberSuccessfulBlocks * settings.Weight : settings.WeightFunc(numberSuccessfulBlocks, settings);
+
+                var assertionResult = new AssertionResult(
+                settings.Name,
+                settings.Weight,
+                score,
+                numberMethods,
+                numberSuccessfulMethods,
+                numberBlocks,
+                numberSuccessfulBlocks
+                );
+
+                result.Add(assertionResult);
             }
 
             return result;
@@ -127,6 +124,6 @@
 
         public double Weight { get; set; }
 
-        public Func<double, double>? WeightFunc { get; set; }
+        public Func<int, AssertionSettings, double>? WeightFunc { get; set; }
     }
 }
