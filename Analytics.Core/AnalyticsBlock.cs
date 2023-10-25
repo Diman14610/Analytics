@@ -1,14 +1,14 @@
 ﻿using Analytics.Configuration;
-using Analytics.Core;
+using Analytics.Core.Abstractions;
 using Analytics.Methods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using System.Collections.Concurrent;
 
-namespace Analytics
+namespace Analytics.Core
 {
-    public sealed class AnalyticsBlock : BaseAnalytics
+    public class AnalyticsBlock : BaseAnalytics
     {
         private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods;
 
@@ -20,21 +20,21 @@ namespace Analytics
         public AnalyticsBlock Configure(Action<AnalyticsConfiguration> configuration)
         {
             configuration(Configuration);
-
-            object? settings = ((AnalyticsConfigurationProvider)Configuration).GetSettings();
-            if (settings != null)
-            {
-                _selectedMethods.AddRange((IEnumerable<(Type, MethodsConstructorProvider)>)settings);
-            }
-
             return this;
         }
 
         public AnalyticsConfiguration AsAnalyticsConfiguration()
         {
-            var configurationProvider = (AnalyticsConfigurationProvider)Configuration;
-            configurationProvider.SaveSettings(_selectedMethods);
             return Configuration;
+        }
+
+        public AnalyticsBlock CopyBlocks(params AnalyticsBlock[] analyticsBlocks)
+        {
+            foreach (var analyticsBlock in analyticsBlocks)
+            {
+                _selectedMethods.AddRange(analyticsBlock._selectedMethods);
+            }
+            return this;
         }
 
         public AnalyticsBlock CheckFor(Action<MethodsConstructor> methodFactory)

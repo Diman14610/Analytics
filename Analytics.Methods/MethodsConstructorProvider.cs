@@ -4,7 +4,7 @@ using Analytics.Shared.Methods;
 
 namespace Analytics.Methods
 {
-    public class MethodsConstructorProvider : MethodsConstructor
+    public sealed class MethodsConstructorProvider : MethodsConstructor
     {
         public MethodsConstructorProvider(
             MajorMethods majorMethods,

@@ -6,7 +6,7 @@ using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;
 
-namespace Analytics.Core
+namespace Analytics.Core.Abstractions
 {
     public abstract class BaseAnalytics
     {

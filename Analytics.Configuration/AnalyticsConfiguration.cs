@@ -1,4 +1,5 @@
 ﻿using Analytics.Shared.Configuration;
+using Analytics.Shared.Core.Assertion;
 
 namespace Analytics.Configuration
 {
@@ -6,7 +7,7 @@ namespace Analytics.Configuration
     {
         protected List<CustomMethod> CustomMethods { get; set; } = new List<CustomMethod>();
 
-        protected object? Settings { get; set; }
+        protected AssertionSettings? AssertionSettings { get; set; }
 
         public void AddMethod(CustomMethod method)
         {
@@ -20,8 +21,17 @@ namespace Analytics.Configuration
 
         public void ApplyConfiguration(AnalyticsConfiguration other)
         {
-            Settings = other.Settings;
             CustomMethods.AddRange(other.CustomMethods);
+        }
+
+        public void Assert(AssertionSettings assertionSettings)
+        {
+            AssertionSettings = assertionSettings;
+        }
+
+        public void Assert(string assertionName)
+        {
+            AssertionSettings = new AssertionSettings { Name = assertionName };
         }
     }
 }

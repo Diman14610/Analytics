@@ -2,7 +2,7 @@
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Core.Assertion;
 
-namespace Analytics.Core
+namespace Analytics.Core.Abstractions
 {
     public abstract class BaseAssertion
     {
@@ -50,7 +50,7 @@ namespace Analytics.Core
             return assertionResult;
         }
 
-        protected void HandleCheckResult(
+        protected virtual void HandleCheckResult(
             IList<CheckResult> checkResults,
             ref int numberBlocks,
             ref int numberSuccessfulBlocks,
@@ -79,7 +79,7 @@ namespace Analytics.Core
             }
         }
 
-        protected void HandleEqualsResult(
+        protected virtual void HandleEqualsResult(
             IList<EqualsResult> equalsResults,
             ref int numberBlocks,
             ref int numberSuccessfulBlocks,

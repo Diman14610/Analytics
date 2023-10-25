@@ -60,13 +60,6 @@ namespace Analytics.Methods.SharedMethods
             SetRegex(value, @"^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$");
 
         /// <summary>
-        /// Checks <paramref name="value"/> for matching the address.
-        /// Checks in <paramref name="value"/> the presence of: st., d., g., region.
-        /// </summary>
-        public bool Address(string value) =>
-            SetRegex(value, @"(ул\.)|(д\.)|(г\.)|(обл\.)");
-
-        /// <summary>
         /// Checks <paramref name="value"/> for msisdn compliance
         /// </summary>
         public bool Msisdn(string value) =>

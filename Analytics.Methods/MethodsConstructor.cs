@@ -124,12 +124,6 @@ namespace Analytics.Methods
             return this;
         }
 
-        public MethodsConstructor Address()
-        {
-            AddMethod(_majorMethods.Address);
-            return this;
-        }
-
         public MethodsConstructor Msisdn()
         {
             AddMethod(_majorMethods.Msisdn);

@@ -1,22 +1,18 @@
 ﻿using Analytics.Shared.Configuration;
+using Analytics.Shared.Core.Assertion;
 
 namespace Analytics.Configuration
 {
-    public class AnalyticsConfigurationProvider : AnalyticsConfiguration
+    public sealed class AnalyticsConfigurationProvider : AnalyticsConfiguration
     {
         public IEnumerable<CustomMethod> GetCustomMethods()
         {
             return CustomMethods;
         }
 
-        public void SaveSettings(object settings)
+        public AssertionSettings? GetAssertionSettings()
         {
-            Settings = settings;
-        }
-
-        public object? GetSettings()
-        {
-            return Settings;
+            return AssertionSettings;
         }
     }
 }
