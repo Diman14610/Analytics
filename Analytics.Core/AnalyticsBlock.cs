@@ -99,30 +99,30 @@ namespace Analytics.Core
 
         private void HandleAnalytics(string text, AnalyticsResult analyticsResult)
         {
-            foreach ((Type type, MethodsConstructorProvider methods) in _selectedMethods)
+            foreach ((Type methodType, MethodsConstructorProvider methodsProvider) in _selectedMethods)
             {
-                if (type == typeof(CheckResult))
+                if (methodType == typeof(CheckResult))
                 {
-                    analyticsResult.CheckResult.Add(CheckFor(text, methods));
+                    analyticsResult.CheckResult.Add(CheckFor(text, methodsProvider));
                 }
-                else if (type == typeof(EqualsResult))
+                else if (methodType == typeof(EqualsResult))
                 {
-                    analyticsResult.EqualsResult.Add(EqualsTo(text, methods));
+                    analyticsResult.EqualsResult.Add(EqualsTo(text, methodsProvider));
                 }
             }
         }
 
         private void AddToMethodsList<T>(Action<MethodsConstructor> methodsConstructor)
         {
-            var factoryProvider = new MethodsConstructorProvider(
+            var methodsProvider = new MethodsConstructorProvider(
                 _majorMethods,
                 new MethodsWithArguments(),
                 (AnalyticsConfigurationProvider)Configuration
                 );
 
-            methodsConstructor(factoryProvider);
+            methodsConstructor(methodsProvider);
 
-            _selectedMethods.Add((typeof(T), factoryProvider));
+            _selectedMethods.Add((typeof(T), methodsProvider));
         }
     }
 }

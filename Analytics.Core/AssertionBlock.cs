@@ -22,16 +22,16 @@ namespace Analytics.Core
             }
 
             IEnumerable<Task<AssertionResult>> assertionsTasks = _assertions
-                .Select(((AnalyticsBlock factory, AssertionSettings settings) item) => GetAssertionResult(item.factory, item.settings, text));
+                .Select(((AnalyticsBlock analytics, AssertionSettings settings) item) => GetAssertionResult(item.analytics, item.settings, text));
 
             return Task.WhenAll(assertionsTasks);
         }
 
-        private Task<AssertionResult> GetAssertionResult(AnalyticsBlock factory, AssertionSettings settings, string text)
+        private Task<AssertionResult> GetAssertionResult(AnalyticsBlock analytics, AssertionSettings settings, string text)
         {
-            AnalyticsResult analyticsResult = factory.Analysis(text);
-            AssertionResult result = Explore(analyticsResult, settings);
-            return Task.FromResult(result);
+            AnalyticsResult analyticsResult = analytics.Analysis(text);
+            AssertionResult assertionResult = Explore(analyticsResult, settings);
+            return Task.FromResult(assertionResult);
         }
     }
 }

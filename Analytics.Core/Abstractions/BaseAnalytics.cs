@@ -29,31 +29,31 @@ namespace Analytics.Core.Abstractions
         }
 
         /// <summary>
-        /// Checks the selected methods from the <paramref name="methodsFactory"/> for compliance with the <paramref name="text"/>.
+        /// Checks the selected methods from the <paramref name="methodsProvider"/> for compliance with the <paramref name="text"/>.
         /// </summary>
         /// <param name="text">Text, sentence, whatever</param>
-        /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
+        /// <param name="methodsProvider">Method factory, to get selected methods for text analysis</param>
         /// <returns>Checked information for each selected method.</returns>
-        protected virtual CheckResult CheckFor(string text, MethodsConstructorProvider methodsFactory)
+        protected virtual CheckResult CheckFor(string text, MethodsConstructorProvider methodsProvider)
         {
             var checkResult = new CheckResult();
 
-            CallToHandler(text, methodsFactory, checkResult);
+            CallToHandler(text, methodsProvider, checkResult);
 
             return checkResult;
         }
 
         /// <summary>
-        /// Compares the <paramref name="text"/> with the selected methods from the <paramref name="methodsFactory"/>. Applies logical comparison AND
+        /// Compares the <paramref name="text"/> with the selected methods from the <paramref name="methodsProvider"/>. Applies logical comparison AND
         /// </summary>
         /// <param name="text">Text, sentence, whatever</param>
-        /// <param name="methodsFactory">Method factory, to get selected methods for text analysis</param>
+        /// <param name="methodsProvider">Method factory, to get selected methods for text analysis</param>
         /// <returns>Returns the result of checking the selected methods according to a logical condition AND. Also additional information about each selected method.</returns>
-        protected virtual EqualsResult EqualsTo(string text, MethodsConstructorProvider methodsFactory)
+        protected virtual EqualsResult EqualsTo(string text, MethodsConstructorProvider methodsProvider)
         {
             var equalsResult = new EqualsResult();
 
-            CallToHandler(text, methodsFactory, equalsResult);
+            CallToHandler(text, methodsProvider, equalsResult);
 
             try
             {
@@ -68,9 +68,9 @@ namespace Analytics.Core.Abstractions
             return equalsResult;
         }
 
-        protected virtual void CallToHandler<ResultType>(string text, MethodsConstructorProvider methodsFactory, ResultType value)
+        protected virtual void CallToHandler<ResultType>(string text, MethodsConstructorProvider methodsProvider, ResultType value)
         {
-            MethodsStruct selectedMethods = methodsFactory.GetSelectedMethods();
+            MethodsStruct selectedMethods = methodsProvider.GetSelectedMethods();
 
             if (selectedMethods.MajorFactoryMethod.Count > 0)
             {
