@@ -10,8 +10,8 @@ namespace Analytics.Core.Abstractions
 {
     public abstract class BaseAnalytics
     {
+        private readonly IHandlersManager _handlersManager;
         private readonly AnalyticsConfigurationProvider _configuration = new();
-        protected readonly IHandlersManager _handlersManager;
 
         public AnalyticsConfiguration Configuration
         {

@@ -2,7 +2,7 @@
 using Analytics.Core.Abstractions;
 using Analytics.Handlers;
 using Analytics.Methods;
-using Analytics.Root;
+using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using System.Collections.Concurrent;
@@ -11,6 +11,7 @@ namespace Analytics.Core
 {
     public sealed class AnalyticsBlock : BaseAnalytics
     {
+        private readonly MajorMethods _majorMethods = new();
         private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods = new();
 
         public AnalyticsBlock()
@@ -55,7 +56,7 @@ namespace Analytics.Core
 
         public AnalyticsResult Analysis(string word)
         {
-            var analyticsResult = new AnalyticsResult(word);
+            var analyticsResult = new AnalyticsResult();
 
             HandleAnalytics(word, analyticsResult);
 
@@ -98,15 +99,15 @@ namespace Analytics.Core
 
         private void HandleAnalytics(string text, AnalyticsResult analyticsResult)
         {
-            foreach (var (type, textFactory) in _selectedMethods)
+            foreach ((Type type, MethodsConstructorProvider methods) in _selectedMethods)
             {
                 if (type == typeof(CheckResult))
                 {
-                    analyticsResult.CheckResult.Add(CheckFor(text, textFactory));
+                    analyticsResult.CheckResult.Add(CheckFor(text, methods));
                 }
                 else if (type == typeof(EqualsResult))
                 {
-                    analyticsResult.EqualsResult.Add(EqualsTo(text, textFactory));
+                    analyticsResult.EqualsResult.Add(EqualsTo(text, methods));
                 }
             }
         }
@@ -114,8 +115,8 @@ namespace Analytics.Core
         private void AddToMethodsList<T>(Action<MethodsConstructor> methodsConstructor)
         {
             var factoryProvider = new MethodsConstructorProvider(
-                DefaultDependencies.GetMajorMethods(),
-                DefaultDependencies.GetMethodsWithArguments(),
+                _majorMethods,
+                new MethodsWithArguments(),
                 (AnalyticsConfigurationProvider)Configuration
                 );
 

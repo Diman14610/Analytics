@@ -4,14 +4,11 @@ namespace Analytics.Shared.Core.Analytics
 {
     public class AnalyticsResult
     {
-        public AnalyticsResult(string? text)
+        public AnalyticsResult()
         {
-            Text = text;
             CheckResult = new List<CheckResult>();
             EqualsResult = new List<EqualsResult>();
         }
-
-        public string? Text { get; }
 
         public IList<CheckResult> CheckResult { get; }
 
