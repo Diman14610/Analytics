@@ -38,23 +38,23 @@ namespace Analytics
             return this;
         }
 
-        public async Task<ComparatorResult> GetBestMatch(string text)
+        public async Task<ComparisonResult> GetBestMatch(string text)
         {
             AssertionResult[] assertionsResults = await _assertionBlock.Proccess(text).ConfigureAwait(false);
 
-            var isNumberSuccessfulBlocks = _comparatorSettings.ComparisonPriority == ComparisonPriority.NumberSuccessfulBlocks;
+            var isBlocksSelected = _comparatorSettings.ComparisonPriority == ComparisonPriority.NumberSuccessfulBlocks;
 
             AssertionResult? firstSortedAssertion = assertionsResults
-                .OrderByDescending(assertion => isNumberSuccessfulBlocks ? assertion.NumberSuccessfulMethods : assertion.Weight)
-                .ThenByDescending(assertion => isNumberSuccessfulBlocks ? assertion.Weight : assertion.NumberSuccessfulMethods)
+                .OrderByDescending(assertion => isBlocksSelected ? assertion.NumberSuccessfulMethods : assertion.Weight)
+                .ThenByDescending(assertion => isBlocksSelected ? assertion.Weight : assertion.NumberSuccessfulMethods)
                 .FirstOrDefault();
 
             if (firstSortedAssertion == null)
             {
-                return new ComparatorResult(string.Empty, 0, 0, _comparatorSettings.ComparisonPriority);
+                return new ComparisonResult(string.Empty, 0, 0, _comparatorSettings.ComparisonPriority);
             }
 
-            return new ComparatorResult(
+            return new ComparisonResult(
                 firstSortedAssertion.Name,
                 firstSortedAssertion.Score,
                 firstSortedAssertion.NumberSuccessfulBlocks,

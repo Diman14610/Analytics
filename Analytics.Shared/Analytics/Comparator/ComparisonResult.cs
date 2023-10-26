@@ -1,8 +1,8 @@
 ﻿namespace Analytics.Shared.Analytics.Comparator
 {
-    public class ComparatorResult
+    public class ComparisonResult
     {
-        public ComparatorResult(string assertionName, double score, int numberSuccessfulBlocks, ComparisonPriority comparisonMode)
+        public ComparisonResult(string assertionName, double score, int numberSuccessfulBlocks, ComparisonPriority comparisonMode)
         {
             AssertionName = assertionName;
             Score = score;
