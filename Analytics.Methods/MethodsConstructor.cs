@@ -12,17 +12,17 @@ namespace Analytics.Methods
         private readonly MajorMethods _majorMethods;
         private readonly MethodsWithArguments _methodsWithArguments;
         private readonly AnalyticsConfigurationProvider _configurationProvider;
-        private readonly MethodsStruct _selectedMethods;
 
-        protected MethodsStruct SelectedMethods => _selectedMethods;
+        protected MethodsStruct SelectedMethods { get; } = new MethodsStruct();
 
-        public MethodsConstructor(MajorMethods majorMethods, MethodsWithArguments methodsWithArguments, AnalyticsConfigurationProvider configurationProvider)
+        public MethodsConstructor(
+            MajorMethods majorMethods,
+            MethodsWithArguments methodsWithArguments,
+            AnalyticsConfigurationProvider configurationProvider)
         {
             _majorMethods = majorMethods ?? throw new ArgumentNullException(nameof(majorMethods));
             _methodsWithArguments = methodsWithArguments ?? throw new ArgumentNullException(nameof(methodsWithArguments));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
-
-            _selectedMethods = new MethodsStruct();
         }
 
         /// <summary>
@@ -186,12 +186,12 @@ namespace Analytics.Methods
 
         private void AddMethod(Func<string, bool> func, string? methodName = null)
         {
-            _selectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(methodName ?? func.Method.Name, func));
+            SelectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(methodName ?? func.Method.Name, func));
         }
 
         private void AddMethod(string[] arguments, Func<string, string[], bool> func, string? methodName = null)
         {
-            _selectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, arguments, func));
+            SelectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, arguments, func));
         }
     }
 }

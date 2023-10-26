@@ -10,7 +10,7 @@ namespace Analytics.Core.Abstractions
 {
     public abstract class BaseAnalytics
     {
-        private readonly AnalyticsConfigurationProvider _configuration;
+        private readonly AnalyticsConfigurationProvider _configuration = new();
         protected readonly IHandlersManager _handlersManager;
 
         public AnalyticsConfiguration Configuration
@@ -21,7 +21,11 @@ namespace Analytics.Core.Abstractions
         public BaseAnalytics()
         {
             _handlersManager = DefaultDependencies.GetHandlersManager();
-            _configuration = DefaultDependencies.GetAnalyticsConfigurationProvider();
+        }
+
+        public BaseAnalytics(IHandlersManager handlersManager)
+        {
+            _handlersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
         }
 
         /// <summary>

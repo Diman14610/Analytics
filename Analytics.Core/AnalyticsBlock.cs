@@ -1,5 +1,6 @@
 ﻿using Analytics.Configuration;
 using Analytics.Core.Abstractions;
+using Analytics.Handlers;
 using Analytics.Methods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
@@ -8,13 +9,16 @@ using System.Collections.Concurrent;
 
 namespace Analytics.Core
 {
-    public class AnalyticsBlock : BaseAnalytics
+    public sealed class AnalyticsBlock : BaseAnalytics
     {
-        private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods;
+        private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods = new();
 
-        public AnalyticsBlock() : base()
+        public AnalyticsBlock()
         {
-            _selectedMethods = new List<(Type, MethodsConstructorProvider)>();
+        }
+
+        public AnalyticsBlock(IHandlersManager handlersManager) : base(handlersManager)
+        {
         }
 
         public AnalyticsBlock Configure(Action<AnalyticsConfiguration> configuration)

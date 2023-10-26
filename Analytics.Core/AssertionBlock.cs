@@ -4,14 +4,9 @@ using Analytics.Shared.Core.Assertion;
 
 namespace Analytics.Core
 {
-    public class AssertionBlock : BaseAssertion
+    public sealed class AssertionBlock : BaseAssertion
     {
-        private readonly IList<(AnalyticsBlock, AssertionSettings)> _assertions;
-
-        public AssertionBlock()
-        {
-            _assertions = new List<(AnalyticsBlock, AssertionSettings)>();
-        }
+        private readonly List<(AnalyticsBlock, AssertionSettings)> _assertions = new();
 
         public AssertionBlock Assert(AnalyticsBlock analyticsBlock, AssertionSettings settings)
         {
@@ -21,7 +16,7 @@ namespace Analytics.Core
 
         public Task<AssertionResult[]> Proccess(string text)
         {
-            if (!_assertions.Any())
+            if (_assertions.Count == 0)
             {
                 throw new ArgumentOutOfRangeException("The number of assertions is zero");
             }

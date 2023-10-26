@@ -1,5 +1,4 @@
-﻿using Analytics.Configuration;
-using Analytics.Handlers;
+﻿using Analytics.Handlers;
 using Analytics.Handlers.Handlers;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
@@ -22,11 +21,6 @@ namespace Analytics.Root
         public static IHandlersManager GetHandlersManager()
         {
             return _handlersManager;
-        }
-
-        public static AnalyticsConfigurationProvider GetAnalyticsConfigurationProvider()
-        {
-            return new AnalyticsConfigurationProvider();
         }
 
         public static MajorMethods GetMajorMethods()

@@ -5,9 +5,9 @@ namespace Analytics.Configuration
 {
     public class AnalyticsConfiguration
     {
-        protected List<CustomMethod> CustomMethods { get; set; } = new List<CustomMethod>();
+        protected List<CustomMethod> CustomMethods { get; } = new();
 
-        protected AssertionSettings? AssertionSettings { get; set; }
+        protected AssertionSettings? AssertionSettings { get; private set; }
 
         public void AddMethod(CustomMethod method)
         {

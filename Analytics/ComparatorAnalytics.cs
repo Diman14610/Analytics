@@ -7,12 +7,11 @@ namespace Analytics
 {
     public class ComparatorAnalytics
     {
-        protected AssertionBlock _assertionBlock;
+        protected AssertionBlock _assertionBlock = new();
         protected ComparatorSettings _comparatorSettings;
 
         public ComparatorAnalytics(ComparatorSettings? comparatorSettings = null)
         {
-            _assertionBlock = new AssertionBlock();
             _comparatorSettings = comparatorSettings ?? new ComparatorSettings();
         }
 
