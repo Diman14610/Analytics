@@ -112,7 +112,7 @@ namespace Analytics.Core
             }
         }
 
-        private void AddToMethodsList<T>(Action<MethodsConstructor> methodsConstructor)
+        private void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructor)
         {
             var methodsProvider = new MethodsConstructorProvider(
                 _majorMethods,
@@ -122,7 +122,7 @@ namespace Analytics.Core
 
             methodsConstructor(methodsProvider);
 
-            _selectedMethods.Add((typeof(T), methodsProvider));
+            _selectedMethods.Add((typeof(MethodType), methodsProvider));
         }
     }
 }
