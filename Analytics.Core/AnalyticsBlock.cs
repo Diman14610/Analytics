@@ -22,9 +22,9 @@ namespace Analytics.Core
         {
         }
 
-        public AnalyticsBlock Configure(Action<AnalyticsConfiguration> configuration)
+        public AnalyticsBlock Configure(Action<AnalyticsConfiguration> configurationOutside)
         {
-            configuration(Configuration);
+            configurationOutside(Configuration);
             return this;
         }
 
@@ -112,7 +112,7 @@ namespace Analytics.Core
             }
         }
 
-        private void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructorAction)
+        private void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructorOutside)
         {
             var methodsProvider = new MethodsConstructorProvider(
                 _regularMethods,
@@ -120,7 +120,7 @@ namespace Analytics.Core
                 (AnalyticsConfigurationProvider)Configuration
                 );
 
-            methodsConstructorAction(methodsProvider);
+            methodsConstructorOutside(methodsProvider);
 
             _selectedMethods.Add((typeof(MethodType), methodsProvider));
         }
