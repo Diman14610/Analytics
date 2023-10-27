@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Analytics.Methods.SharedMethods
 {
-    public partial class MajorMethods
+    public partial class RegularMethods
     {
         /// <summary>
         /// Optimization of regular expressions

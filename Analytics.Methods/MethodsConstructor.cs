@@ -9,15 +9,15 @@ namespace Analytics.Methods
 {
     public partial class MethodsConstructor
     {
-        private readonly MajorMethods _majorMethods;
-        private readonly MethodsWithArguments _methodsWithArguments;
+        private readonly RegularMethods _majorMethods;
+        private readonly StringMethods _methodsWithArguments;
         private readonly AnalyticsConfigurationProvider _configurationProvider;
 
-        protected MethodsStruct SelectedMethods { get; } = new MethodsStruct();
+        protected MethodsStorage SelectedMethods { get; } = new MethodsStorage();
 
         public MethodsConstructor(
-            MajorMethods majorMethods,
-            MethodsWithArguments methodsWithArguments,
+            RegularMethods majorMethods,
+            StringMethods methodsWithArguments,
             AnalyticsConfigurationProvider configurationProvider)
         {
             _majorMethods = majorMethods ?? throw new ArgumentNullException(nameof(majorMethods));
@@ -186,12 +186,12 @@ namespace Analytics.Methods
 
         private void AddMethod(Func<string, bool> func, string? methodName = null)
         {
-            SelectedMethods.MajorFactoryMethod.Add(new MajorMethodInfo(methodName ?? func.Method.Name, func));
+            SelectedMethods.RegularsMethodsInfos.Add(new RegularMethodInfo(methodName ?? func.Method.Name, func));
         }
 
         private void AddMethod(string[] arguments, Func<string, string[], bool> func, string? methodName = null)
         {
-            SelectedMethods.TextFactoryMethod.Add(new ArgumentsMethodInfo(methodName ?? func.Method.Name, arguments, func));
+            SelectedMethods.StringsMethodsInfos.Add(new StringMethodInfo(methodName ?? func.Method.Name, arguments, func));
         }
     }
 }

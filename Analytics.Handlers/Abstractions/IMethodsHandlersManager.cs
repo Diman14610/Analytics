@@ -1,6 +1,6 @@
-﻿namespace Analytics.Handlers
+﻿namespace Analytics.Handlers.Abstractions
 {
-    public interface IHandlersManager
+    public interface IMethodsHandlersManager
     {
         /// <summary>
         /// Handles the specified text using a collection of functions and updates the result.

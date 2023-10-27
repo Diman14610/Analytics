@@ -1,5 +1,5 @@
 ﻿using Analytics.Configuration;
-using Analytics.Handlers;
+using Analytics.Handlers.Abstractions;
 using Analytics.Methods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
@@ -10,7 +10,7 @@ namespace Analytics.Core.Abstractions
 {
     public abstract class BaseAnalytics
     {
-        private readonly IHandlersManager _handlersManager;
+        private readonly IEnumerable<IMethodsStorageHandler> _methodsStorageHandlers;
         private readonly AnalyticsConfigurationProvider _configuration = new();
 
         public AnalyticsConfiguration Configuration
@@ -20,12 +20,12 @@ namespace Analytics.Core.Abstractions
 
         public BaseAnalytics()
         {
-            _handlersManager = DefaultDependencies.GetHandlersManager();
+            _methodsStorageHandlers = DefaultDependencies.MethodsStorageHandlers;
         }
 
-        public BaseAnalytics(IHandlersManager handlersManager)
+        public BaseAnalytics(IEnumerable<IMethodsStorageHandler> methodsInfosHandlers)
         {
-            _handlersManager = handlersManager ?? throw new ArgumentNullException(nameof(handlersManager));
+            _methodsStorageHandlers = methodsInfosHandlers ?? throw new ArgumentNullException(nameof(methodsInfosHandlers));
         }
 
         /// <summary>
@@ -70,15 +70,11 @@ namespace Analytics.Core.Abstractions
 
         protected virtual void CallToHandler<ResultType>(string text, MethodsConstructorProvider methodsProvider, ResultType value)
         {
-            MethodsStruct selectedMethods = methodsProvider.GetSelectedMethods();
+            MethodsStorage selectedMethods = methodsProvider.GetSelectedMethods();
 
-            if (selectedMethods.MajorFactoryMethod.Count > 0)
+            foreach (IMethodsStorageHandler methodsStorageHandler in _methodsStorageHandlers)
             {
-                _handlersManager.Handle(text, selectedMethods.MajorFactoryMethod, ref value);
-            }
-            if (selectedMethods.TextFactoryMethod.Count > 0)
-            {
-                _handlersManager.Handle(text, selectedMethods.TextFactoryMethod, ref value);
+                methodsStorageHandler.Handle(text, selectedMethods, ref value);
             }
         }
     }

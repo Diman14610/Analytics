@@ -1,10 +1,10 @@
 ﻿namespace Analytics.Methods.SharedMethods
 {
-    public partial class MethodsWithArguments
+    public partial class StringMethods
     {
         protected StringComparison comparison;
 
-        public MethodsWithArguments()
+        public StringMethods()
         {
             comparison = StringComparison.Ordinal;
         }

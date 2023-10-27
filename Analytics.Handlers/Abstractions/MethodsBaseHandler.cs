@@ -1,6 +1,6 @@
-﻿namespace Analytics.Handlers.Handlers
+﻿namespace Analytics.Handlers.Abstractions
 {
-    public abstract class BaseHandler<RT, FT>
+    public abstract class MethodsBaseHandler<RT, FT>
     {
         // Property to get the Type of the Return Value (RT) of the handler.
         public Type ReturnType => typeof(RT);

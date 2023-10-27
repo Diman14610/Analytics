@@ -1,8 +1,8 @@
 ﻿namespace Analytics.Shared.Methods
 {
-    public class MajorMethodInfo : MethodInfo
+    public class RegularMethodInfo : MethodInfo
     {
-        public MajorMethodInfo(string methodName, Func<string, bool> func) : base(methodName)
+        public RegularMethodInfo(string methodName, Func<string, bool> func) : base(methodName)
         {
             Func = func;
         }

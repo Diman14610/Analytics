@@ -1,6 +1,6 @@
 ﻿using Analytics.Configuration;
 using Analytics.Core.Abstractions;
-using Analytics.Handlers;
+using Analytics.Handlers.Abstractions;
 using Analytics.Methods;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
@@ -11,14 +11,14 @@ namespace Analytics.Core
 {
     public sealed class AnalyticsBlock : BaseAnalytics
     {
-        private readonly MajorMethods _majorMethods = new();
+        private readonly RegularMethods _regularMethods = new();
         private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods = new();
 
         public AnalyticsBlock()
         {
         }
 
-        public AnalyticsBlock(IHandlersManager handlersManager) : base(handlersManager)
+        public AnalyticsBlock(IEnumerable<IMethodsStorageHandler> methodsInfosHandlers) : base(methodsInfosHandlers)
         {
         }
 
@@ -112,15 +112,15 @@ namespace Analytics.Core
             }
         }
 
-        private void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructor)
+        private void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructorAction)
         {
             var methodsProvider = new MethodsConstructorProvider(
-                _majorMethods,
-                new MethodsWithArguments(),
+                _regularMethods,
+                new StringMethods(),
                 (AnalyticsConfigurationProvider)Configuration
                 );
 
-            methodsConstructor(methodsProvider);
+            methodsConstructorAction(methodsProvider);
 
             _selectedMethods.Add((typeof(MethodType), methodsProvider));
         }

@@ -1,23 +1,23 @@
-﻿using Analytics.Shared.Analytics;
+﻿using Analytics.Handlers.Abstractions;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;
 
-namespace Analytics.Handlers.Handlers
+namespace Analytics.Handlers.Handlers.MethodsHandler
 {
-    public class MajorMethodsEqualsHandler : BaseHandler<EqualsResult, MajorMethodInfo>
+    public class RegularMethodsHandlerByEquals : MethodsBaseHandler<EqualsResult, RegularMethodInfo>
     {
-        public override void Handle(string text, IEnumerable<MajorMethodInfo> methods, ref EqualsResult result)
+        public override void Handle(string text, IEnumerable<RegularMethodInfo> methods, ref EqualsResult result)
         {
-            foreach (var item in methods)
+            foreach (var method in methods)
             {
                 var methodInfo = new ExtendedMethodInfo
                 {
-                    MethodName = item.MethodName
+                    MethodName = method.MethodName
                 };
 
                 try
                 {
-                    methodInfo.IsEqual = item.Func(text);
+                    methodInfo.IsEqual = method.Func(text);
                 }
                 catch (Exception ex)
                 {

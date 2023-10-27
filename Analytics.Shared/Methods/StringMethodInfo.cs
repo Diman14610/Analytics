@@ -2,9 +2,9 @@
 
 namespace Analytics.Shared.Analytics
 {
-    public class ArgumentsMethodInfo : MethodInfo
+    public class StringMethodInfo : MethodInfo
     {
-        public ArgumentsMethodInfo(string methodName, IEnumerable<string> arguments, Func<string, string[], bool> func) : base(methodName)
+        public StringMethodInfo(string methodName, IEnumerable<string> arguments, Func<string, string[], bool> func) : base(methodName)
         {
             Arguments = arguments;
             Func = func;

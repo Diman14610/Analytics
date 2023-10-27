@@ -7,10 +7,10 @@ namespace Analytics.Methods
     public sealed class MethodsConstructorProvider : MethodsConstructor
     {
         public MethodsConstructorProvider(
-            MajorMethods majorMethods,
-            MethodsWithArguments methodsWithArguments,
+            RegularMethods majorMethods,
+            StringMethods methodsWithArguments,
             AnalyticsConfigurationProvider configurationProvider) : base(majorMethods, methodsWithArguments, configurationProvider) { }
 
-        public MethodsStruct GetSelectedMethods() => SelectedMethods;
+        public MethodsStorage GetSelectedMethods() => SelectedMethods;
     }
 }

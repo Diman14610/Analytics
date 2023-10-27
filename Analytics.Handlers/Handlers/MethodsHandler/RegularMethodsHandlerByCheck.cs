@@ -1,12 +1,13 @@
-﻿using Analytics.Shared.Analytics;
+﻿using Analytics.Handlers.Abstractions;
+using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;
 
-namespace Analytics.Handlers.Handlers
+namespace Analytics.Handlers.Handlers.MethodsHandler
 {
-    public class MajorMethodsCheckHandler : BaseHandler<CheckResult, MajorMethodInfo>
+    public class RegularMethodsHandlerByCheck : MethodsBaseHandler<CheckResult, RegularMethodInfo>
     {
-        public override void Handle(string text, IEnumerable<MajorMethodInfo> methods, ref CheckResult result)
+        public override void Handle(string text, IEnumerable<RegularMethodInfo> methods, ref CheckResult result)
         {
             foreach (var method in methods)
             {
