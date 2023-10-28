@@ -1,5 +1,6 @@
 ﻿using Analytics.Configuration;
 using Analytics.Core.Abstractions;
+using Analytics.Handlers.Abstractions.MethodsStorageHandler;
 using Analytics.Methods;
 using Analytics.Methods.SharedMethods;
 using Analytics.Shared.Analytics;
@@ -12,6 +13,14 @@ namespace Analytics.Core
     {
         private readonly RegularMethods _regularMethods = new();
         private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods = new();
+
+        public AnalyticsBlock()
+        {
+        }
+
+        public AnalyticsBlock(IMethodsStorageHandler methodsStorageHandler) : base(methodsStorageHandler)
+        {
+        }
 
         public AnalyticsBlock Configure(Action<AnalyticsConfiguration> configurationOutside)
         {
