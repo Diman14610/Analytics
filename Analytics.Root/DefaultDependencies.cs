@@ -3,7 +3,7 @@ using Analytics.Handlers.Abstractions.MethodsStorageHandler;
 using Analytics.Handlers.Abstractions.ResultHandler;
 using Analytics.Handlers.Handlers.AnalyticsResultHandler;
 using Analytics.Handlers.Handlers.MethodsHandler;
-using Analytics.Handlers.Handlers.MethodsInfosHandler;
+using Analytics.Handlers.Handlers.MethodsStorageHandler;
 using Analytics.Handlers.Handlers.ResultHandler;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
