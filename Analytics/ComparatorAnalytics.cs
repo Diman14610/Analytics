@@ -45,8 +45,8 @@ namespace Analytics
             var isBlocksSelected = _comparatorSettings.ComparisonPriority == ComparisonPriority.NumberSuccessfulBlocks;
 
             AssertionResult? firstSortedAssertion = assertionsResults
-                .OrderByDescending(assertion => isBlocksSelected ? assertion.NumberSuccessfulMethods : assertion.Weight)
-                .ThenByDescending(assertion => isBlocksSelected ? assertion.Weight : assertion.NumberSuccessfulMethods)
+                .OrderByDescending(assertion => isBlocksSelected ? assertion.NumberSuccessfulBlocks : assertion.Weight)
+                .ThenByDescending(assertion => isBlocksSelected ? assertion.Weight : assertion.NumberSuccessfulBlocks)
                 .FirstOrDefault();
 
             if (firstSortedAssertion == null)
