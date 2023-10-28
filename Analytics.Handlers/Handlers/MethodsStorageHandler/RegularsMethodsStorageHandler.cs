@@ -6,7 +6,7 @@ namespace Analytics.Handlers.Handlers.MethodsStorageHandler
 {
     public class RegularsMethodsStorageHandler : MethodsStorageBaseHandler
     {
-        public RegularsMethodsStorageHandler(IMethodsHandlersManager handlersManager) : base(handlersManager)
+        public RegularsMethodsStorageHandler(IMethodsHandlersManager methodsHandlersManager) : base(methodsHandlersManager)
         {
         }
 

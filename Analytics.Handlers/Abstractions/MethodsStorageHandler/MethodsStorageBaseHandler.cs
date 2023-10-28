@@ -7,7 +7,7 @@ namespace Analytics.Handlers.Abstractions.MethodsStorageHandler
     {
         protected readonly IMethodsHandlersManager _methodsHandlersManager;
 
-        protected MethodsStorageBaseHandler(IMethodsHandlersManager methodsHandlersManager)
+        public MethodsStorageBaseHandler(IMethodsHandlersManager methodsHandlersManager)
         {
             _methodsHandlersManager = methodsHandlersManager ?? throw new ArgumentNullException(nameof(methodsHandlersManager));
         }
