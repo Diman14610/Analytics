@@ -23,9 +23,9 @@ namespace Analytics.Core.Abstractions
             _methodsStorageHandler = DefaultDependencies.MethodsStorageHandler;
         }
 
-        public BaseAnalytics(IMethodsStorageHandler methodsInfosHandler)
+        public BaseAnalytics(IMethodsStorageHandler methodsStorageHandler)
         {
-            _methodsStorageHandler = methodsInfosHandler ?? throw new ArgumentNullException(nameof(methodsInfosHandler));
+            _methodsStorageHandler = methodsStorageHandler ?? throw new ArgumentNullException(nameof(methodsStorageHandler));
         }
 
         /// <summary>
@@ -37,9 +37,7 @@ namespace Analytics.Core.Abstractions
         protected virtual CheckResult CheckFor(string text, MethodsConstructorProvider methodsProvider)
         {
             var checkResult = new CheckResult();
-
             CallToHandler(text, methodsProvider, checkResult);
-
             return checkResult;
         }
 
@@ -71,7 +69,6 @@ namespace Analytics.Core.Abstractions
         protected virtual void CallToHandler<ResultType>(string text, MethodsConstructorProvider methodsProvider, ResultType value)
         {
             MethodsStorage selectedMethods = methodsProvider.GetSelectedMethods();
-
             _methodsStorageHandler.Handle(text, selectedMethods, ref value);
         }
     }
