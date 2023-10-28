@@ -1,4 +1,5 @@
-﻿using Analytics.Handlers.Abstractions;
+﻿using Analytics.Handlers.Abstractions.MethodsHandler;
+using Analytics.Handlers.Abstractions.MethodsStorageHandler;
 using Analytics.Shared.Methods;
 
 namespace Analytics.Handlers.Handlers.MethodsInfosHandler

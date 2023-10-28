@@ -1,6 +1,6 @@
 ﻿using Analytics.Shared.Methods;
 
-namespace Analytics.Handlers.Abstractions
+namespace Analytics.Handlers.Abstractions.MethodsStorageHandler
 {
     public interface IMethodsStorageHandler
     {

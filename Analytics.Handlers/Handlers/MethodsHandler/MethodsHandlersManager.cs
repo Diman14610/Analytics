@@ -1,7 +1,7 @@
-﻿using Analytics.Handlers.Abstractions;
+﻿using Analytics.Handlers.Abstractions.MethodsHandler;
 using Analytics.Handlers.Exceptions;
 
-namespace Analytics.Handlers
+namespace Analytics.Handlers.Handlers.MethodsHandler
 {
     public class MethodsHandlersManager : IMethodsHandlersManager
     {

@@ -1,7 +1,10 @@
-﻿using Analytics.Handlers;
-using Analytics.Handlers.Abstractions;
+﻿using Analytics.Handlers.Abstractions.AnalyticsResultHandler;
+using Analytics.Handlers.Abstractions.MethodsStorageHandler;
+using Analytics.Handlers.Abstractions.ResultHandler;
+using Analytics.Handlers.Handlers.AnalyticsResultHandler;
 using Analytics.Handlers.Handlers.MethodsHandler;
 using Analytics.Handlers.Handlers.MethodsInfosHandler;
+using Analytics.Handlers.Handlers.ResultHandler;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;
@@ -18,10 +21,15 @@ namespace Analytics.Root
             [(typeof(CheckResult), typeof(RegularMethodInfo))] = new RegularMethodsHandlerByCheck(),
         });
 
-        public static readonly IEnumerable<IMethodsStorageHandler> MethodsStorageHandlers = new List<IMethodsStorageHandler>()
+        public static readonly IMethodsStorageHandler MethodsStorageHandler = new MethodsStorageHandlers(new IMethodsStorageHandler[]
         {
             new RegularsMethodsStorageHandler(MethodsHandlersManager),
             new StringsMethodsStorageHandler(MethodsHandlersManager),
-        };
+        });
+
+        public static readonly IResultHandler<AnalyticsResult> AnalyticsResultHandler =
+            new AnalyticsResultHandler(
+                new AnalyticsResultHandlers(new IAnalyticsResultHandler[] { new EqualsResultHandler(), new CheckResultHandler(), })
+                );
     }
 }

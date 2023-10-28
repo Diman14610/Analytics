@@ -1,4 +1,4 @@
-﻿namespace Analytics.Handlers.Abstractions
+﻿namespace Analytics.Handlers.Abstractions.MethodsHandler
 {
     public abstract class MethodsBaseHandler<RT, FT>
     {

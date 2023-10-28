@@ -1,4 +1,4 @@
-﻿using Analytics.Handlers.Abstractions;
+﻿using Analytics.Handlers.Abstractions.MethodsHandler;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;

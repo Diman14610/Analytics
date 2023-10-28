@@ -1,6 +1,7 @@
-﻿using Analytics.Shared.Methods;
+﻿using Analytics.Handlers.Abstractions.MethodsHandler;
+using Analytics.Shared.Methods;
 
-namespace Analytics.Handlers.Abstractions
+namespace Analytics.Handlers.Abstractions.MethodsStorageHandler
 {
     public abstract class MethodsStorageBaseHandler : IMethodsStorageHandler
     {

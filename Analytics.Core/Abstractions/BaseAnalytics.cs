@@ -1,5 +1,5 @@
 ﻿using Analytics.Configuration;
-using Analytics.Handlers.Abstractions;
+using Analytics.Handlers.Abstractions.MethodsStorageHandler;
 using Analytics.Methods;
 using Analytics.Root;
 using Analytics.Shared.Analytics;
@@ -10,7 +10,7 @@ namespace Analytics.Core.Abstractions
 {
     public abstract class BaseAnalytics
     {
-        private readonly IEnumerable<IMethodsStorageHandler> _methodsStorageHandlers;
+        private readonly IMethodsStorageHandler _methodsStorageHandler;
         private readonly AnalyticsConfigurationProvider _configuration = new();
 
         public AnalyticsConfiguration Configuration
@@ -20,12 +20,12 @@ namespace Analytics.Core.Abstractions
 
         public BaseAnalytics()
         {
-            _methodsStorageHandlers = DefaultDependencies.MethodsStorageHandlers;
+            _methodsStorageHandler = DefaultDependencies.MethodsStorageHandler;
         }
 
-        public BaseAnalytics(IEnumerable<IMethodsStorageHandler> methodsInfosHandlers)
+        public BaseAnalytics(IMethodsStorageHandler methodsInfosHandler)
         {
-            _methodsStorageHandlers = methodsInfosHandlers ?? throw new ArgumentNullException(nameof(methodsInfosHandlers));
+            _methodsStorageHandler = methodsInfosHandler ?? throw new ArgumentNullException(nameof(methodsInfosHandler));
         }
 
         /// <summary>
@@ -72,10 +72,7 @@ namespace Analytics.Core.Abstractions
         {
             MethodsStorage selectedMethods = methodsProvider.GetSelectedMethods();
 
-            foreach (IMethodsStorageHandler methodsStorageHandler in _methodsStorageHandlers)
-            {
-                methodsStorageHandler.Handle(text, selectedMethods, ref value);
-            }
+            _methodsStorageHandler.Handle(text, selectedMethods, ref value);
         }
     }
 }
