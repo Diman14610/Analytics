@@ -12,6 +12,6 @@ namespace Analytics.Handlers.Abstractions.MethodsStorageHandler
             _methodsHandlersManager = methodsHandlersManager ?? throw new ArgumentNullException(nameof(methodsHandlersManager));
         }
 
-        public abstract void Handle<ResultType>(string text, MethodsStorage selectedMethods, ref ResultType result);
+        public abstract void Handle<TResultType>(string text, MethodsStorage selectedMethods, ref TResultType result);
     }
 }

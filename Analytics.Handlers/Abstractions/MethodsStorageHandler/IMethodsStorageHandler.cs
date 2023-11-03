@@ -4,6 +4,6 @@ namespace Analytics.Handlers.Abstractions.MethodsStorageHandler
 {
     public interface IMethodsStorageHandler
     {
-        void Handle<ResultType>(string text, MethodsStorage selectedMethods, ref ResultType result);
+        void Handle<TResultType>(string text, MethodsStorage selectedMethods, ref TResultType result);
     }
 }
