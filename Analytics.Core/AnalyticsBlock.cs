@@ -9,7 +9,7 @@ using System.Collections.Concurrent;
 
 namespace Analytics.Core
 {
-    public sealed class AnalyticsBlock : BaseAnalytics
+    public class AnalyticsBlock : BaseAnalytics
     {
         private readonly RegularMethods _regularMethods = new();
         private readonly List<(Type, MethodsConstructorProvider)> _selectedMethods = new();
@@ -97,7 +97,7 @@ namespace Analytics.Core
             return analyticsResults;
         }
 
-        private void HandleAnalytics(string text, AnalyticsResult analyticsResult)
+        protected void HandleAnalytics(string text, AnalyticsResult analyticsResult)
         {
             foreach ((Type methodType, MethodsConstructorProvider methodsProvider) in _selectedMethods)
             {
@@ -112,7 +112,7 @@ namespace Analytics.Core
             }
         }
 
-        private void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructorOutside)
+        protected void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructorOutside)
         {
             var methodsProvider = new MethodsConstructorProvider(
                 _regularMethods,

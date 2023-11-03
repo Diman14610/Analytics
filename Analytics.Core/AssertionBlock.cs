@@ -4,7 +4,7 @@ using Analytics.Shared.Core.Assertion;
 
 namespace Analytics.Core
 {
-    public sealed class AssertionBlock : BaseAssertion
+    public class AssertionBlock : BaseAssertion
     {
         private readonly List<(AnalyticsBlock, AssertionSettings)> _assertions = new();
 
@@ -27,7 +27,7 @@ namespace Analytics.Core
             return Task.WhenAll(assertionsTasks);
         }
 
-        private Task<AssertionResult> GetAssertionResult(AnalyticsBlock analytics, AssertionSettings settings, string text)
+        protected Task<AssertionResult> GetAssertionResult(AnalyticsBlock analytics, AssertionSettings settings, string text)
         {
             AnalyticsResult analyticsResult = analytics.Analysis(text);
             AssertionResult assertionResult = Explore(analyticsResult, settings);
