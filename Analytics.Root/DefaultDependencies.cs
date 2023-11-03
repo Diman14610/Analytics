@@ -1,10 +1,10 @@
 ﻿using Analytics.Handlers.Abstractions.AnalyticsResultHandler;
 using Analytics.Handlers.Abstractions.MethodsStorageHandler;
 using Analytics.Handlers.Abstractions.ResultHandler;
-using Analytics.Handlers.Handlers.AnalyticsResultHandler;
-using Analytics.Handlers.Handlers.MethodsHandler;
-using Analytics.Handlers.Handlers.MethodsStorageHandler;
-using Analytics.Handlers.Handlers.ResultHandler;
+using Analytics.Handlers.Implementations.AnalyticsResultHandler;
+using Analytics.Handlers.Implementations.MethodsHandler;
+using Analytics.Handlers.Implementations.MethodsStorageHandler;
+using Analytics.Handlers.Implementations.ResultHandler;
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;

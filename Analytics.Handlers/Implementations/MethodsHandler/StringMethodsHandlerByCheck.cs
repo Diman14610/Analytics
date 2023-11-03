@@ -2,7 +2,7 @@
 using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 
-namespace Analytics.Handlers.Handlers.MethodsHandler
+namespace Analytics.Handlers.Implementations.MethodsHandler
 {
     public class StringMethodsHandlerByCheck : MethodsBaseHandler<CheckResult, StringMethodInfo>
     {

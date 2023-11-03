@@ -2,7 +2,7 @@
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Handlers;
 
-namespace Analytics.Handlers.Handlers.ResultHandler
+namespace Analytics.Handlers.Implementations.ResultHandler
 {
     public class CheckResultHandler : IAnalyticsResultHandler
     {

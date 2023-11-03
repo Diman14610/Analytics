@@ -1,7 +1,7 @@
 ﻿using Analytics.Handlers.Abstractions.MethodsStorageHandler;
 using Analytics.Shared.Methods;
 
-namespace Analytics.Handlers.Handlers.MethodsStorageHandler
+namespace Analytics.Handlers.Implementations.MethodsStorageHandler
 {
     public class MethodsStorageHandlers : IMethodsStorageHandler
     {

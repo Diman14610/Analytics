@@ -3,7 +3,7 @@ using Analytics.Shared.Analytics;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Methods;
 
-namespace Analytics.Handlers.Handlers.MethodsHandler
+namespace Analytics.Handlers.Implementations.MethodsHandler
 {
     public class RegularMethodsHandlerByCheck : MethodsBaseHandler<CheckResult, RegularMethodInfo>
     {
