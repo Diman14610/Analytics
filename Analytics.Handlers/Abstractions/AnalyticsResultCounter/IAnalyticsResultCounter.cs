@@ -1,9 +1,9 @@
 ﻿using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Handlers;
 
-namespace Analytics.Handlers.Abstractions.AnalyticsResultHandler
+namespace Analytics.Handlers.Abstractions.AnalyticsResulCounter
 {
-    public interface IAnalyticsResultHandler
+    public interface IAnalyticsResultCounter
     {
         void Handle(AnalyticsResult result, ResultCounter counter);
     }

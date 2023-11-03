@@ -1,10 +1,10 @@
-﻿using Analytics.Handlers.Abstractions.AnalyticsResultHandler;
+﻿using Analytics.Handlers.Abstractions.AnalyticsResulCounter;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Handlers;
 
-namespace Analytics.Handlers.Implementations.ResultHandler
+namespace Analytics.Handlers.Implementations.AnalyticsResultCounter
 {
-    public class EqualsResultHandler : IAnalyticsResultHandler
+    public class EqualsResultCounter : IAnalyticsResultCounter
     {
         public void Handle(AnalyticsResult result, ResultCounter counter)
         {

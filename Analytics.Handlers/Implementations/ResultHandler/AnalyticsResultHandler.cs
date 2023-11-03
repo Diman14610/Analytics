@@ -1,4 +1,4 @@
-﻿using Analytics.Handlers.Abstractions.AnalyticsResultHandler;
+﻿using Analytics.Handlers.Abstractions.AnalyticsResulCounter;
 using Analytics.Handlers.Abstractions.ResultHandler;
 using Analytics.Shared.Core.Analytics;
 using Analytics.Shared.Handlers;
@@ -7,9 +7,9 @@ namespace Analytics.Handlers.Implementations.ResultHandler
 {
     public class AnalyticsResultHandler : IResultHandler<AnalyticsResult>
     {
-        private readonly IAnalyticsResultHandler _analyticsResultHandler;
+        private readonly IAnalyticsResultCounter _analyticsResultHandler;
 
-        public AnalyticsResultHandler(IAnalyticsResultHandler analyticsResultHandler)
+        public AnalyticsResultHandler(IAnalyticsResultCounter analyticsResultHandler)
         {
             _analyticsResultHandler = analyticsResultHandler ?? throw new ArgumentNullException(nameof(analyticsResultHandler));
         }

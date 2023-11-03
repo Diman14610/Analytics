@@ -1,7 +1,7 @@
-﻿using Analytics.Handlers.Abstractions.AnalyticsResultHandler;
+﻿using Analytics.Handlers.Abstractions.AnalyticsResulCounter;
 using Analytics.Handlers.Abstractions.MethodsStorageHandler;
 using Analytics.Handlers.Abstractions.ResultHandler;
-using Analytics.Handlers.Implementations.AnalyticsResultHandler;
+using Analytics.Handlers.Implementations.AnalyticsResultCounter;
 using Analytics.Handlers.Implementations.MethodsHandler;
 using Analytics.Handlers.Implementations.MethodsStorageHandler;
 using Analytics.Handlers.Implementations.ResultHandler;
@@ -29,7 +29,7 @@ namespace Analytics.Root
 
         public static readonly IResultHandler<AnalyticsResult> AnalyticsResultHandler =
             new AnalyticsResultHandler(
-                new AnalyticsResultHandlers(new IAnalyticsResultHandler[] { new EqualsResultHandler(), new CheckResultHandler(), })
+                new AnalyticsResultCounters(new IAnalyticsResultCounter[] { new EqualsResultCounter(), new CheckResultCounter(), })
                 );
     }
 }
