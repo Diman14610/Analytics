@@ -12,15 +12,15 @@ namespace Analytics.Handlers.Implementations.MethodsHandler
             _methodsHandlers = methodsHandlers ?? throw new ArgumentNullException(nameof(methodsHandlers));
         }
 
-        public void Handle<T, U>(string text, IEnumerable<U> methods, ref T result)
+        public void Handle<TResult, TMethod>(string text, IEnumerable<TMethod> methods, ref TResult result)
         {
-            if (_methodsHandlers.TryGetValue((typeof(T), typeof(U)), out var handlerObject) && handlerObject is MethodsBaseHandler<T, U> handler)
+            if (_methodsHandlers.TryGetValue((typeof(TResult), typeof(TMethod)), out var handlerObject) && handlerObject is MethodsBaseHandler<TResult, TMethod> handler)
             {
                 handler.Handle(text, methods, ref result);
             }
             else
             {
-                throw new HandlerNotFoundException($"Handler not found for ({typeof(T)}, {typeof(U)}).");
+                throw new HandlerNotFoundException($"Handler not found for ({typeof(TResult)}, {typeof(TMethod)}).");
             }
         }
     }

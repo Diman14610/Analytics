@@ -10,7 +10,7 @@ namespace Analytics.Handlers.Implementations.MethodsStorageHandler
         {
         }
 
-        public override void Handle<ResultType>(string text, MethodsStorage selectedMethods, ref ResultType result)
+        public override void Handle<TResultType>(string text, MethodsStorage selectedMethods, ref TResultType result)
         {
             if (selectedMethods.StringsMethodsInfos.Count == 0) return;
             _methodsHandlersManager.Handle(text, selectedMethods.StringsMethodsInfos, ref result);

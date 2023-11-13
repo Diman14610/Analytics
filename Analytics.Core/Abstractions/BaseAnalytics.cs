@@ -11,12 +11,8 @@ namespace Analytics.Core.Abstractions
     public abstract class BaseAnalytics
     {
         private readonly IMethodsStorageHandler _methodsStorageHandler;
-        private readonly AnalyticsConfigurationProvider _configuration = new();
 
-        public AnalyticsConfiguration Configuration
-        {
-            get => _configuration;
-        }
+        public AnalyticsConfiguration Configuration { get; } = new();
 
         public BaseAnalytics()
         {
@@ -66,7 +62,7 @@ namespace Analytics.Core.Abstractions
             return equalsResult;
         }
 
-        protected virtual void CallToHandler<ResultType>(string text, MethodsConstructorProvider methodsProvider, ResultType value)
+        protected virtual void CallToHandler<TResultType>(string text, MethodsConstructorProvider methodsProvider, TResultType value)
         {
             MethodsStorage selectedMethods = methodsProvider.GetSelectedMethods();
             _methodsStorageHandler.Handle(text, selectedMethods, ref value);

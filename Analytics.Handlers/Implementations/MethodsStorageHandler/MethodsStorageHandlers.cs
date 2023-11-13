@@ -12,7 +12,7 @@ namespace Analytics.Handlers.Implementations.MethodsStorageHandler
             _methodsStorageHandlers = methodsStorageHandlers ?? throw new ArgumentNullException(nameof(methodsStorageHandlers));
         }
 
-        public void Handle<ResultType>(string text, MethodsStorage selectedMethods, ref ResultType result)
+        public void Handle<TResultType>(string text, MethodsStorage selectedMethods, ref TResultType result)
         {
             foreach (var handler in _methodsStorageHandlers)
             {
