@@ -9,7 +9,7 @@ namespace Analytics.Methods
         public MethodsConstructorProvider(
             RegularMethods majorMethods,
             StringMethods methodsWithArguments,
-            AnalyticsConfigurationProvider configurationProvider) : base(majorMethods, methodsWithArguments, configurationProvider) { }
+            AnalyticsConfiguration analyticsConfiguration) : base(majorMethods, methodsWithArguments, analyticsConfiguration) { }
 
         public MethodsStorage GetSelectedMethods() => SelectedMethods;
     }

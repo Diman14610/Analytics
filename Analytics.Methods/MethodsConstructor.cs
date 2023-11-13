@@ -11,18 +11,18 @@ namespace Analytics.Methods
     {
         private readonly RegularMethods _majorMethods;
         private readonly StringMethods _methodsWithArguments;
-        private readonly AnalyticsConfigurationProvider _configurationProvider;
+        private readonly AnalyticsConfiguration _analyticsConfiguration;
 
         protected MethodsStorage SelectedMethods { get; } = new MethodsStorage();
 
         public MethodsConstructor(
             RegularMethods majorMethods,
             StringMethods methodsWithArguments,
-            AnalyticsConfigurationProvider configurationProvider)
+            AnalyticsConfiguration configurationProvider)
         {
             _majorMethods = majorMethods ?? throw new ArgumentNullException(nameof(majorMethods));
             _methodsWithArguments = methodsWithArguments ?? throw new ArgumentNullException(nameof(methodsWithArguments));
-            _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
+            _analyticsConfiguration = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Analytics.Methods
 
         private CustomMethod GetCustomMethod(string methodName)
         {
-            CustomMethod? customMethod = _configurationProvider.GetCustomMethods().FirstOrDefault(a => a.MethodName == methodName);
+            CustomMethod? customMethod = _analyticsConfiguration.CustomMethods.FirstOrDefault(a => a.MethodName == methodName);
 
             if (customMethod == null)
             {
