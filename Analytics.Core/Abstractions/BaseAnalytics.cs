@@ -11,8 +11,12 @@ namespace Analytics.Core.Abstractions
     public abstract class BaseAnalytics
     {
         private readonly IMethodsStorageHandler _methodsStorageHandler;
+        private readonly AnalyticsConfigurationProvider _configuration = new();
 
-        public AnalyticsConfiguration Configuration { get; } = new();
+        public AnalyticsConfiguration Configuration
+        {
+            get => _configuration;
+        }
 
         public BaseAnalytics()
         {
