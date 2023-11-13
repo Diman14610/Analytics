@@ -4,9 +4,9 @@
     {
         protected StringComparison comparison;
 
-        public StringMethods(StringComparison stringComparison = StringComparison.Ordinal)
+        public StringMethods()
         {
-            comparison = stringComparison;
+            comparison = StringComparison.Ordinal;
         }
 
         public void SetStringComparison(StringComparison stringComparison)
