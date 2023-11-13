@@ -1,5 +1,4 @@
-﻿using Analytics.Configuration;
-using Analytics.Core;
+﻿using Analytics.Core;
 using Analytics.Shared.Analytics.Comparator;
 using Analytics.Shared.Core.Assertion;
 
@@ -15,26 +14,9 @@ namespace Analytics
             _comparatorSettings = comparatorSettings ?? new ComparatorSettings();
         }
 
-        public ComparatorAnalytics AddBlock(AnalyticsBlock block)
+        public ComparatorAnalytics AddBlock(AssertionBlock assertionBlock)
         {
-            AssertionSettings? assertionSettings = ((AnalyticsConfigurationProvider)block.Configuration).GetAssertionSettings();
-
-            if (assertionSettings == null)
-            {
-                return this;
-            }
-
-            _assertionBlock.Assert(block, assertionSettings);
-
-            return this;
-        }
-
-        public ComparatorAnalytics AddBlocks(IEnumerable<AnalyticsBlock> blocks)
-        {
-            foreach (var block in blocks)
-            {
-                AddBlock(block);
-            }
+            _assertionBlock = assertionBlock;
             return this;
         }
 

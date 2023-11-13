@@ -14,6 +14,12 @@ namespace Analytics.Core
             return this;
         }
 
+        public AssertionBlock Assert(AnalyticsBlock analyticsBlock, string name)
+        {
+            _assertions.Add((analyticsBlock, new AssertionSettings { Name = name }));
+            return this;
+        }
+
         public Task<AssertionResult[]> Proccess(string text)
         {
             if (_assertions.Count == 0)

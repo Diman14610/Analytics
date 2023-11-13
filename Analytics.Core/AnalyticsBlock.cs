@@ -112,17 +112,17 @@ namespace Analytics.Core
             }
         }
 
-        protected void AddToMethodsList<MethodType>(Action<MethodsConstructor> methodsConstructorOutside)
+        protected void AddToMethodsList<TMethodType>(Action<MethodsConstructor> methodsConstructorOutside)
         {
             var methodsProvider = new MethodsConstructorProvider(
                 _regularMethods,
-                new StringMethods(),
-                (AnalyticsConfigurationProvider)Configuration
+                new StringMethods(Configuration.GlobalStringComparison),
+                Configuration
                 );
 
             methodsConstructorOutside(methodsProvider);
 
-            _selectedMethods.Add((typeof(MethodType), methodsProvider));
+            _selectedMethods.Add((typeof(TMethodType), methodsProvider));
         }
     }
 }
